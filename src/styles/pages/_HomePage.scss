@@ -2,23 +2,31 @@
 @use "../utils/function" as *;
 
 .first-slide{
-    @include flex(on, row-reverse)
+    @include flex(on, row-reverse);
+
+    @include respond-to(desktop){
+        @include size(default, 100%);
+    }
+    @include respond-to(laptop){
+        @include size(default, 358px);
+        @include spacing(padding, y, 40px);
+        @include spacing(margin, x ,auto);
+        @include flex(on, column)
+    }
 }
 
 .container{
     @include spacing(margin, x, auto);
     @include spacing(padding, y, 140px);
-    
-    @include size(default, 1596px);
+    @include size(default, 760px);
     @include flex(on, row-reverse);
 
     @include respond-to(desktop){
-        @include size(default, 1280px)
+        @include spacing(padding, y, 98px);
     }
-
     @include respond-to(laptop){
         @include flex(on, column);
-    @include spacing(padding, y, 40px);
+        @include spacing(padding, y, 40px);
         @include size(default, 358px);
     }
 }
@@ -31,6 +39,13 @@
 }
 .apartaments-container{
     @include position(relative);
+
+    @include respond-to(desktop){
+        width: 690px;
+    }
+    @include respond-to(laptop){
+        width: auto;
+    }
 }
 
 .first-slide__spacing{
@@ -48,7 +63,11 @@
 }
 
 .ad-block-row{
-    @include flex(on, $gap: 10px)
+    @include flex(on, $gap: 16px);
+
+    @include respond-to(laptop){
+        @include flex(on, $gap: 10px)
+    }
 }
 
 .ad-blocks{
