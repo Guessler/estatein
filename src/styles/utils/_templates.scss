@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
+@use "sass:meta";
+
+@use "./maps" as *;
+@use "./lists" as *;
+@use "./mixins" as *;
+@use "./function" as *;
+
+
+.btn {
+    background-color: get-color(gray ,dark_gray);
+    color: get-color(absolute, white);
+    border-radius: 8px;
+    border: 1px solid get-color(gray, slate_gray);
+    transition: background-color 0.3s ease;
+
+    @include spacing(padding, all, 16px, 24px);
+
+    &:hover {
+        background-color: get-color(gray, charcoal);
+    }
+    &:active {
+        background-color: get-color(gray, dark_gray);
+    }
+}

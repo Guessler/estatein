@@ -1,0 +1,15 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
+@use "sass:meta";
+
+@use "../base/font" as *;
+@use "./function" as *;
+@use "./maps" as *;
+
+$text-list: (
+    "heading": ("Urbanist", semi-bold, normal, "neutral-100", 120%, 60px),
+    "header_items": ("Urbanist", medium, normal, "neutral-100", 150%, 18px),
+);
+
+$dynamic-text-list: ();

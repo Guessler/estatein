@@ -1,0 +1,60 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:meta';
+
+$breakpoints-map: (
+    desktop: 1596px,
+    laptop: 1280px,
+    mobile: 355px,
+);
+
+$colors-map: (
+    absolute: (
+        white: #FFF,
+        black: #000
+    ),
+
+    purple: (
+        vivid_purple: #703BF7,
+        deep_purple: #8254F8,
+        soft_purple: #946CF9,
+        lavender: #A685FA,
+        light_lavender: #DBCEFD,
+        very_light_lavender: #EDE7FE,
+        extra_light_lavender_1: #F4F0FE,
+        extra_light_lavender_2: #FBFAFF
+    ),
+
+    white: (
+        light_gray: #E4E4E7,
+        very_light_gray: #F1F1F3,
+        almost_white_gray: #F7F7F8,
+        off_white: #FCFCFD
+    ),
+
+    grey: (
+        dark_gray: #141414,
+        charcoal: #1A1A1A,
+        slate_gray: #262626,
+        medium_gray: #333333,
+        light_gray_1: #999999,
+        light_gray_2: #808080,
+        light_gray_3: #666666,
+        light_gray_4: #4D4D4D
+    )
+);
+
+
+$font-weights-map: (
+    'thin': 100,
+    'extra-light': 200,
+    'light': 300,
+    'regular': 400,
+    'medium': 500,
+    'semi-bold': 600,
+    'bold': 700,
+    'extra-bold': 800,
+    'black': 900,
+    'extra-black': 1000,
+);

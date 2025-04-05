@@ -1,0 +1,293 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
+@use "sass:meta";
+
+@use "./maps.scss" as *;
+@use "./lists" as *;
+@use "./function" as *;
+
+// BUTTONS
+
+@mixin button-variant($template,
+    $bg-color,
+    $text-color,
+    $hover-bg-color,
+    $hover-text-color,
+    $border-color: transparent,
+    $hover-border-color: transparent) {
+    @extend #{$template};
+
+    background-color: $bg-color;
+    color: $text-color;
+    border: 1px solid $border-color;
+
+    &:hover {
+        background-color: $hover-bg-color;
+        color: $hover-text-color;
+        border-color: $hover-border-color;
+    }
+}
+
+
+// FLEX
+
+@mixin flex($flex: on,
+    $direction: null,
+    $justify: null,
+    $align-content: null,
+    $align-items: null,
+    $wrap: null,
+    $gap: null,
+    $row-gap: null,
+    $column-gap: null,
+    $flex-basis: null,
+    $flex-grow: null,
+    $flex-shrink: null) {
+    @if $flex == on {
+        display: flex;
+    }
+
+    @if $flex == inline {
+        display: inline-flex;
+    }
+
+    @if $direction != null {
+        flex-direction: $direction;
+    }
+
+    @if $justify != null {
+        justify-content: $justify;
+    }
+
+    @if $align-content != null {
+        align-content: $align-content;
+    }
+
+    @if $align-items != null {
+        align-items: $align-items;
+    }
+
+    @if $wrap != null {
+        flex-wrap: $wrap;
+    }
+
+    @if $gap != null {
+        gap: $gap;
+    } @else {
+        @if $row-gap != null {
+            row-gap: $row-gap;
+        }
+
+        @if $column-gap != null {
+            column-gap: $column-gap;
+        }
+    }
+
+    @if $flex-basis != null {
+        flex-basis: $flex-basis;
+    }
+
+    @if $flex-grow != null {
+        flex-grow: $flex-grow;
+    }
+
+    @if $flex-shrink != null {
+        flex-shrink: $flex-shrink;
+    }
+}
+
+@mixin flex-item-alignment($align-self: null,
+    $justify-self: null,
+    $flex-grow: null,
+    $flex-shrink: null,
+    $flex-basis: null,
+    $order: null) {
+    @if $align-self != null {
+        align-self: $align-self;
+    }
+
+    @if $justify-self != null {
+        justify-self: $justify-self;
+    }
+
+    @if $flex-grow != null {
+        flex-grow: $flex-grow;
+    }
+
+    @if $flex-shrink != null {
+        flex-shrink: $flex-shrink;
+    }
+
+    @if $flex-basis != null {
+        flex-basis: $flex-basis;
+    }
+
+    @if $order != null {
+        order: $order;
+    }
+}
+
+
+
+/// PADDING MARGIN
+
+@mixin spacing($types, $sides, $values...) {
+    $types-list: if(meta.type-of($types)=="list", $types, ($types));
+    $sides-list: if(meta.type-of($sides)=="list", $sides, ($sides));
+
+    $value-index: 1;
+
+    @each $type in $types-list {
+        @if $type =="margin" or $type =="padding" {
+            @each $side in $sides-list {
+                @if list.length($values) < $value-index {
+                    @error "Not enough values provided for '#{$side}' side.";
+                }
+
+                @if $side =="all" {
+                    #{$type}: list.nth($values, $value-index);
+                }
+
+                @else if $side =="x" {
+                    #{$type}-left: list.nth($values, $value-index);
+                    #{$type}-right: list.nth($values, $value-index);
+                }
+
+                @else if $side =="y" {
+                    #{$type}-top: list.nth($values, $value-index);
+                    #{$type}-bottom: list.nth($values, $value-index);
+                }
+
+                @else if list.index("top" "bottom" "left" "right", $side) {
+                    #{$type}-#{$side}: list.nth($values, $value-index);
+                }
+
+                @else {
+                    @error "Invalid side: #{$side}. Use 'top', 'bottom', 'left', 'right', 'x', 'y', or 'all'.";
+                }
+
+                $value-index: $value-index + 1;
+            }
+        }
+
+        @else {
+            @error "Invalid type: #{$type}. Use 'margin' or 'padding'.";
+        }
+    }
+}
+
+// MEDIA
+
+@mixin respond-to($breakpoint) {
+    @if map.has-key($breakpoints-map, $breakpoint) {
+        $value: map.get($breakpoints-map, $breakpoint);
+
+        @media (max-width: $value) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. Available breakpoints are: #{map.keys($breakpoints-map)}.";
+    }
+}
+
+// FONTS
+
+@mixin apply-text-style($key) {
+    $style: map.get($text-list, $key);
+
+    @if $style !=null {
+        font-family: list.nth($style, 1);
+        font-weight: map.get($font-weights-map, list.nth($style, 2));
+        font-style: list.nth($style, 3);
+        color: list.nth($style, 4);
+        line-height: list.nth($style, 5);
+        font-size: list.nth($style, 6);
+    }
+
+    @else {
+        @warn "Style '#{$key}' not found in text-list.";
+    }
+}
+
+// POSITION
+
+@mixin position($type: null, $sides: null, $values...) {
+    @if $type !=null {
+        @if $type =="relative" or $type =="absolute" or $type =="fixed" or $type =="sticky" {
+            position: $type;
+        }
+
+        @else {
+            @error "Invalid type: #{$type}. Use 'relative', 'absolute', 'fixed', or 'sticky'.";
+        }
+    }
+
+    $sides-list: if($sides ==null, (), if(meta.type-of($sides)=="list", $sides, ($sides)));
+
+    $value-index: 1;
+
+    @if list.length($sides-list)>0 {
+        @each $side in $sides-list {
+            @if list.length($values) < $value-index {
+                @error "Not enough values provided for '#{$side}' side.";
+            }
+
+            @if $side =="all" {
+                top: list.nth($values, $value-index);
+                right: list.nth($values, $value-index);
+                bottom: list.nth($values, $value-index);
+                left: list.nth($values, $value-index);
+            }
+
+            @else if list.index(("top", "bottom", "left", "right"), $side) {
+                #{$side}: list.nth($values, $value-index);
+            }
+
+            @else {
+                @error "Invalid side: #{$side}. Use 'top', 'bottom', 'left', 'right', or 'all'.";
+            }
+
+            $value-index: $value-index + 1;
+        }
+    }
+}
+
+// SIZES
+
+@mixin size($types, $values...) {
+    $types-list: if(meta.type-of($types)=="list", $types, ($types));
+    $value-index: 1;
+
+    @each $type in $types-list {
+        @if $type =="default" {
+            $width: if(list.length($values) >=$value-index, list.nth($values, $value-index), null);
+            $height: if(list.length($values) >=$value-index + 1, list.nth($values, $value-index + 1), null);
+            width: $width;
+            height: $height;
+            $value-index: $value-index + 2;
+        }
+
+        @else if $type =="min" {
+            $min-width: if(list.length($values) >=$value-index, list.nth($values, $value-index), null);
+            $min-height: if(list.length($values) >=$value-index + 1, list.nth($values, $value-index + 1), null);
+            min-width: $min-width;
+            min-height: $min-height;
+            $value-index: $value-index + 2;
+        }
+
+        @else if $type =="max" {
+            $max-width: if(list.length($values) >=$value-index, list.nth($values, $value-index), null);
+            $max-height: if(list.length($values) >=$value-index + 1, list.nth($values, $value-index + 1), null);
+            max-width: $max-width;
+            max-height: $max-height;
+            $value-index: $value-index + 2;
+        }
+
+        @else {
+            @error "Invalid size type: #{$type}. Use 'default', 'min', or 'max'.";
+        }
+    }
+}

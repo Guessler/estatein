@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:meta';
+
+@use './maps.scss' as *;
+
+@function get-color($group, $color-name) {
+    $colors: map.get($colors-map, $group);
+    @if $colors {
+        @return map.get($colors, $color-name);
+    } @else {
+        @warn "Группа '#{$group}' не найдена в $colors-map.";
+        @return null;
+    }
+}
+
+@function font-weight($weight-name) {
+    @return map.get($font-weights-map, $weight-name);
+}

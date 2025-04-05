@@ -1,0 +1,8 @@
+@use "../utils/function" as *;
+
+body {
+    background-color: get-color(gray, dark_gray);
+}
+.cursor-p{
+    cursor: pointer;
+}

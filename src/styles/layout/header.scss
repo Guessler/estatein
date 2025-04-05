@@ -1,0 +1,41 @@
+@use "../utils/utils" as *;
+@use "../utils/mixins" as *;
+@use "../utils/function" as *;
+
+header{
+    @include size(default, 100%);
+    background-color: get-color(gray, charcoal);
+}
+
+.header-container{
+    @include size(default, 1596px);
+    @include spacing(padding, all, 20px, 0);
+    @include spacing(margin, x, auto);
+    @include flex(on, row, space-between, null, center, nowrap);
+
+    @include respond-to(desktop){
+        @include size(default, 1280px);
+    }
+
+    @include respond-to(laptop){
+        @include size(default, 390px);
+    }
+
+}
+
+.header-items {
+    @include flex(on, row, space-between, null, center, nowrap, $gap: 10px);
+}
+
+.header-item{
+    @include spacing(padding, all, 14px, 24px);
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+
+    &:hover{
+        background-color: get-color(gray, dark_gray);
+    }
+    &:active{
+        background-color: get-color(gray, slate_gray);
+    }
+}

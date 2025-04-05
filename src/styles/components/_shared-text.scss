@@ -1,0 +1,11 @@
+@use "../utils/utils" as *;
+@use "../utils/mixins" as *;
+@use "../utils/function" as *;
+@use "../utils/maps" as *;
+@use "../utils/lists" as *;
+@use "../base/font" as *;
+
+.header-items-text{
+    @include apply-text-style("header_items");
+    color: get-color(absolute, white);
+}
