@@ -1,3 +1,73 @@
 @use "../utils/mixins" as *;
 @use "../utils/function" as *;
 
+.first-slide{
+    @include flex(on, row-reverse)
+}
+
+.container{
+    @include spacing(margin, x, auto);
+    @include spacing(padding, y, 140px);
+    
+    @include size(default, 1596px);
+    @include flex(on, row-reverse);
+
+    @include respond-to(desktop){
+        @include size(default, 1280px)
+    }
+
+    @include respond-to(laptop){
+        @include flex(on, column);
+    @include spacing(padding, y, 40px);
+        @include size(default, 358px);
+    }
+}
+.mobile-container{
+    @include flex(on, row, $gap: 16px);
+
+    @include respond-to(laptop){
+        @include flex(on, column, $gap: 16px);
+    }
+}
+.apartaments-container{
+    @include position(relative);
+}
+
+.first-slide__spacing{
+    @include flex(on, column, $gap: 60px);
+}
+
+.first-slide-text{
+    @include flex(on, column, $gap: 24px);
+}
+
+.apartments{
+    @include position(absolute, (top, left), 0, 0);
+    margin: auto;
+    border-radius: 10px;
+}
+
+.ad-block-row{
+    @include flex(on, $gap: 10px)
+}
+
+.ad-blocks{
+    @include spacing(padding, x, 24px);
+    @include spacing(padding, y, 16px);
+
+    background-color: get-color(gray, charcoal);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 10px;
+    
+    @include respond-to(laptop){
+        text-align: center;
+    }
+}
+
+.first-slide__buttons{
+    @include flex(on, $gap: 20px);
+
+    @include respond-to(laptop){
+        @include flex(on, column ,$gap: 16px);
+    }
+}

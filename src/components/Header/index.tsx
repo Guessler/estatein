@@ -45,7 +45,7 @@ export const Header = () => {
                                 ))}
                             </ul>
                         </nav>
-                        <Button>
+                        <Button variant="primary">
                             Contact Us
                         </Button>
                     </>

@@ -9,3 +9,17 @@
     @include apply-text-style("header_items");
     color: get-color(absolute, white);
 }
+.heading{
+    @include apply-text-style("heading");
+    color: get-color(absolute, white);
+}
+
+.ad-text-fat{
+    @include apply-text-style("ad_text_fat");
+    color: get-color(absolute, white);
+}
+
+.ad-text-medium{
+    @include apply-text-style("ad_text_medium");
+    color: get-color(absolute, white);
+}
