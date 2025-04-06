@@ -196,22 +196,35 @@
 // FONTS
 
 @mixin apply-text-style($key) {
-    $style: map.get($text-list, $key);
+    $styles: map.get($text-list, $key);
 
-    @if $style !=null {
-        font-family: list.nth($style, 1);
-        font-weight: map.get($font-weights-map, list.nth($style, 2));
-        font-style: list.nth($style, 3);
-        color: list.nth($style, 4);
-        line-height: list.nth($style, 5);
-        font-size: list.nth($style, 6);
-    }
+    @if $styles != null {
+        // Базовые стили (default)
+        $default-style: map.get($styles, "default");
+        font-family: list.nth($default-style, 1);
+        font-weight: map.get($font-weights-map, list.nth($default-style, 2));
+        font-style: list.nth($default-style, 3);
+        color: list.nth($default-style, 4);
+        line-height: list.nth($default-style, 5);
+        font-size: list.nth($default-style, 6);
 
-    @else {
+        // Адаптивные стили для laptop и desktop
+        @each $breakpoint, $style in $styles {
+            @if $breakpoint == "laptop" or $breakpoint == "desktop" {
+                @include respond-to($breakpoint) {
+                    font-family: list.nth($style, 1);
+                    font-weight: map.get($font-weights-map, list.nth($style, 2));
+                    font-style: list.nth($style, 3);
+                    color: list.nth($style, 4);
+                    line-height: list.nth($style, 5);
+                    font-size: list.nth($style, 6);
+                }
+            }
+        }
+    } @else {
         @warn "Style '#{$key}' not found in text-list.";
     }
 }
-
 // POSITION
 
 @mixin position($type: null, $sides: null, $values...) {

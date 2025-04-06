@@ -8,10 +8,24 @@
 @use "./maps" as *;
 
 $text-list: (
-    "heading": ("Urbanist", semi-bold, normal, "neutral-100", 120%, 60px),
-    "header_items": ("Urbanist", medium, normal, "neutral-100", 150%, 18px),
-    "ad_text_fat": ("Urbanist", bold, normal, "neutral-100", 150%, 40px),
-    "ad_text_medium": ("Urbanist", medium, normal, "neutral-100", 150%, 18px),
+    "heading": (
+        "default": ("Urbanist", semi-bold, normal, "neutral-100", 120%, 60px),
+        "desktop": ("Urbanist", semi-bold, normal, "neutral-100", 100%, 46px),
+        "laptop": ("Urbanist", semi-bold, normal, "neutral-100", 110%, 28px),
+    ),
+    "header_items": (
+        "default": ("Urbanist", medium, normal, "neutral-100", 150%, 18px),
+        "desktop": ("Urbanist", medium, normal, "neutral-100", 130%, 14px),
+    ),
+    "ad_text_fat": (
+        "default": ("Urbanist", bold, normal, "neutral-100", 150%, 40px),
+        "desktop": ("Urbanist", bold, normal, "neutral-100", 130%, 30px),
+        "laptop": ("Urbanist", bold, normal, "neutral-100", 140%, 24px),
+    ),
+    "ad_text_medium": (
+        "default": ("Urbanist", medium, normal, "neutral-100", 150%, 18px),
+        "desktop": ("Urbanist", medium, normal, "neutral-100", 130%, 16px),
+        "laptop": ("Urbanist", medium, normal, "neutral-100", 140%, 14px),
+    )
 );
-
 $dynamic-text-list: ();

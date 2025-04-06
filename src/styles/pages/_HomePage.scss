@@ -39,12 +39,16 @@
 }
 .apartaments-container{
     @include position(relative);
+    @include spacing(margin, left, 50px);
 
     @include respond-to(desktop){
         width: 690px;
     }
     @include respond-to(laptop){
         width: auto;
+    @include spacing(margin, bottom, 50px);
+    @include spacing(margin, left, 0px);
+
     }
 }
 
@@ -90,3 +94,59 @@
         @include flex(on, column ,$gap: 16px);
     }
 }
+
+.spinning-ad{
+    @include spacing(padding, x, y, 35px, 35px);
+    @include size(default, 175px, 175px);
+    @include position(absolute, (top, left), 10%, -50px);
+    @include flex(on, null, center, null, center);
+    
+    z-index: 2;
+    
+    border-radius: 50%;
+    border: 1px solid get-color(gray, slate_gray);
+    background-color: get-color(gray, dark_gray);
+
+    @include respond-to(desktop){
+        @include size(default, 129px, 129px);
+    }
+    @include respond-to(laptop){
+        @include position(absolute, (top, left), 80%, 0px);
+        @include size(default, 117px, 117px);
+    }
+}
+
+.spinning-text {
+    @include position(absolute);
+    animation: spin 10s linear infinite;
+    transform-origin: center;
+    }
+
+.spinning-ad-image {
+    @include size(default, 80px, 80px);
+
+
+    
+    @include spacing(padding, x, y, 26px, 26px);
+    @include flex(on, null, center, null, center);
+    
+    border-radius: 50%;
+    border: 1px solid get-color(gray, slate_gray);
+    background-color: get-color(gray, charcoal);
+
+    @include respond-to(desktop){
+        @include size(default, 58px, 58px);
+    }
+    @include respond-to(laptop){
+        @include size(default, 54px, 54px);
+    }
+}
+
+@keyframes spin {
+    from {
+    transform: rotate(0deg);
+    }
+    to {
+    transform: rotate(360deg);
+    }
+    }

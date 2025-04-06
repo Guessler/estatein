@@ -6,20 +6,20 @@
 @use "../base/font" as *;
 
 .header-items-text{
-    @include apply-text-style("header_items");
     color: get-color(absolute, white);
+    @include apply-text-style("header_items");
 }
 .heading{
-    @include apply-text-style("heading");
     color: get-color(absolute, white);
+    @include apply-text-style("heading");
 }
 
 .ad-text-fat{
-    @include apply-text-style("ad_text_fat");
     color: get-color(absolute, white);
+    @include apply-text-style("ad_text_fat");
 }
 
 .ad-text-medium{
-    @include apply-text-style("ad_text_medium");
     color: get-color(absolute, white);
+    @include apply-text-style("ad_text_medium");
 }

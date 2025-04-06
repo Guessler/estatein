@@ -1,24 +1,40 @@
-import { FC, ReactNode } from "react"
+import { FC, ReactNode } from "react";
 import { assets } from "../utils/exports/directories/assets";
 import { Button } from "../components/Button";
 
 interface IChildren {
     children: ReactNode;
 }
+
+const AdBlock = ({ number, text }: { number: string; text: string }) => (
+    <div className="ad-blocks">
+        <h3 className="ad-text-fat">{number}</h3>
+        <span className="ad-text-medium">{text}</span>
+    </div>
+);
+
 export const HomePage: FC<IChildren> = ({ children }) => {
     return (
         <div>
             {children}
-            <div className="first-slide">
-                <div className="apartaments-container">
+            <section className="first-slide">
+            <div className="apartaments-container">
                     <img src={assets['Group']} alt={assets['Group']} />
                     <img className="apartments" src={assets['Image-apartments']} alt={assets['Image-apartments']} />
+                    <div className="spinning-ad">
+                        <img className="spinning-text" src={assets['Text Container']} alt={assets['Text Container']} />
+                        <div className="spinning-ad-image">
+                            <img src={assets['Arrow']} alt={assets['Arrow']} />
+                        </div>
+                    </div>
                 </div>
                 <main className="container">
                     <div className="first-slide__spacing">
                         <div className="first-slide-text">
                             <h1 className="heading">Discover Your Dream Property with Estatein</h1>
-                            <span className="header-items-text">Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</span>
+                            <p className="header-items-text">
+                                Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.
+                            </p>
                         </div>
                         <div className="first-slide__buttons">
                             <Button>Learn More</Button>
@@ -26,23 +42,14 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                         </div>
                         <div className="mobile-container">
                             <div className="ad-block-row">
-                                <div className="ad-blocks">
-                                    <h3 className="ad-text-fat">200+</h3>
-                                    <span className="ad-text-medium">Happy Customers</span>
-                                </div>
-                                <div className="ad-blocks">
-                                    <h3 className="ad-text-fat">10k+</h3>
-                                    <span className="ad-text-medium">Properties For Clients</span>
-                                </div>
+                                <AdBlock number="200+" text="Happy Customers" />
+                                <AdBlock number="10k+" text="Properties For Clients" />
                             </div>
-                            <div className="ad-blocks">
-                                <h3 className="ad-text-fat">16+</h3>
-                                <span className="ad-text-medium">Years of Experience</span>
-                            </div>
+                            <AdBlock number="16+" text="Years of Experience" />
                         </div>
                     </div>
                 </main>
-            </div>
+            </section>
         </div>
-    )
-}
+    );
+};

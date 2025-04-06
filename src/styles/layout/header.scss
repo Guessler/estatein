@@ -25,7 +25,10 @@ header{
 
 .header-items {
     @include flex(on, row, space-between, null, center, nowrap, $gap: 10px);
+
 }
+
+
 
 .header-item{
     @include spacing(padding, all, 14px, 24px);
