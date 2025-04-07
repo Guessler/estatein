@@ -26,6 +26,11 @@ $text-list: (
         "default": ("Urbanist", medium, normal, "neutral-100", 150%, 18px),
         "desktop": ("Urbanist", medium, normal, "neutral-100", 130%, 16px),
         "laptop": ("Urbanist", medium, normal, "neutral-100", 140%, 14px),
+    ),
+    "options_text": (
+        "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 20px),
+        "desktop": ("Urbanist", medium, normal, "neutral-100", 130%, 16px),
+        "laptop": ("Urbanist", medium, normal, "neutral-100", 140%, 14px),
     )
 );
 $dynamic-text-list: ();

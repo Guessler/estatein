@@ -23,3 +23,8 @@
     color: get-color(absolute, white);
     @include apply-text-style("ad_text_medium");
 }
+
+.options-text{
+    color: get-color(absolute, white);
+    @include apply-text-style("options_text");
+}

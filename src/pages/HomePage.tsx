@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import { assets } from "../utils/exports/directories/assets";
 import { Button } from "../components/Button";
+import { Option } from "../components/Option";
 
 interface IChildren {
     children: ReactNode;
@@ -49,6 +50,14 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                         </div>
                     </div>
                 </main>
+            </section>
+            <section className="wishes-block">
+                <div className="wishes-block__wrapper">
+                    <Option text={"Find Your Dream Home"} middleImage={assets['shop']}/>
+                    <Option text={"Unlock Property Value"} middleImage={assets['camera']}/>
+                    <Option text={"Effortless Property Management"} middleImage={assets['Management']}/>
+                    <Option text={"Smart Investments, Informed Decisions"} middleImage={assets['Smart-Investments']}/>
+                </div>
             </section>
         </div>
     );
