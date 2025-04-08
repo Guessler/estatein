@@ -31,6 +31,11 @@ $text-list: (
         "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 20px),
         "desktop": ("Urbanist", medium, normal, "neutral-100", 130%, 16px),
         "laptop": ("Urbanist", medium, normal, "neutral-100", 140%, 14px),
+    ),
+    "second_heading": (
+        "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 48px),
+        "desktop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 38px),
+        "laptop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 28px),
     )
 );
 $dynamic-text-list: ();

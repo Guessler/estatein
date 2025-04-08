@@ -28,3 +28,8 @@
     color: get-color(absolute, white);
     @include apply-text-style("options_text");
 }
+
+.second-heading{
+    color: get-color(absolute, white);
+    @include apply-text-style("second_heading")
+}

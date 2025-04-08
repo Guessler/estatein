@@ -12,6 +12,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.0.6",
+    "framer-motion": "^12.6.3",
     "postcss": "^8.5.3",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-pxtorem": "^6.1.0",

@@ -153,7 +153,7 @@
     @include respond-to(laptop){
     @include spacing(padding, all, 5px);
     @include spacing(margin, x, auto);
-        @include size(default, 368px, 318px);
+        @include size(default, 368px, auto);
     }
 
 }
