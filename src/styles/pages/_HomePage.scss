@@ -18,7 +18,7 @@
 .container{
     @include spacing(margin, x, auto);
     @include spacing(padding, y, 140px);
-    @include size(default, 760px);
+    @include size(default, 1596px);
     @include flex(on, row-reverse);
 
     @include respond-to(desktop){
@@ -209,6 +209,35 @@
     }
 }
 
+.products{
+    @include flex(on, null, center, center, space-between, $gap: 30px);
+}
+
+.product-card{
+    background-color: get-color(gray, dark_gray);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 12px;
+    @include flex(on, column, $gap: 30px);
+    @include size(max, 512px);
+    @include spacing(padding, all, 40px)
+}
+
+.product-card__details{
+    @include flex(on, null, $gap: 8px);
+    @include spacing(padding, (x, y), 14px, 8px);
+    background-color: get-color(gray, charcoal);
+    border-radius: 28px;
+    border: 1px solid get-color(gray, slate_gray);
+}
+
+.product-card__price-container{
+    @include flex(on, column);
+}
+
+.product-card__price{
+    @include flex(on, null, space-between);
+}
+
 @keyframes spin {
     from {
     transform: rotate(0deg);
@@ -219,3 +248,6 @@
     }
 
 
+.first-container{
+    @include size(default, 760px);
+}

@@ -36,6 +36,16 @@ $text-list: (
         "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 48px),
         "desktop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 38px),
         "laptop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 28px),
-    )
+    ),
+    "card_heading_text": (
+        "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 24px),
+        "desktop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 20px),
+        "laptop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 18px),
+    ),
+    "description_text": (
+        "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 18px),
+        "desktop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 16px),
+        "laptop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 14px),
+    ),
 );
 $dynamic-text-list: ();

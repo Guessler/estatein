@@ -7,6 +7,7 @@ import { IChildren } from "../types/interfaces";
 import { AnimatedBox } from "../components/common/AnimatedBox";
 import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
+import { ProductCard } from "../components/ProductCard";
 
 const AdBlock = ({ number, text }: { number: string; text: string }) => (
     <div className="ad-blocks">
@@ -54,7 +55,7 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                         </div>
                     </AnimatedBox>
                 </div>
-                <main className="container">
+                <main className="container first-container">
                     <AnimatedBox
                         className="first-slide__spacing"
                         initial={{ opacity: 0, y: 50 }}
@@ -71,7 +72,7 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                                 Discover Your Dream Property with Estatein
                             </AnimatedBox>
                             <AnimatedBox
-                                className="header-items-text"
+                                className="description-text"
                                 initial={{ opacity: 0, x: 50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8, delay: 1.4 }}
@@ -104,7 +105,6 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                 </main>
             </AnimatedSection>
 
-            {/* Вторая секция с анимацией */}
             <AnimatedSection
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -117,6 +117,18 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                     <Option text={"Smart Investments, Informed Decisions"} middleImage={assets['Smart-Investments']} />
                 </OptionsWrapper>
             </AnimatedSection>
+
+            <section className="container" style={{ display: "flex", flexDirection: "column" }}>
+                <div>
+                    <h2 className="second-heading">Featured Properties</h2>
+                    <p className="description-text">Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click "View Details" for more information.</p>
+                </div>
+                <div className="products">
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                </div>
+            </section>
         </div>
     );
 };

@@ -1,4 +1,3 @@
-// AnimatedDiv.tsx
 import { FC } from "react";
 import { motion, TargetAndTransition } from "framer-motion";
 

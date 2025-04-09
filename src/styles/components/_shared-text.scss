@@ -33,3 +33,14 @@
     color: get-color(absolute, white);
     @include apply-text-style("second_heading")
 }
+
+.card-heading-text{
+    color: get-color(absolute, white);
+    @include apply-text-style("card_heading_text");
+}
+
+.description-text{
+    color: get-color(gray, light_gray_1);
+    @include apply-text-style("description_text");
+
+}
