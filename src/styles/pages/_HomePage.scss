@@ -1,118 +1,124 @@
 @use "../utils/mixins" as *;
 @use "../utils/function" as *;
 
-.first-slide{
+.first-slide {
     @include flex(on, row-reverse);
 
-    @include respond-to(desktop){
+    @include respond-to(desktop) {
         @include size(default, 100%);
     }
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         @include size(default, 358px);
         @include spacing(padding, top, 40px);
-        @include spacing(margin, x ,auto);
+        @include spacing(margin, x, auto);
         @include flex(on, column)
     }
 }
 
-.container{
+.container {
     @include spacing(margin, x, auto);
     @include spacing(padding, y, 140px);
     @include size(default, 1596px);
     @include flex(on, row-reverse);
 
-    @include respond-to(desktop){
+    @include respond-to(desktop) {
         @include spacing(padding, y, 98px);
     }
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         @include flex(on, column);
         @include spacing(padding, y, 40px);
         @include size(default, 358px);
     }
 }
-.mobile-container{
+
+.mobile-container {
     @include flex(on, row, $gap: 16px);
 
-    @include respond-to(laptop){
+    @include respond-to(laptop) {
         @include flex(on, column, $gap: 16px);
     }
 }
-.apartaments-container{
+
+.apartaments-container {
     @include position(relative);
     @include spacing(margin, left, 50px);
 
     background-color: get-color(gray, back_gray);
 
-    @include respond-to(desktop){
+    @include respond-to(desktop) {
         width: 690px;
     }
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         width: auto;
-    @include spacing(margin, bottom, 50px);
-    @include spacing(margin, left, 0px);
+        @include spacing(margin, bottom, 50px);
+        @include spacing(margin, left, 0px);
 
     }
 }
 
-.first-slide__spacing{
+.first-slide__spacing {
     @include flex(on, column, $gap: 60px);
 }
 
-.first-slide-text{
+.first-slide-text {
     @include flex(on, column, $gap: 24px);
 }
 
-.apartments{
+.apartments {
     @include position(absolute, (top, left), 0, 0);
     margin: auto;
     border-radius: 10px;
 }
 
-.ad-block-row{
+.ad-block-row {
     @include flex(on, $gap: 16px);
 
-    @include respond-to(laptop){
+    @include respond-to(laptop) {
         @include flex(on, $gap: 10px)
     }
 }
 
-.ad-blocks{
+.ad-blocks {
     @include spacing(padding, x, 24px);
     @include spacing(padding, y, 16px);
 
     background-color: get-color(gray, charcoal);
     border: 1px solid get-color(gray, slate_gray);
     border-radius: 10px;
-    
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         text-align: center;
     }
 }
 
-.first-slide__buttons{
+.first-slide__buttons {
     @include flex(on, $gap: 20px);
 
-    @include respond-to(laptop){
-        @include flex(on, column ,$gap: 16px);
+    @include respond-to(laptop) {
+        @include flex(on, column, $gap: 16px);
     }
 }
 
-.spinning-ad{
+.spinning-ad {
     @include spacing(padding, x, y, 35px, 35px);
     @include size(default, 175px, 175px);
     @include position(absolute, (top, left), 10%, -50px);
     @include flex(on, null, center, null, center);
-    
+
     z-index: 2;
-    
+
     border-radius: 50%;
     border: 1px solid get-color(gray, slate_gray);
     background-color: get-color(gray, dark_gray);
 
-    @include respond-to(desktop){
+    @include respond-to(desktop) {
         @include size(default, 129px, 129px);
     }
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         @include position(absolute, (top, left), 80%, 0px);
         @include size(default, 117px, 117px);
     }
@@ -122,73 +128,75 @@
     @include position(absolute);
     animation: spin 10s linear infinite;
     transform-origin: center;
-    }
+}
 
 .spinning-ad-image {
     @include size(default, 80px, 80px);
 
 
-    
+
     @include spacing(padding, x, y, 26px, 26px);
     @include flex(on, null, center, null, center);
-    
+
     border-radius: 50%;
     border: 1px solid get-color(gray, slate_gray);
     background-color: get-color(gray, charcoal);
 
-    @include respond-to(desktop){
+    @include respond-to(desktop) {
         @include size(default, 58px, 58px);
     }
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         @include size(default, 54px, 54px);
     }
 }
 
 
-.wishes-block{
+.wishes-block {
     @include size(default, 100%, 252px);
     @include spacing(padding, all, 10px);
     background-color: get-color(gray, back_gray);
 
-    @include respond-to(laptop){
-    @include spacing(padding, all, 5px);
-    @include spacing(margin, x, auto);
+    @include respond-to(laptop) {
+        @include spacing(padding, all, 5px);
+        @include spacing(margin, x, auto);
         @include size(default, 368px, auto);
     }
 
 }
 
-.wishes-block__wrapper{
-    @include flex(on, null, space-around, null , null, nowrap, $gap: 20px);
+.wishes-block__wrapper {
+    @include flex(on, null, space-around, null, null, nowrap, $gap: 20px);
     @include size(max, 1920px);
     @include spacing(margin, x, auto);
     @include spacing(padding, all, 20px);
     background-color: get-color(gray, dark_gray);
     border: 1px solid get-color(gray, slate_gray);
-    
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         @include flex(on, null, null, null, null, wrap, $gap: auto);
         @include spacing(padding, all, 10px);
         @include size(default, 358px);
     }
 }
 
-.middle-icon{
+.middle-icon {
     @include size(default, 82px);
-    @include respond-to(laptop){
+
+    @include respond-to(laptop) {
         @include size(default, 48px)
     }
 }
 
-.text-width{
-    @include respond-to(laptop){
+.text-width {
+    @include respond-to(laptop) {
         @include size(default, 130px);
         text-align: center;
     }
 }
 
 
-.wishes-block__option{
+.wishes-block__option {
     @include size(default, 455px, 212px);
     @include position(relative);
     @include flex(on, column, center, null, center, $gap: 20px);
@@ -196,58 +204,87 @@
     background-color: get-color(gray, back_gray);
     border-radius: 12px;
 
-    @include respond-to(laptop){
+    @include respond-to(laptop) {
         @include size(default, 154px, 144px);
     }
 }
 
-.Icon-arrow-top{
+.Icon-arrow-top {
     @include position(absolute, (right, top), 20px, 20px);
 
-    @include respond-to(laptop){
+    @include respond-to(laptop) {
         @include position(absolute, (right, top), 16px, 16px);
     }
 }
 
-.products{
+.products {
     @include flex(on, null, center, center, space-between, $gap: 30px);
 }
 
-.product-card{
+.product-card {
     background-color: get-color(gray, dark_gray);
     border: 1px solid get-color(gray, slate_gray);
     border-radius: 12px;
     @include flex(on, column, $gap: 30px);
     @include size(max, 512px);
-    @include spacing(padding, all, 40px)
+    @include spacing(padding, all, 40px);
+
+    @include respond-to(desktop) {
+        @include size(max, 413px);
+        @include flex($gap: 24px);
+        @include spacing(padding, all, 30px);
+    }
 }
 
-.product-card__details{
+.product-card__details-flex {
+    @include flex(on, null, null, null, null, wrap, $gap: 10px);
+}
+
+.product-card__details {
     @include flex(on, null, $gap: 8px);
     @include spacing(padding, (x, y), 14px, 8px);
+    @include size(default, fit-content);
     background-color: get-color(gray, charcoal);
     border-radius: 28px;
     border: 1px solid get-color(gray, slate_gray);
 }
 
-.product-card__price-container{
+.product-slider__switcher{
+    @include flex($gap: 10px);
+}
+
+.product-card__price-container {
     @include flex(on, column);
 }
 
-.product-card__price{
+.product-card__price {
     @include flex(on, null, space-between);
+}
+
+
+.product-slider {
+    @include flex(on, null, space-between);
+}
+
+.rotated-stroke {
+    transform: rotate(180deg);
+}
+
+.products-slide {
+    @include flex(on, column, $gap: 80px);
 }
 
 @keyframes spin {
     from {
-    transform: rotate(0deg);
+        transform: rotate(0deg);
     }
+
     to {
-    transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-    }
+}
 
 
-.first-container{
+.first-container {
     @include size(default, 760px);
 }

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { motion, TargetAndTransition } from "framer-motion";
+import { motion, TargetAndTransition, Variants } from "framer-motion";
 
 interface AnimatedBoxProps {
     children: React.ReactNode;
@@ -7,11 +7,13 @@ interface AnimatedBoxProps {
     animate: TargetAndTransition;
     transition: { duration: number; delay?: number };
     className?: string|undefined; 
+    variants?: Variants
+
 }
 
-export const AnimatedBox: FC<AnimatedBoxProps> = ({ children, initial, animate, transition, className }) => {
+export const AnimatedBox: FC<AnimatedBoxProps> = ({ children, initial, animate, transition, className, variants }) => {
     return (
-        <motion.div className={className} initial={initial} animate={animate} transition={transition}>
+        <motion.div className={className} initial={initial} variants={variants} animate={animate} transition={transition}>
             {children}
         </motion.div>
     );

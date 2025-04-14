@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { assets } from "../utils/exports/directories/assets";
 import { Button } from "../components/Button";
 import { Option } from "../components/Option";
@@ -8,6 +8,55 @@ import { AnimatedBox } from "../components/common/AnimatedBox";
 import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
 import { ProductCard } from "../components/ProductCard";
+import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
+import { AnimatePresence } from "framer-motion";
+
+const products = [
+    {
+        productIcon: "Image-1",
+        productName: "Metropolitan Haven",
+        productDescription: "A chic and fully-furnished 2-bedroom apartment with panoramic city views",
+        productPrice: "$550,000",
+        productDetails: [
+            {
+                productCharacteristicIcon: "Villa",
+                productCharacteristic: "Villa",
+            },
+        ],
+    },
+    {
+        productIcon: "Image-2",
+        productName: "Urban Retreat",
+        productDescription: "A modern studio apartment located in the heart of the city",
+        productPrice: "$320,000",
+        productDetails: [
+            {
+                productCharacteristicIcon: "Apartment",
+                productCharacteristic: "Apartment",
+            },
+            {
+                productCharacteristicIcon: "Parking",
+                productCharacteristic: "Parking Available",
+            },
+        ],
+    },
+    {
+        productIcon: "Image",
+        productName: "Seaside Serenity Villa",
+        productDescription: "A stunning 4-bedroom, 3-bathroom villa in a peaceful suburban neighborhood",
+        productPrice: "$550,000",
+        productDetails: [
+            {
+                productCharacteristicIcon: "Apartment",
+                productCharacteristic: "Apartment",
+            },
+            {
+                productCharacteristicIcon: "Parking",
+                productCharacteristic: "Parking Available",
+            },
+        ],
+    },
+];
 
 const AdBlock = ({ number, text }: { number: string; text: string }) => (
     <div className="ad-blocks">
@@ -17,10 +66,38 @@ const AdBlock = ({ number, text }: { number: string; text: string }) => (
 );
 
 export const HomePage: FC<IChildren> = ({ children }) => {
+    const [currentIndex, setCurrentIndex] = useState<number>(1);
+    const [direction, setDirection] = useState<number>(1);
+
+    const handleNext = () => {
+        setDirection(1);
+        setCurrentIndex((prev) =>
+            prev + 1 >= products.length ? 1 : prev + 1
+        );
+    };
+
+    const handlePrev = () => {
+        setDirection(-1);
+        setCurrentIndex((prev) =>
+            prev <= 1 ? 1 : prev - 1
+        );
+    };
+
+    const variants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? 1000 : -1000,
+            opacity: 0
+        }),
+        center: { x: 0, opacity: 1 },
+        exit: (direction: number) => ({
+            x: direction > 0 ? -1000 : 1000,
+            opacity: 0
+        })
+    };
+
     return (
         <div>
             {children}
-            {/* Первый блок с анимацией */}
             <AnimatedSection
                 className="first-slide"
                 initial={{ opacity: 0 }}
@@ -118,15 +195,53 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            <section className="container" style={{ display: "flex", flexDirection: "column" }}>
+            <section className="container products-slide" style={{ display: "flex", flexDirection: "column" }}>
                 <div>
                     <h2 className="second-heading">Featured Properties</h2>
                     <p className="description-text">Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click "View Details" for more information.</p>
                 </div>
-                <div className="products">
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                <AnimatePresence>
+                    <AnimatedBox
+                        className="products"
+                        key={currentIndex}
+                        variants={variants}
+                        initial={{
+                            x: direction > 0 ? 1000 : -1000,
+                            opacity: 0
+                        }}
+                        animate={{
+                            x: 0,
+                            opacity: 1
+                        }}
+                        transition={{
+                            duration: 0.6,
+                        }}
+                    >
+                        {products.slice(currentIndex - 1, currentIndex + 2).map((item, index) => (
+                            <ProductCard
+                                key={index}
+                                productIcon={assets[item.productIcon]}
+                                productName={item.productName}
+                                productDescription={item.productDescription}
+                                productPrice={item.productPrice}
+                            >
+                                {item.productDetails.map((detail, detailIndex) => (
+                                    <ProductCardDetails
+                                        key={detailIndex}
+                                        productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
+                                        productCharacteristic={detail.productCharacteristic}
+                                    />
+                                ))}
+                            </ProductCard>
+                        ))}
+                    </AnimatedBox>
+                </AnimatePresence>
+                <div className="product-slider">
+                    <span className="switched-text">{currentIndex} of {products.length}</span>
+                    <div className="product-slider__switcher">
+                        <Button onClick={handlePrev}><img className="rotated-stroke" src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
+                        <Button onClick={handleNext}><img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
+                    </div>
                 </div>
             </section>
         </div>

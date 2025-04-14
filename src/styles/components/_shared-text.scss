@@ -42,5 +42,9 @@
 .description-text{
     color: get-color(gray, light_gray_1);
     @include apply-text-style("description_text");
+}
 
+.switched-text{
+    color: get-color(absolute, white);
+    @include apply-text-style("switched_text");
 }
