@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { assets } from "../utils/exports/directories/assets";
 import { Button } from "../components/Button";
 import { Option } from "../components/Option";
@@ -24,6 +24,7 @@ const products = [
             },
         ],
     },
+    
     {
         productIcon: "Image-2",
         productName: "Urban Retreat",
@@ -68,6 +69,18 @@ const AdBlock = ({ number, text }: { number: string; text: string }) => (
 export const HomePage: FC<IChildren> = ({ children }) => {
     const [currentIndex, setCurrentIndex] = useState<number>(1);
     const [direction, setDirection] = useState<number>(1);
+    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1440);
+
+    const handleResize = () => {
+        setIsMobile(window.innerWidth < 1440);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     const handleNext = () => {
         setDirection(1);
@@ -217,7 +230,7 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                             duration: 0.6,
                         }}
                     >
-                        {products.slice(currentIndex - 1, currentIndex + 2).map((item, index) => (
+                        {products.slice(currentIndex - 1, isMobile ? currentIndex : currentIndex + 2).map((item, index) => (
                             <ProductCard
                                 key={index}
                                 productIcon={assets[item.productIcon]}
