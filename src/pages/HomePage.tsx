@@ -9,7 +9,6 @@ import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
 import { ProductCard } from "../components/ProductCard";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
-import { AnimatePresence } from "framer-motion";
 
 const products = [
     {
@@ -24,7 +23,7 @@ const products = [
             },
         ],
     },
-    
+
     {
         productIcon: "Image-2",
         productName: "Urban Retreat",
@@ -213,13 +212,12 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                     <h2 className="second-heading">Featured Properties</h2>
                     <p className="description-text">Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click "View Details" for more information.</p>
                 </div>
-                <AnimatePresence>
                     <AnimatedBox
                         className="products"
                         key={currentIndex}
                         variants={variants}
                         initial={{
-                            x: direction > 0 ? 1000 : -1000,
+                            x: direction > 0 ? 50 : -50,
                             opacity: 0
                         }}
                         animate={{
@@ -248,7 +246,6 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                             </ProductCard>
                         ))}
                     </AnimatedBox>
-                </AnimatePresence>
                 <div className="product-slider">
                     <span className="switched-text">{currentIndex} of {products.length}</span>
                     <div className="product-slider__switcher">
