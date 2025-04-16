@@ -9,6 +9,7 @@ import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
 import { ProductCard } from "../components/ProductCard";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
+import { Slider } from "../components/Slider";
 
 const products = [
     {
@@ -93,18 +94,6 @@ export const HomePage: FC<IChildren> = ({ children }) => {
         setCurrentIndex((prev) =>
             prev <= 1 ? 1 : prev - 1
         );
-    };
-
-    const variants = {
-        enter: (direction: number) => ({
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0
-        }),
-        center: { x: 0, opacity: 1 },
-        exit: (direction: number) => ({
-            x: direction > 0 ? -1000 : 1000,
-            opacity: 0
-        })
     };
 
     return (
@@ -212,22 +201,12 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                     <h2 className="second-heading">Featured Properties</h2>
                     <p className="description-text">Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click "View Details" for more information.</p>
                 </div>
-                    <AnimatedBox
-                        className="products"
-                        key={currentIndex}
-                        variants={variants}
-                        initial={{
-                            x: direction > 0 ? 50 : -50,
-                            opacity: 0
-                        }}
-                        animate={{
-                            x: 0,
-                            opacity: 1
-                        }}
-                        transition={{
-                            duration: 0.6,
-                        }}
-                    >
+                <Slider products={products}
+                    currentIndex={currentIndex}
+                    direction={direction}
+                    handleNext={handleNext}
+                    handlePrev={handlePrev}
+                    isMobile={isMobile}>
                         {products.slice(currentIndex - 1, isMobile ? currentIndex : currentIndex + 2).map((item, index) => (
                             <ProductCard
                                 key={index}
@@ -245,7 +224,7 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                                 ))}
                             </ProductCard>
                         ))}
-                    </AnimatedBox>
+                </Slider>
                 <div className="product-slider">
                     <span className="switched-text">{currentIndex} of {products.length}</span>
                     <div className="product-slider__switcher">

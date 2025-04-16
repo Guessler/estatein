@@ -1,5 +1,5 @@
 import { AnimatedBox } from "../common/AnimatedBox";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
 interface Product {
     productIcon: string;
@@ -20,45 +20,37 @@ interface SliderProps {
     handlePrev: () => void;
     isMobile: boolean;
     itemsToShow?: number;
-    children?: ReactNode
+    children?: React.ReactNode;
 }
 
 export const Slider: FC<SliderProps> = ({
     products,
     currentIndex,
+    direction,
     isMobile,
     itemsToShow = 2,
     children
 }) => {
-    const variants = {
-        enter: (dir: number) => ({
-            x: dir > 0 ? 1000 : -1000,
-            opacity: 0
-        }),
-        center: { x: 0, opacity: 1 },
-        exit: (dir: number) => ({
-            x: dir > 0 ? -1000 : 1000,
-            opacity: 0
-        })
-    };
-
     const visibleItems = isMobile ? 1 : itemsToShow;
     const endIndex = Math.min(currentIndex + visibleItems - 1, products.length);
 
     return (
-        <div className="slider-container">
-                <AnimatedBox
-                    className="products-grid"
-                    key={`${currentIndex}-${endIndex}`}
-                    variants={variants}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                >
-                    {/* {products.slice(currentIndex - 1, endIndex).map((item, index) => ( */}
-                        {children}
-                    {/* ))} */}
-                </AnimatedBox>
-        </div>
+        <AnimatedBox
+            className="products"
+            key={`${currentIndex}-${endIndex}`}
+            initial={{
+                x: direction > 0 ? 50 : -50,
+                opacity: 0
+            }}
+            animate={{
+                x: 0,
+                opacity: 1
+            }}
+            transition={{
+                duration: 0.6,
+            }}
+        >
+            {children}
+        </AnimatedBox>
     );
 };
