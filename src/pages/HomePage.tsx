@@ -10,6 +10,7 @@ import { AnimatedSection } from "../components/common/AnimatedSection";
 import { ProductCard } from "../components/ProductCard";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
 import { Slider } from "../components/Slider";
+import { Feedback } from "../components/Feedback";
 
 const products = [
     {
@@ -24,7 +25,6 @@ const products = [
             },
         ],
     },
-
     {
         productIcon: "Image-2",
         productName: "Urban Retreat",
@@ -59,6 +59,27 @@ const products = [
     },
 ];
 
+const feedbacks = [
+    {
+        heading: "Metropolitan Haven",
+        description: "A chic and fully-furnished 2-bedroom apartment with panoramic city views",
+        userName: "Sarah Johnson",
+        userLocation: "San Francisco, CA",
+    },
+    {
+        heading: "Urban Retreat",
+        description: "A modern studio apartment located in the heart of the city",
+        userName: "Michael Brown",
+        userLocation: "Chicago, IL",
+    },
+    {
+        heading: "Seaside Serenity Villa",
+        description: "A stunning 4-bedroom, 3-bathroom villa in a peaceful suburban neighborhood",
+        userName: "Emily Davis",
+        userLocation: "Miami, FL",
+    },
+];
+
 const AdBlock = ({ number, text }: { number: string; text: string }) => (
     <div className="ad-blocks">
         <h3 className="ad-text-fat">{number}</h3>
@@ -67,8 +88,14 @@ const AdBlock = ({ number, text }: { number: string; text: string }) => (
 );
 
 export const HomePage: FC<IChildren> = ({ children }) => {
-    const [currentIndex, setCurrentIndex] = useState<number>(1);
-    const [direction, setDirection] = useState<number>(1);
+    // State for Product Slider
+    const [currentProductIndex, setCurrentProductIndex] = useState<number>(1);
+    const [productDirection, setProductDirection] = useState<number>(1);
+    
+    // State for Feedback Slider
+    const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState<number>(1);
+    const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
+    
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1440);
 
     const handleResize = () => {
@@ -82,16 +109,32 @@ export const HomePage: FC<IChildren> = ({ children }) => {
         };
     }, []);
 
-    const handleNext = () => {
-        setDirection(1);
-        setCurrentIndex((prev) =>
+    // Product Slider Handlers
+    const handleNextProduct = () => {
+        setProductDirection(1);
+        setCurrentProductIndex((prev) =>
             prev + 1 >= products.length ? 1 : prev + 1
         );
     };
 
-    const handlePrev = () => {
-        setDirection(-1);
-        setCurrentIndex((prev) =>
+    const handlePrevProduct = () => {
+        setProductDirection(-1);
+        setCurrentProductIndex((prev) =>
+            prev <= 1 ? 1 : prev - 1
+        );
+    };
+
+    // Feedback Slider Handlers
+    const handleNextFeedback = () => {
+        setFeedbackDirection(1);
+        setCurrentFeedbackIndex((prev) =>
+            prev + 1 >= feedbacks.length ? 1 : prev + 1
+        );
+    };
+
+    const handlePrevFeedback = () => {
+        setFeedbackDirection(-1);
+        setCurrentFeedbackIndex((prev) =>
             prev <= 1 ? 1 : prev - 1
         );
     };
@@ -201,35 +244,66 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                     <h2 className="second-heading">Featured Properties</h2>
                     <p className="description-text">Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click "View Details" for more information.</p>
                 </div>
-                <Slider products={products}
-                    currentIndex={currentIndex}
-                    direction={direction}
-                    handleNext={handleNext}
-                    handlePrev={handlePrev}
-                    isMobile={isMobile}>
-                        {products.slice(currentIndex - 1, isMobile ? currentIndex : currentIndex + 2).map((item, index) => (
-                            <ProductCard
-                                key={index}
-                                productIcon={assets[item.productIcon]}
-                                productName={item.productName}
-                                productDescription={item.productDescription}
-                                productPrice={item.productPrice}
-                            >
-                                {item.productDetails.map((detail, detailIndex) => (
-                                    <ProductCardDetails
-                                        key={detailIndex}
-                                        productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
-                                        productCharacteristic={detail.productCharacteristic}
-                                    />
-                                ))}
-                            </ProductCard>
-                        ))}
+                <Slider
+                    products={products}
+                    currentIndex={currentProductIndex}
+                    direction={productDirection}
+                    handleNext={handleNextProduct}
+                    handlePrev={handlePrevProduct}
+                    isMobile={isMobile}
+                >
+                    {products.slice(currentProductIndex - 1, isMobile ? currentProductIndex : currentProductIndex + 2).map((item, index) => (
+                        <ProductCard
+                            key={index}
+                            productIcon={assets[item.productIcon]}
+                            productName={item.productName}
+                            productDescription={item.productDescription}
+                            productPrice={item.productPrice}
+                        >
+                            {item.productDetails.map((detail, detailIndex) => (
+                                <ProductCardDetails
+                                    key={detailIndex}
+                                    productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
+                                    productCharacteristic={detail.productCharacteristic}
+                                />
+                            ))}
+                        </ProductCard>
+                    ))}
                 </Slider>
                 <div className="product-slider">
-                    <span className="switched-text">{currentIndex} of {products.length}</span>
+                    <span className="switched-text">{currentProductIndex} of {products.length}</span>
                     <div className="product-slider__switcher">
-                        <Button onClick={handlePrev}><img className="rotated-stroke" src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
-                        <Button onClick={handleNext}><img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
+                        <Button onClick={handlePrevProduct}><img className="rotated-stroke" src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
+                        <Button onClick={handleNextProduct}><img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="container products-slide" style={{ display: "flex", flexDirection: "column" }}>
+                <div>
+                    <h2 className="second-heading">What Our Clients Say</h2>
+                    <p className="description-text">Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs.</p>
+                </div>
+                <Slider
+                    products={products}
+                    currentIndex={currentFeedbackIndex}
+                    direction={feedbackDirection}
+                    handleNext={handleNextFeedback}
+                    handlePrev={handlePrevFeedback}
+                    isMobile={isMobile}
+                >
+                    {feedbacks.slice(currentFeedbackIndex - 1, isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2).map((feedback, index) => (
+                        <Feedback
+                            key={index}
+                            text={feedback}
+                        />
+                    ))}
+                </Slider>
+                <div className="product-slider">
+                    <span className="switched-text">{currentFeedbackIndex} of {feedbacks.length}</span>
+                    <div className="product-slider__switcher">
+                        <Button onClick={handlePrevFeedback}><img className="rotated-stroke" src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
+                        <Button onClick={handleNextFeedback}><img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
                     </div>
                 </div>
             </section>

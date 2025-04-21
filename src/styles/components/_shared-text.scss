@@ -48,3 +48,7 @@
     color: get-color(absolute, white);
     @include apply-text-style("switched_text");
 }
+
+.gray-white-color{
+    color: get-color(gray, light_gray_1);
+}

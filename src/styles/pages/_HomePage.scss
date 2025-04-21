@@ -274,6 +274,34 @@
     @include flex(on, column, $gap: 80px);
 }
 
+.feedback{
+    background-color: get-color(gray, charcoal);
+    
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 12px;
+
+    @include size(max, 512px);
+    @include flex(on, column, $gap: 40px);
+    @include spacing(padding, all, 50px);
+}
+
+.text-spacing{
+    @include flex(on, column, $gap: 14px);
+}
+
+.feedback-user{
+    @include flex(on, $gap:12px);
+}
+
+.star-border{
+    background-color: get-color(gray, charcoal);
+    border: 1px solid get-color(gray, slate_gray);
+
+    border-radius: 50%;
+    @include size(max, 44px);
+    @include spacing(padding, all, 10px);
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -288,3 +316,5 @@
 .first-container {
     @include size(default, 760px);
 }
+
+
