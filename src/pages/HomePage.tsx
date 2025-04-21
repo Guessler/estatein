@@ -11,6 +11,8 @@ import { ProductCard } from "../components/ProductCard";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
+import { ProductSlider } from "../components/Slider/ProductSlider";
+import { Questions } from "../components/Questions";
 
 const products = [
     {
@@ -62,21 +64,47 @@ const products = [
 const feedbacks = [
     {
         heading: "Metropolitan Haven",
-        description: "A chic and fully-furnished 2-bedroom apartment with panoramic city views",
+        description:
+            "I fell in love with this apartment at first sight! Two spacious bedrooms, modern furniture, and panoramic windows with stunning city views—what more could you ask for? Every evening, I enjoy breathtaking sunsets over the horizon. I’ve been living here for six months now, and every day feels like staying in a premium hotel. Thank you for such a cozy and stylish home!",
         userName: "Sarah Johnson",
         userLocation: "San Francisco, CA",
     },
     {
         heading: "Urban Retreat",
-        description: "A modern studio apartment located in the heart of the city",
+        description:
+            "This is exactly what I was looking for: a stylish and convenient studio right in the heart of the city. I can walk to work and cafes in minutes, yet the apartment remains quiet and cozy despite the bustling neighborhood. The modern design and thoughtful layout make it the perfect place to live. If you value comfort and proximity to an active urban lifestyle, this is your spot!",
         userName: "Michael Brown",
         userLocation: "Chicago, IL",
     },
     {
         heading: "Seaside Serenity Villa",
-        description: "A stunning 4-bedroom, 3-bathroom villa in a peaceful suburban neighborhood",
+        description:
+            "Our new seaside villa is nothing short of paradise! This spacious 4-bedroom, 3-bathroom home is absolutely perfect for our family. We love spending evenings on the terrace, listening to the sound of the waves and enjoying the fresh ocean breeze. And the neighborhood! Quiet, green, and incredibly friendly. This place embodies tranquility and luxury. We’ve finally found our dream home!",
         userName: "Emily Davis",
         userLocation: "Miami, FL",
+    },
+];
+
+const faq = [
+    {
+        heading: "What services does Estatein offer?",
+        description: "Estatein provides a comprehensive range of real estate services, including property listings, market analysis, and property management.",
+    },
+    {
+        heading: "How can I schedule a property viewing?",
+        description: "You can schedule a property viewing by contacting our agents through the website or by calling our office directly.",
+    },
+    {
+        heading: "What are the fees associated with buying a property?",
+        description: "Fees may vary depending on the property and location, but typically include closing costs, inspection fees, and real estate agent commissions.",
+    },
+    {
+        heading: "Can I sell my property through Estatein?",
+        description: "Yes, Estatein offers services for property sellers, including market evaluations and listing on our platform.",
+    },
+    {
+        heading: "Is financing available for purchasing a property?",
+        description: "Yes, we can connect you with trusted mortgage lenders to help you secure financing for your property purchase.",
     },
 ];
 
@@ -91,11 +119,11 @@ export const HomePage: FC<IChildren> = ({ children }) => {
     // State for Product Slider
     const [currentProductIndex, setCurrentProductIndex] = useState<number>(1);
     const [productDirection, setProductDirection] = useState<number>(1);
-    
+
     // State for Feedback Slider
     const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState<number>(1);
     const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
-    
+
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1440);
 
     const handleResize = () => {
@@ -124,7 +152,6 @@ export const HomePage: FC<IChildren> = ({ children }) => {
         );
     };
 
-    // Feedback Slider Handlers
     const handleNextFeedback = () => {
         setFeedbackDirection(1);
         setCurrentFeedbackIndex((prev) =>
@@ -270,13 +297,9 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                         </ProductCard>
                     ))}
                 </Slider>
-                <div className="product-slider">
-                    <span className="switched-text">{currentProductIndex} of {products.length}</span>
-                    <div className="product-slider__switcher">
-                        <Button onClick={handlePrevProduct}><img className="rotated-stroke" src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
-                        <Button onClick={handleNextProduct}><img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
-                    </div>
-                </div>
+                <ProductSlider currentPage={currentProductIndex} lastPage={products.length} onClickNext={handleNextProduct} onClickPrev={handlePrevProduct}>
+                    <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
+                </ProductSlider>
             </section>
 
             <section className="container products-slide" style={{ display: "flex", flexDirection: "column" }}>
@@ -299,13 +322,34 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                         />
                     ))}
                 </Slider>
-                <div className="product-slider">
-                    <span className="switched-text">{currentFeedbackIndex} of {feedbacks.length}</span>
-                    <div className="product-slider__switcher">
-                        <Button onClick={handlePrevFeedback}><img className="rotated-stroke" src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
-                        <Button onClick={handleNextFeedback}><img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} /></Button>
-                    </div>
+                <ProductSlider currentPage={currentFeedbackIndex} lastPage={feedbacks.length} onClickNext={handleNextFeedback} onClickPrev={handlePrevFeedback}>
+                    <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
+                </ProductSlider>
+            </section>
+
+            <section className="container products-slide" style={{ display: "flex", flexDirection: "column" }}>
+                <div>
+                    <h2 className="second-heading">Frequently Asked Questions</h2>
+                    <p className="description-text">Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way.</p>
                 </div>
+                <Slider
+                    products={products}
+                    currentIndex={currentFeedbackIndex}
+                    direction={feedbackDirection}
+                    handleNext={handleNextFeedback}
+                    handlePrev={handlePrevFeedback}
+                    isMobile={isMobile}
+                >
+                    {faq.slice(currentFeedbackIndex - 1, isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2).map((item, index) => (
+                        <Questions
+                            key={index}
+                            text={{ heading: item.heading, description: item.description }}
+                        />
+                    ))}
+                </Slider>
+                <ProductSlider currentPage={currentFeedbackIndex} lastPage={faq.length} onClickNext={handleNextFeedback} onClickPrev={handlePrevFeedback}>
+                    <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
+                </ProductSlider>
             </section>
         </div>
     );

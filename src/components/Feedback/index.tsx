@@ -15,7 +15,7 @@ interface FeedbackData {
 
 export const Feedback: FC<FeedbackData> = ({ text }) => {
     return (
-        <div className="feedback">
+        <div className="slider-component-wrapper">
             <Mark />
             {text && (
                 <>
@@ -26,7 +26,7 @@ export const Feedback: FC<FeedbackData> = ({ text }) => {
                     <div className="feedback-user">
                         <img
                             src={assets["Profile"]}
-                            alt="User profile" // Используем осмысленный текст для alt
+                            alt={assets["Profile"]}
                         />
                         <div>
                             <p className="switched-text">{text.userName}</p>

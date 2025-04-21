@@ -54,16 +54,18 @@
     }
 }
 
-// .btn--outline {
-//     background-color: transparent;
-//     color: get-color(absolute, white);
-//     border: 1px solid get-color(absolute, white);
+.btn--circle-button {
+    @include flex(on, null, center, null, center);
+    @include spacing(padding, all, 0);
+    @include size(default, 46px, 46px);
+    border-radius: 50%;
+    border: 1px solid get-color(gray, slate_gray);
 
-//     &:hover {
-//         background-color: rgba(get-color(absolute, white), 0.1);
-//     }
+    &:hover {
+        background-color: rgba(get-color(absolute, white), 0.1);
+    }
 
-//     &:active {
-//         background-color: rgba(get-color(absolute, white), 0.2);
-//     }
-// }
+    &:active {
+        background-color: rgba(get-color(absolute, white), 0.2);
+    }
+}
