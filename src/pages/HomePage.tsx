@@ -13,6 +13,7 @@ import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
 import { Questions } from "../components/Questions";
+// import { Footer } from "../components/Footer";
 
 const products = [
     {
@@ -351,6 +352,7 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                     <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
                 </ProductSlider>
             </section>
+            {/* <Footer/> */}
         </div>
     );
 };

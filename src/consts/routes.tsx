@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Header } from "../components/Header";
 import { HomePage } from '../pages/HomePage';
+import { Footer } from '../components/Footer';
 
 const enum Paths {
     Home = '/',
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
                     <HomePage>
                         <Header/>
                     </HomePage>
+                    <Footer/>
                 </CommonLayout>
             </ProtectedRoute>
         ),

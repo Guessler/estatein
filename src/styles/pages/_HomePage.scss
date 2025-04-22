@@ -311,6 +311,36 @@
     @include spacing(padding, all, 10px);
 }
 
+.over-footer{
+    @include flex(on, row,  space-between, null, center);
+
+}
+
+.over-footer__text{
+    @include size(default, 1100px);
+    @include flex(on, column);
+}
+
+.footer-items {
+    @include flex(on, $gap: 100px);
+    ul {
+        li {
+            color: get-color(absolute, white);
+            @include apply-text-style("ad_text_medium");
+        }
+    }
+}
+
+.footer-send{
+    @include position(relative);
+}
+
+.footer-send-email{
+    border: 1px solid get-color(gray, light_gray_1);
+    @include spacing(padding, all, 20px);
+    border-radius: 12px;
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -319,6 +349,10 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.spacing-0{
+    @include spacing(padding, all, 0);
 }
 
 
