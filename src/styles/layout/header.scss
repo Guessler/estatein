@@ -14,10 +14,6 @@ header{
     @include flex(on, row, space-between, null, center, nowrap);
 
     @include respond-to(desktop){
-        @include size(default, 1280px);
-    }
-
-    @include respond-to(laptop){
         @include size(default, 390px);
     }
 

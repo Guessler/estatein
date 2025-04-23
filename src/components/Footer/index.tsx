@@ -66,9 +66,6 @@ export const Footer = () => {
                     </div>
                     <div className="under-footer__social-network">
                         <SupportingCompanies image={assets['facebook']} />
-                        <SupportingCompanies image={assets['facebook']} />
-                        <SupportingCompanies image={assets['facebook']} />
-                        <SupportingCompanies image={assets['facebook']} />
                     </div>
                 </div>
             </div>

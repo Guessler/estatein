@@ -125,10 +125,10 @@ export const HomePage: FC<IChildren> = ({ children }) => {
     const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState<number>(1);
     const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
 
-    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1440);
+    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
 
     const handleResize = () => {
-        setIsMobile(window.innerWidth < 1440);
+        setIsMobile(window.innerWidth < 1596);
     };
 
     useEffect(() => {

@@ -15,7 +15,7 @@ export const Header = () => {
 
     useEffect(() => {
         const checkScreenWidth = () => {
-            setIsMobileView(window.innerWidth <= 1280);
+            setIsMobileView(window.innerWidth <= 1596);
         };
         checkScreenWidth();
 

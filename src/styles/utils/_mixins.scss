@@ -199,7 +199,6 @@
     $styles: map.get($text-list, $key);
 
     @if $styles != null {
-        // Базовые стили (default)
         $default-style: map.get($styles, "default");
         font-family: list.nth($default-style, 1);
         font-weight: map.get($font-weights-map, list.nth($default-style, 2));
@@ -208,9 +207,8 @@
         line-height: list.nth($default-style, 5);
         font-size: list.nth($default-style, 6);
 
-        // Адаптивные стили для laptop и desktop
         @each $breakpoint, $style in $styles {
-            @if $breakpoint == "laptop" or $breakpoint == "desktop" {
+            @if $breakpoint == "desktop" {
                 @include respond-to($breakpoint) {
                     font-family: list.nth($style, 1);
                     font-weight: map.get($font-weights-map, list.nth($style, 2));
@@ -225,6 +223,7 @@
         @warn "Style '#{$key}' not found in text-list.";
     }
 }
+
 // POSITION
 
 @mixin position($type: null, $sides: null, $values...) {

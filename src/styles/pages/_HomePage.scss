@@ -5,10 +5,6 @@
     @include flex(on, row-reverse);
 
     @include respond-to(desktop) {
-        @include size(default, 100%);
-    }
-
-    @include respond-to(laptop) {
         @include size(default, 358px);
         @include spacing(padding, top, 40px);
         @include spacing(margin, x, auto);
@@ -20,13 +16,8 @@
     @include spacing(margin, x, auto);
     @include spacing(padding, y, 140px);
     @include size(default, 1596px);
-    // @include flex(on, row-reverse);
-
+    
     @include respond-to(desktop) {
-        @include spacing(padding, y, 98px);
-    }
-
-    @include respond-to(laptop) {
         @include flex(on, column);
         @include spacing(padding, y, 40px);
         @include size(default, 358px);
@@ -36,7 +27,7 @@
 .mobile-container {
     @include flex(on, row, $gap: 16px);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include flex(on, column, $gap: 16px);
     }
 }
@@ -47,11 +38,9 @@
 
     background-color: get-color(gray, back_gray);
 
-    @include respond-to(desktop) {
-        width: 690px;
-    }
 
-    @include respond-to(laptop) {
+
+    @include respond-to(desktop) {
         width: auto;
         @include spacing(margin, bottom, 50px);
         @include spacing(margin, left, 0px);
@@ -76,7 +65,7 @@
 .ad-block-row {
     @include flex(on, $gap: 16px);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include flex(on, $gap: 10px)
     }
 }
@@ -89,7 +78,7 @@
     border: 1px solid get-color(gray, slate_gray);
     border-radius: 10px;
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         text-align: center;
     }
 }
@@ -97,7 +86,7 @@
 .first-slide__buttons {
     @include flex(on, $gap: 20px);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include flex(on, column, $gap: 16px);
     }
 }
@@ -115,10 +104,6 @@
     background-color: get-color(gray, dark_gray);
 
     @include respond-to(desktop) {
-        @include size(default, 129px, 129px);
-    }
-
-    @include respond-to(laptop) {
         @include position(absolute, (top, left), 80%, 0px);
         @include size(default, 117px, 117px);
     }
@@ -143,10 +128,6 @@
     background-color: get-color(gray, charcoal);
 
     @include respond-to(desktop) {
-        @include size(default, 58px, 58px);
-    }
-
-    @include respond-to(laptop) {
         @include size(default, 54px, 54px);
     }
 }
@@ -157,7 +138,7 @@
     @include spacing(padding, all, 10px);
     background-color: get-color(gray, back_gray);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include spacing(padding, all, 5px);
         @include spacing(margin, x, auto);
         @include size(default, 368px, auto);
@@ -173,7 +154,7 @@
     background-color: get-color(gray, dark_gray);
     border: 1px solid get-color(gray, slate_gray);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include flex(on, null, null, null, null, wrap, $gap: auto);
         @include spacing(padding, all, 10px);
         @include size(default, 358px);
@@ -183,13 +164,13 @@
 .middle-icon {
     @include size(default, 82px);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include size(default, 48px)
     }
 }
 
 .text-width {
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include size(default, 130px);
         text-align: center;
     }
@@ -204,7 +185,7 @@
     background-color: get-color(gray, back_gray);
     border-radius: 12px;
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include size(default, 154px, 144px);
     }
 }
@@ -212,7 +193,7 @@
 .Icon-arrow-top {
     @include position(absolute, (right, top), 20px, 20px);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include position(absolute, (right, top), 16px, 16px);
     }
 }
@@ -284,7 +265,7 @@
     @include flex(on, column, $gap: 40px);
     @include spacing(padding, all, 50px);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include spacing(padding, all, 30px);
         @include flex($gap: 24px);
     }
@@ -313,7 +294,7 @@
 
 .over-footer {
     @include flex(on, row, space-between, null, center);
-    @include respond-to(laptop){
+    @include respond-to(desktop){
         @include flex($gap: 30px);
     }
 }
@@ -321,10 +302,8 @@
 .over-footer__text {
     @include size(default, 1100px);
     @include flex(on, column);
+
     @include respond-to(desktop) {
-        @include size(default, 980px);
-    }
-    @include respond-to(laptop) {
         @include size(default, 357px);
     }
 }
@@ -342,13 +321,13 @@
         }
 
         
-        @include respond-to(laptop) {
+        @include respond-to(desktop) {
             @include size(default, 128px);
             @include flex(on, column, $gap: 10px);
         }
     }
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include flex(on, null, space-between, null, null, wrap);
     }
 }
@@ -361,7 +340,7 @@
 .footer-items-logo {
     @include flex(on, column, $gap: 30px);
 
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include size(default, 100%);
     }
 }
@@ -386,8 +365,7 @@
     @include size(default, 420px);
     @include spacing(padding, (y, left), 21px, 51px);
 
-
-    @include respond-to(laptop) {
+    @include respond-to(desktop) {
         @include size(default, 100%);
     }
 
@@ -399,7 +377,7 @@
 .under-footer__contacts{
     @include flex(on, null, space-between, null, center);
 
-    @include respond-to(laptop){
+    @include respond-to(desktop){
         @include flex(on, column-reverse, $gap: 20px);
     }
 }
@@ -407,7 +385,7 @@
 .under-footer__contacts-recapcha{
     @include flex(on, null, null, null, center, $gap: 10px);
 
-    @include respond-to(laptop){
+    @include respond-to(desktop){
         @include flex(null, column, null, null, null)
 
     }
