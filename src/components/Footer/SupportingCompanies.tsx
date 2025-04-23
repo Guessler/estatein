@@ -6,7 +6,7 @@ interface ISupportingCompaniesProps {
 
 export const SupportingCompanies:FC<ISupportingCompaniesProps> = ({ image }) => {
     return(
-        <div>
+        <div className="social-network">
             <img src={image} alt={image} />
         </div>
     )

@@ -20,7 +20,7 @@
     @include spacing(margin, x, auto);
     @include spacing(padding, y, 140px);
     @include size(default, 1596px);
-    @include flex(on, row-reverse);
+    // @include flex(on, row-reverse);
 
     @include respond-to(desktop) {
         @include spacing(padding, y, 98px);
@@ -249,7 +249,7 @@
     border: 1px solid get-color(gray, slate_gray);
 }
 
-.product-slider__switcher{
+.product-slider__switcher {
     @include flex($gap: 10px);
 }
 
@@ -274,9 +274,9 @@
     @include flex(on, column, $gap: 80px);
 }
 
-.slider-component-wrapper{
+.slider-component-wrapper {
     background-color: get-color(gray, charcoal);
-    
+
     border: 1px solid get-color(gray, slate_gray);
     border-radius: 12px;
 
@@ -284,25 +284,25 @@
     @include flex(on, column, $gap: 40px);
     @include spacing(padding, all, 50px);
 
-    @include respond-to(laptop){
-    @include spacing(padding, all, 30px);
-    @include flex($gap: 24px);
-}
+    @include respond-to(laptop) {
+        @include spacing(padding, all, 30px);
+        @include flex($gap: 24px);
+    }
 }
 
-.rotated-arrow{
+.rotated-arrow {
     transform: rotate(180deg);
 }
 
-.text-spacing{
+.text-spacing {
     @include flex(on, column, $gap: 14px);
 }
 
-.feedback-user{
-    @include flex(on, $gap:12px);
+.feedback-user {
+    @include flex(on, $gap: 12px);
 }
 
-.star-border{
+.star-border {
     background-color: get-color(gray, charcoal);
     border: 1px solid get-color(gray, slate_gray);
 
@@ -311,34 +311,127 @@
     @include spacing(padding, all, 10px);
 }
 
-.over-footer{
-    @include flex(on, row,  space-between, null, center);
-
+.over-footer {
+    @include flex(on, row, space-between, null, center);
+    @include respond-to(laptop){
+        @include flex($gap: 30px);
+    }
 }
 
-.over-footer__text{
+.over-footer__text {
     @include size(default, 1100px);
     @include flex(on, column);
+    @include respond-to(desktop) {
+        @include size(default, 980px);
+    }
+    @include respond-to(laptop) {
+        @include size(default, 357px);
+    }
 }
 
 .footer-items {
-    @include flex(on, $gap: 100px);
+    @include size(default, 100%);
+    @include flex(on, null, space-between, $gap: 100px);
+
     ul {
+        @include flex(on, column, $gap: 20px);
+
         li {
             color: get-color(absolute, white);
             @include apply-text-style("ad_text_medium");
         }
+
+        
+        @include respond-to(laptop) {
+            @include size(default, 128px);
+            @include flex(on, column, $gap: 10px);
+        }
+    }
+
+    @include respond-to(laptop) {
+        @include flex(on, null, space-between, null, null, wrap);
     }
 }
 
-.footer-send{
+
+.small-company-logo {
+    @include size(default, 160px);
+}
+
+.footer-items-logo {
+    @include flex(on, column, $gap: 30px);
+
+    @include respond-to(laptop) {
+        @include size(default, 100%);
+    }
+}
+
+.footer-send {
     @include position(relative);
 }
 
-.footer-send-email{
+.email-icon {
+    @include position(absolute, (top, left), 22px, 20px);
+}
+
+.send-icon {
+    @include position(absolute, (top, right), 22px, 20px);
+}
+
+
+.footer-send-email {
     border: 1px solid get-color(gray, light_gray_1);
-    @include spacing(padding, all, 20px);
     border-radius: 12px;
+
+    @include size(default, 420px);
+    @include spacing(padding, (y, left), 21px, 51px);
+
+
+    @include respond-to(laptop) {
+        @include size(default, 100%);
+    }
+
+
+}
+
+
+
+.under-footer__contacts{
+    @include flex(on, null, space-between, null, center);
+
+    @include respond-to(laptop){
+        @include flex(on, column-reverse, $gap: 20px);
+    }
+}
+
+.under-footer__contacts-recapcha{
+    @include flex(on, null, null, null, center, $gap: 10px);
+
+    @include respond-to(laptop){
+        @include flex(null, column, null, null, null)
+
+    }
+
+}
+
+.under-footer__social-network{
+    @include flex(on, $gap: 10px)
+
+
+}
+
+.social-network{
+    background-color: get-color(gray, dark_gray);
+    border-radius: 50%;
+
+    @include flex(on, null, center, null, center);
+    @include size(default, 52px, 52px);
+}
+
+.under-footer{
+    background-color: get-color(gray, charcoal);
+    @include size(default, 100%);
+    @include spacing(padding, y, 26px);
 }
 
 @keyframes spin {
@@ -351,7 +444,7 @@
     }
 }
 
-.spacing-0{
+.spacing-0 {
     @include spacing(padding, all, 0);
 }
 
@@ -359,5 +452,3 @@
 .first-container {
     @include size(default, 760px);
 }
-
-
