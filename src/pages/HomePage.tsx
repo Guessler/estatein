@@ -193,14 +193,14 @@ export const HomePage = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
                     >
-                            <AnimatedImage
-        className="spinning-text"
-        src={assets['Text Container']}
-        alt={assets['Text Container']}
-        initial={{ rotate: 0 }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-    />
+                        <AnimatedImage
+                            className="spinning-text"
+                            src={assets['Text Container']}
+                            alt={assets['Text Container']}
+                            initial={{ rotate: 0 }}
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                        />
                         <div className="spinning-ad-image">
                             <img src={assets['Arrow']} alt={assets['Arrow']} />
                         </div>
