@@ -2,16 +2,9 @@ import { FC } from "react";
 import { assets } from "../../utils/exports/directories/assets";
 import { Mark } from "./Mark";
 
-interface FeedbackText {
-    heading: string;
-    description: string;
-    userName: string;
-    userLocation: string;
-}
+import {FeedbackData} from "../../types/interfaces"
 
-interface FeedbackData {
-    text?: FeedbackText;
-}
+
 
 export const Feedback: FC<FeedbackData> = ({ text }) => {
     return (

@@ -1,13 +1,8 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { Button } from "../Button";
+import {IProductChildren} from "../../types/interfaces"
 
-interface IProductChildren {
-    productIcon?: string | undefined,
-    productName?: ReactNode,
-    productDescription?: ReactNode,
-    productPrice?: ReactNode,
-    children?: ReactNode
-}
+
 
 export const ProductCard: FC<IProductChildren> = ({ productIcon, productName, productDescription, productPrice, children }) => {
     return (

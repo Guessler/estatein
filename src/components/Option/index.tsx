@@ -1,10 +1,6 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { assets } from "../../utils/exports/directories/assets"
-
-interface IOption {
-    text: ReactNode,
-    middleImage: string
-}
+import { IOption } from "../../types/interfaces"
 
 export const Option:FC<IOption> = ({text, middleImage}) => {
     return (

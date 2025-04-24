@@ -1,16 +1,6 @@
 import { FC } from "react";
 import { Button } from "../Button";
-
-interface QuestionsText {
-    heading: string;
-    description: string;
-    question?: string;
-    answer?: string;
-}
-
-interface QuestionsProps {
-    text?: QuestionsText;
-}
+import {QuestionsProps} from "../../types/interfaces"
 
 export const Questions: FC<QuestionsProps> = ({ text }) => {
     return (

@@ -1,13 +1,7 @@
-import { FC, ReactNode } from "react"
+import { FC } from "react"
 import { Button } from "../Button"
+import { IProduct } from "../../types/interfaces"
 
-interface IProduct {
-    currentPage?: ReactNode,
-    lastPage?: ReactNode,
-    onClickNext?: React.MouseEventHandler; 
-    onClickPrev?: React.MouseEventHandler;
-    children?: ReactNode
-}
 
 export const ProductSlider:FC<IProduct> = ({currentPage, lastPage, onClickNext, onClickPrev, children}) => {
     return (

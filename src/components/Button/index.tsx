@@ -1,13 +1,6 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import { IButtonProps } from "../../types/interfaces"
 
-interface IButtonProps {
-    children: ReactNode;
-    variant?: "primary" | "secondary" | "circle-button";
-    onClick?: React.MouseEventHandler;
-    className?: string;
-}
-
-// Компонент Button
 export const Button: FC<IButtonProps> = ({ children, variant = "primary", onClick, className = "" }) => {
     return (
         <button

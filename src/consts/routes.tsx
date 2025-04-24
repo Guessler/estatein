@@ -24,10 +24,9 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <CommonLayout>
-                    <HomePage>
-                        <Header/>
-                    </HomePage>
-                    <Footer/>
+                    <Header />
+                    <HomePage />
+                    <Footer />
                 </CommonLayout>
             </ProtectedRoute>
         ),

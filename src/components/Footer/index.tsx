@@ -3,6 +3,9 @@ import { Button } from "../Button"
 import { SupportingCompanies } from "./SupportingCompanies"
 
 export const Footer = () => {
+
+    const socialNetworks = ['facebook', 'in', 'Twitter', 'youtube']
+
     return (
         <div>
             <div className="container over-footer spacing-0">
@@ -12,52 +15,52 @@ export const Footer = () => {
                 </div>
                 <Button variant="secondary">Explore Properties</Button>
             </div>
-                <div className="container">
-                    <div className="footer-items">
-                        <div className="footer-items-logo">
-                            <img className="small-company-logo" src={assets["Logo"]} alt="Company Logo" />
-                            <div className="footer-send">
-                                <img className="email-icon" src={assets["Email"]} alt={assets["Email"]} />
-                                <input className="footer-send-email ad-text-medium" type="" placeholder="Enter Your Email" />
-                                <img className="send-icon" src={assets["SendMassage"]} alt={assets["SendMassage"]} />
-                            </div>
+            <div className="container">
+                <div className="footer-items">
+                    <div className="footer-items-logo">
+                        <img className="small-company-logo" src={assets["Logo"]} alt="Company Logo" />
+                        <div className="footer-send">
+                            <img className="email-icon" src={assets["Email"]} alt={assets["Email"]} />
+                            <input className="footer-send-email ad-text-medium" type="" placeholder="Enter Your Email" />
+                            <img className="send-icon" src={assets["SendMassage"]} alt={assets["SendMassage"]} />
                         </div>
-                        <ul>
-                            <li className="gray-white-color">Home</li>
-                            <li>Hero Section</li>
-                            <li>Features</li>
-                            <li>Properties</li>
-                            <li>Testimonials</li>
-                            <li>FAQ’s</li>
-                        </ul>
-                        <ul>
-                            <li className="gray-white-color">About Us</li>
-                            <li>Our Story</li>
-                            <li>Our Works</li>
-                            <li>How It Works</li>
-                            <li>Our Team</li>
-                            <li>Our Clients</li>
-                        </ul>
-                        <ul>
-                            <li className="gray-white-color">Properties</li>
-                            <li>Portfolio</li>
-                            <li>Categories</li>
-                        </ul>
-                        <ul>
-                            <li className="gray-white-color">Services</li>
-                            <li>Valuation Mastery</li>
-                            <li>Strategic Marketing</li>
-                            <li>Negotiation Wizardry</li>
-                            <li>Closing Success</li>
-                            <li>Property Management</li>
-                        </ul>
-                        <ul>
-                            <li className="gray-white-color">Contact Us</li>
-                            <li>Contact Form</li>
-                            <li>Our Offices</li>
-                        </ul>
                     </div>
+                    <ul>
+                        <li className="gray-white-color">Home</li>
+                        <li>Hero Section</li>
+                        <li>Features</li>
+                        <li>Properties</li>
+                        <li>Testimonials</li>
+                        <li>FAQ’s</li>
+                    </ul>
+                    <ul>
+                        <li className="gray-white-color">About Us</li>
+                        <li>Our Story</li>
+                        <li>Our Works</li>
+                        <li>How It Works</li>
+                        <li>Our Team</li>
+                        <li>Our Clients</li>
+                    </ul>
+                    <ul>
+                        <li className="gray-white-color">Properties</li>
+                        <li>Portfolio</li>
+                        <li>Categories</li>
+                    </ul>
+                    <ul>
+                        <li className="gray-white-color">Services</li>
+                        <li>Valuation Mastery</li>
+                        <li>Strategic Marketing</li>
+                        <li>Negotiation Wizardry</li>
+                        <li>Closing Success</li>
+                        <li>Property Management</li>
+                    </ul>
+                    <ul>
+                        <li className="gray-white-color">Contact Us</li>
+                        <li>Contact Form</li>
+                        <li>Our Offices</li>
+                    </ul>
                 </div>
+            </div>
             <div className="under-footer">
                 <div className="container under-footer__contacts spacing-0">
                     <div className="under-footer__contacts-recapcha">
@@ -65,7 +68,14 @@ export const Footer = () => {
                         <span className="ad-text-medium">Terms & Conditions</span>
                     </div>
                     <div className="under-footer__social-network">
-                        <SupportingCompanies image={assets['facebook']} />
+                        {socialNetworks.map((item, index) => {
+                            return (
+                                <SupportingCompanies
+                                    key={index}
+                                    image={assets[item]}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </div>

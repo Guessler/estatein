@@ -1,9 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { assets } from "../utils/exports/directories/assets";
 import { Button } from "../components/Button";
 import { Option } from "../components/Option";
 import { OptionsWrapper } from "../components/Option/OptionsWrapper";
-import { IChildren } from "../types/interfaces";
 import { AnimatedBox } from "../components/common/AnimatedBox";
 import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
@@ -13,7 +12,6 @@ import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
 import { Questions } from "../components/Questions";
-// import { Footer } from "../components/Footer";
 
 const products = [
     {
@@ -116,12 +114,10 @@ const AdBlock = ({ number, text }: { number: string; text: string }) => (
     </div>
 );
 
-export const HomePage: FC<IChildren> = ({ children }) => {
-    // State for Product Slider
+export const HomePage = () => {
     const [currentProductIndex, setCurrentProductIndex] = useState<number>(1);
     const [productDirection, setProductDirection] = useState<number>(1);
 
-    // State for Feedback Slider
     const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState<number>(1);
     const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
 
@@ -169,7 +165,6 @@ export const HomePage: FC<IChildren> = ({ children }) => {
 
     return (
         <div>
-            {children}
             <AnimatedSection
                 className="first-slide"
                 initial={{ opacity: 0 }}
@@ -198,7 +193,14 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
                     >
-                        <img className="spinning-text" src={assets['Text Container']} alt={assets['Text Container']} />
+                            <AnimatedImage
+        className="spinning-text"
+        src={assets['Text Container']}
+        alt={assets['Text Container']}
+        initial={{ rotate: 0 }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+    />
                         <div className="spinning-ad-image">
                             <img src={assets['Arrow']} alt={assets['Arrow']} />
                         </div>
@@ -352,7 +354,6 @@ export const HomePage: FC<IChildren> = ({ children }) => {
                     <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
                 </ProductSlider>
             </section>
-            {/* <Footer/> */}
         </div>
     );
 };
