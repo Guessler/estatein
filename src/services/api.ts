@@ -7,4 +7,9 @@ const api: AxiosInstance = axios.create({
     },
 });
 
+export const getProducts = async () => {
+    const response = await api.get('/products');
+    return response.data;
+};
+
 export default api;

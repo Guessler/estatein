@@ -44,10 +44,10 @@ export interface ProductDetail {
 }
 
 export interface Product {
-    productIcon: string;
-    productName: string;
-    productDescription: string;
-    productPrice: string;
+    image: string;
+    heading: string;
+    description: string;
+    price: string;
     productDetails: ProductDetail[];
 }
 
@@ -95,6 +95,6 @@ export interface IProduct extends IChildren {
     onClickPrev?: React.MouseEventHandler;
 }
 
-export type ProductSummary = Pick<Product, "productIcon" | "productName" | "productPrice">;
+export type ProductSummary = Pick<Product, "image" | "heading" | "price">;
 
 export type ProductWithoutDescription = Omit<Product, "productDescription">;

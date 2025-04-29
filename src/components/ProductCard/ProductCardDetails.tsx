@@ -3,7 +3,6 @@ import { FC, ReactNode } from "react"
 interface IProductDetailsChilds {
     productCharacteristicIcon?: string | undefined,
     productCharacteristic?: ReactNode,
-
 }
 
 export const ProductCardDetails: FC<IProductDetailsChilds> = ({ productCharacteristicIcon, productCharacteristic }) => {

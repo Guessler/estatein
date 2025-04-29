@@ -22,7 +22,7 @@ export const ProductCard: FC<IProductChildren> = ({ productIcon, productName, pr
             <div className="product-card__price">
                 <div className="product-card__price-container">
                     <span className="description-text">Price</span>
-                    <b className="card-heading-text">{productPrice}</b>
+                    <b className="card-heading-text">${productPrice}</b>
                 </div>
                 <Button
                     variant="secondary"

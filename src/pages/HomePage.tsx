@@ -8,63 +8,20 @@ import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
 import { ProductCard } from "../components/ProductCard";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
+import { Product } from "../types/interfaces";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
 import { Questions } from "../components/Questions";
 
-const products = [
-    {
-        productIcon: "Image-1",
-        productName: "Metropolitan Haven",
-        productDescription: "A chic and fully-furnished 2-bedroom apartment with panoramic city views",
-        productPrice: "$550,000",
-        productDetails: [
-            {
-                productCharacteristicIcon: "Villa",
-                productCharacteristic: "Villa",
-            },
-        ],
-    },
-    {
-        productIcon: "Image-2",
-        productName: "Urban Retreat",
-        productDescription: "A modern studio apartment located in the heart of the city",
-        productPrice: "$320,000",
-        productDetails: [
-            {
-                productCharacteristicIcon: "Apartment",
-                productCharacteristic: "Apartment",
-            },
-            {
-                productCharacteristicIcon: "Parking",
-                productCharacteristic: "Parking Available",
-            },
-        ],
-    },
-    {
-        productIcon: "Image",
-        productName: "Seaside Serenity Villa",
-        productDescription: "A stunning 4-bedroom, 3-bathroom villa in a peaceful suburban neighborhood",
-        productPrice: "$550,000",
-        productDetails: [
-            {
-                productCharacteristicIcon: "Apartment",
-                productCharacteristic: "Apartment",
-            },
-            {
-                productCharacteristicIcon: "Parking",
-                productCharacteristic: "Parking Available",
-            },
-        ],
-    },
-];
+import { useQuery } from "@tanstack/react-query";
+import { fetchProducts } from "../services/products"
 
 const feedbacks = [
     {
         heading: "Metropolitan Haven",
         description:
-            "I fell in love with this apartment at first sight! Two spacious bedrooms, modern furniture, and panoramic windows with stunning city views—what more could you ask for? Every evening, I enjoy breathtaking sunsets over the horizon. I’ve been living here for six months now, and every day feels like staying in a premium hotel. Thank you for such a cozy and stylish home!",
+            "I fell in love with this apartment at first sight! Two spacious bedrooms, modern furniture, and panoramic windows with stunning city views—what more could you ask for? Every evening, I enjoy breathtaking sunsets over the horizon. I've been living here for six months now, and every day feels like staying in a premium hotel. Thank you for such a cozy and stylish home!",
         userName: "Sarah Johnson",
         userLocation: "San Francisco, CA",
     },
@@ -78,7 +35,7 @@ const feedbacks = [
     {
         heading: "Seaside Serenity Villa",
         description:
-            "Our new seaside villa is nothing short of paradise! This spacious 4-bedroom, 3-bathroom home is absolutely perfect for our family. We love spending evenings on the terrace, listening to the sound of the waves and enjoying the fresh ocean breeze. And the neighborhood! Quiet, green, and incredibly friendly. This place embodies tranquility and luxury. We’ve finally found our dream home!",
+            "Our new seaside villa is nothing short of paradise! This spacious 4-bedroom, 3-bathroom home is absolutely perfect for our family. We love spending evenings on the terrace, listening to the sound of the waves and enjoying the fresh ocean breeze. And the neighborhood! Quiet, green, and incredibly friendly. This place embodies tranquility and luxury. We've finally found our dream home!",
         userName: "Emily Davis",
         userLocation: "Miami, FL",
     },
@@ -87,25 +44,41 @@ const feedbacks = [
 const faq = [
     {
         heading: "What services does Estatein offer?",
-        description: "Estatein provides a comprehensive range of real estate services, including property listings, market analysis, and property management.",
+        description:
+            "Estatein provides a comprehensive range of real estate services, including property listings, market analysis, and property management.",
     },
     {
         heading: "How can I schedule a property viewing?",
-        description: "You can schedule a property viewing by contacting our agents through the website or by calling our office directly.",
+        description:
+            "You can schedule a property viewing by contacting our agents through the website or by calling our office directly.",
     },
     {
         heading: "What are the fees associated with buying a property?",
-        description: "Fees may vary depending on the property and location, but typically include closing costs, inspection fees, and real estate agent commissions.",
+        description:
+            "Fees may vary depending on the property and location, but typically include closing costs, inspection fees, and real estate agent commissions.",
     },
     {
         heading: "Can I sell my property through Estatein?",
-        description: "Yes, Estatein offers services for property sellers, including market evaluations and listing on our platform.",
+        description:
+            "Yes, Estatein offers services for property sellers, including market evaluations and listing on our platform.",
     },
     {
         heading: "Is financing available for purchasing a property?",
-        description: "Yes, we can connect you with trusted mortgage lenders to help you secure financing for your property purchase.",
+        description:
+            "Yes, we can connect you with trusted mortgage lenders to help you secure financing for your property purchase.",
     },
 ];
+
+// interface Product {
+//     heading: string;
+//     description: string;
+//     price: number;
+//     image: string;
+//     productDetails: {
+//         productCharacteristicIcon: string;
+//         productCharacteristic: string;
+//     }[];
+// }
 
 const AdBlock = ({ number, text }: { number: string; text: string }) => (
     <div className="ad-blocks">
@@ -115,17 +88,18 @@ const AdBlock = ({ number, text }: { number: string; text: string }) => (
 );
 
 export const HomePage = () => {
+    const [products, setProducts] = useState<Product[]>([]);
     const [currentProductIndex, setCurrentProductIndex] = useState<number>(1);
     const [productDirection, setProductDirection] = useState<number>(1);
-
     const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState<number>(1);
     const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
-
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
 
     const handleResize = () => {
         setIsMobile(window.innerWidth < 1596);
     };
+
+    console.log("Products: ", products)
 
     useEffect(() => {
         window.addEventListener("resize", handleResize);
@@ -134,7 +108,28 @@ export const HomePage = () => {
         };
     }, []);
 
-    // Product Slider Handlers
+    // const { data: fetchedProductsData } = useQuery({
+    //     queryKey: ['fetchProducts'],
+    //     queryFn: fetchProducts
+    // });
+    const { data: fetchedProductsData, error, isLoading } = useQuery({
+        queryKey: ['fetchProducts'],
+        queryFn: fetchProducts,
+    });
+    console.log("Loading:", isLoading);
+    console.log("Error:", error);
+
+
+    useEffect(() => {
+        if (fetchedProductsData) {
+            setProducts(fetchedProductsData);
+        }
+    }, [fetchedProductsData]);
+
+    console.log("1477", fetchedProductsData)
+
+
+
     const handleNextProduct = () => {
         setProductDirection(1);
         setCurrentProductIndex((prev) =>
@@ -144,9 +139,7 @@ export const HomePage = () => {
 
     const handlePrevProduct = () => {
         setProductDirection(-1);
-        setCurrentProductIndex((prev) =>
-            prev <= 1 ? 1 : prev - 1
-        );
+        setCurrentProductIndex((prev) => (prev <= 1 ? 1 : prev - 1));
     };
 
     const handleNextFeedback = () => {
@@ -158,9 +151,7 @@ export const HomePage = () => {
 
     const handlePrevFeedback = () => {
         setFeedbackDirection(-1);
-        setCurrentFeedbackIndex((prev) =>
-            prev <= 1 ? 1 : prev - 1
-        );
+        setCurrentFeedbackIndex((prev) => (prev <= 1 ? 1 : prev - 1));
     };
 
     return (
@@ -173,16 +164,16 @@ export const HomePage = () => {
             >
                 <div className="apartaments-container">
                     <AnimatedImage
-                        src={assets['Group']}
-                        alt={assets['Group']}
+                        src={assets["Group"]}
+                        alt={assets["Group"]}
                         initial={{ opacity: 0, x: -100 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
                     />
                     <AnimatedImage
                         className="apartments"
-                        src={assets['Image-apartments']}
-                        alt={assets['Image-apartments']}
+                        src={assets["Image-apartments"]}
+                        alt={assets["Image-apartments"]}
                         initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.6 }}
@@ -195,14 +186,14 @@ export const HomePage = () => {
                     >
                         <AnimatedImage
                             className="spinning-text"
-                            src={assets['Text Container']}
-                            alt={assets['Text Container']}
+                            src={assets["Text Container"]}
+                            alt={assets["Text Container"]}
                             initial={{ rotate: 0 }}
                             animate={{ rotate: 360 }}
                             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                         />
                         <div className="spinning-ad-image">
-                            <img src={assets['Arrow']} alt={assets['Arrow']} />
+                            <img src={assets["Arrow"]} alt={assets["Arrow"]} />
                         </div>
                     </AnimatedBox>
                 </div>
@@ -228,7 +219,8 @@ export const HomePage = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8, delay: 1.4 }}
                             >
-                                Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.
+                                Your journey to finding the perfect property begins here. Explore
+                                our listings to find the home that matches your dreams.
                             </AnimatedBox>
                         </div>
                         <AnimatedBox
@@ -262,18 +254,21 @@ export const HomePage = () => {
                 transition={{ duration: 1, delay: 2 }}
             >
                 <OptionsWrapper>
-                    <Option text={"Find Your Dream Home"} middleImage={assets['shop']} />
-                    <Option text={"Unlock Property Value"} middleImage={assets['camera']} />
-                    <Option text={"Effortless Property Management"} middleImage={assets['Management']} />
-                    <Option text={"Smart Investments, Informed Decisions"} middleImage={assets['Smart-Investments']} />
+                    <Option text={"Find Your Dream Home"} middleImage={assets["shop"]} />
+                    <Option text={"Unlock Property Value"} middleImage={assets["camera"]} />
+                    <Option
+                        text={"Effortless Property Management"}
+                        middleImage={assets["Management"]}
+                    />
+                    <Option
+                        text={"Smart Investments, Informed Decisions"}
+                        middleImage={assets["Smart-Investments"]}
+                    />
                 </OptionsWrapper>
             </AnimatedSection>
 
-            <section className="container products-slide" style={{ display: "flex", flexDirection: "column" }}>
-                <div>
-                    <h2 className="second-heading">Featured Properties</h2>
-                    <p className="description-text">Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click "View Details" for more information.</p>
-                </div>
+            <section className="container products-slide">
+                <h2 className="second-heading">Featured Properties</h2>
                 <Slider
                     products={products}
                     currentIndex={currentProductIndex}
@@ -282,15 +277,15 @@ export const HomePage = () => {
                     handlePrev={handlePrevProduct}
                     isMobile={isMobile}
                 >
-                    {products.slice(currentProductIndex - 1, isMobile ? currentProductIndex : currentProductIndex + 2).map((item, index) => (
+                    {products.map((product, index) => (
                         <ProductCard
                             key={index}
-                            productIcon={assets[item.productIcon]}
-                            productName={item.productName}
-                            productDescription={item.productDescription}
-                            productPrice={item.productPrice}
+                            productIcon={assets[product.image]}
+                            productName={product.heading}
+                            productDescription={product.description}
+                            productPrice={product.price}
                         >
-                            {item.productDetails.map((detail, detailIndex) => (
+                            {product.productDetails?.map((detail, detailIndex) => (
                                 <ProductCardDetails
                                     key={detailIndex}
                                     productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
@@ -300,15 +295,27 @@ export const HomePage = () => {
                         </ProductCard>
                     ))}
                 </Slider>
-                <ProductSlider currentPage={currentProductIndex} lastPage={products.length} onClickNext={handleNextProduct} onClickPrev={handlePrevProduct}>
-                    <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
+                <ProductSlider
+                    currentPage={currentProductIndex}
+                    lastPage={products.length}
+                    onClickNext={handleNextProduct}
+                    onClickPrev={handlePrevProduct}
+                >
+                    <img src={assets["Vector (Stroke)"]} alt={assets["Vector (Stroke)"]} />
                 </ProductSlider>
             </section>
 
-            <section className="container products-slide" style={{ display: "flex", flexDirection: "column" }}>
+            <section
+                className="container products-slide"
+                style={{ display: "flex", flexDirection: "column" }}
+            >
                 <div>
                     <h2 className="second-heading">What Our Clients Say</h2>
-                    <p className="description-text">Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs.</p>
+                    <p className="description-text">
+                        Read the success stories and heartfelt testimonials from our valued
+                        clients. Discover why they chose Estatein for their real estate
+                        needs.
+                    </p>
                 </div>
                 <Slider
                     products={products}
@@ -318,22 +325,36 @@ export const HomePage = () => {
                     handlePrev={handlePrevFeedback}
                     isMobile={isMobile}
                 >
-                    {feedbacks.slice(currentFeedbackIndex - 1, isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2).map((feedback, index) => (
-                        <Feedback
-                            key={index}
-                            text={feedback}
-                        />
-                    ))}
+                    {feedbacks
+                        .slice(
+                            currentFeedbackIndex - 1,
+                            isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2
+                        )
+                        .map((feedback, index) => (
+                            <Feedback key={index} text={feedback} />
+                        ))}
                 </Slider>
-                <ProductSlider currentPage={currentFeedbackIndex} lastPage={feedbacks.length} onClickNext={handleNextFeedback} onClickPrev={handlePrevFeedback}>
-                    <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
+                <ProductSlider
+                    currentPage={currentFeedbackIndex}
+                    lastPage={feedbacks.length}
+                    onClickNext={handleNextFeedback}
+                    onClickPrev={handlePrevFeedback}
+                >
+                    <img src={assets["Vector (Stroke)"]} alt={assets["Vector (Stroke)"]} />
                 </ProductSlider>
             </section>
 
-            <section className="container products-slide" style={{ display: "flex", flexDirection: "column" }}>
+            <section
+                className="container products-slide"
+                style={{ display: "flex", flexDirection: "column" }}
+            >
                 <div>
                     <h2 className="second-heading">Frequently Asked Questions</h2>
-                    <p className="description-text">Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way.</p>
+                    <p className="description-text">
+                        Find answers to common questions about Estatein's services, property
+                        listings, and the real estate process. We're here to provide clarity
+                        and assist you every step of the way.
+                    </p>
                 </div>
                 <Slider
                     products={products}
@@ -343,15 +364,25 @@ export const HomePage = () => {
                     handlePrev={handlePrevFeedback}
                     isMobile={isMobile}
                 >
-                    {faq.slice(currentFeedbackIndex - 1, isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2).map((item, index) => (
-                        <Questions
-                            key={index}
-                            text={{ heading: item.heading, description: item.description }}
-                        />
-                    ))}
+                    {faq
+                        .slice(
+                            currentFeedbackIndex - 1,
+                            isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2
+                        )
+                        .map((item, index) => (
+                            <Questions
+                                key={index}
+                                text={{ heading: item.heading, description: item.description }}
+                            />
+                        ))}
                 </Slider>
-                <ProductSlider currentPage={currentFeedbackIndex} lastPage={faq.length} onClickNext={handleNextFeedback} onClickPrev={handlePrevFeedback}>
-                    <img src={assets['Vector (Stroke)']} alt={assets['Vector (Stroke)']} />
+                <ProductSlider
+                    currentPage={currentFeedbackIndex}
+                    lastPage={faq.length}
+                    onClickNext={handleNextFeedback}
+                    onClickPrev={handlePrevFeedback}
+                >
+                    <img src={assets["Vector (Stroke)"]} alt={assets["Vector (Stroke)"]} />
                 </ProductSlider>
             </section>
         </div>
