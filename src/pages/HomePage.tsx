@@ -69,17 +69,6 @@ const faq = [
     },
 ];
 
-// interface Product {
-//     heading: string;
-//     description: string;
-//     price: number;
-//     image: string;
-//     productDetails: {
-//         productCharacteristicIcon: string;
-//         productCharacteristic: string;
-//     }[];
-// }
-
 const AdBlock = ({ number, text }: { number: string; text: string }) => (
     <div className="ad-blocks">
         <h3 className="ad-text-fat">{number}</h3>
@@ -108,10 +97,6 @@ export const HomePage = () => {
         };
     }, []);
 
-    // const { data: fetchedProductsData } = useQuery({
-    //     queryKey: ['fetchProducts'],
-    //     queryFn: fetchProducts
-    // });
     const { data: fetchedProductsData, error, isLoading } = useQuery({
         queryKey: ['fetchProducts'],
         queryFn: fetchProducts,
@@ -128,19 +113,42 @@ export const HomePage = () => {
 
     console.log("1477", fetchedProductsData)
 
-
+    const itemsPerPage = isMobile ? 1 : 3;
 
     const handleNextProduct = () => {
         setProductDirection(1);
-        setCurrentProductIndex((prev) =>
-            prev + 1 >= products.length ? 1 : prev + 1
-        );
+        if (isMobile) {
+            setCurrentProductIndex(prev =>
+                prev + 1 >= products.length ? 0 : prev + 1
+            );
+        } else {
+            setCurrentProductIndex(prev =>
+                prev + itemsPerPage >= products.length ? 0 : prev + itemsPerPage
+            );
+        }
     };
 
     const handlePrevProduct = () => {
         setProductDirection(-1);
-        setCurrentProductIndex((prev) => (prev <= 1 ? 1 : prev - 1));
+        if (isMobile) {
+            setCurrentProductIndex(prev =>
+                prev <= 0 ? products.length - 1 : prev - 1
+            );
+        } else {
+            setCurrentProductIndex(prev =>
+                prev <= 0 ? products.length - itemsPerPage : prev - itemsPerPage
+            );
+        }
     };
+
+
+    const currentPage = isMobile
+        ? currentProductIndex + 1
+        : Math.floor(currentProductIndex / itemsPerPage) + 1;
+
+    const totalPages = isMobile
+        ? products.length
+        : Math.ceil(products.length / itemsPerPage);
 
     const handleNextFeedback = () => {
         setFeedbackDirection(1);
@@ -276,28 +284,49 @@ export const HomePage = () => {
                     handleNext={handleNextProduct}
                     handlePrev={handlePrevProduct}
                     isMobile={isMobile}
+                    itemsToShow={3}
                 >
-                    {products.map((product, index) => (
+                    {isMobile ? (
                         <ProductCard
-                            key={index}
-                            productIcon={assets[product.image]}
-                            productName={product.heading}
-                            productDescription={product.description}
-                            productPrice={product.price}
+                            key={currentProductIndex}
+                            productIcon={assets[products[currentProductIndex]?.image]}
+                            productName={products[currentProductIndex]?.heading}
+                            productDescription={products[currentProductIndex]?.description}
+                            productPrice={products[currentProductIndex]?.price}
                         >
-                            {product.productDetails?.map((detail, detailIndex) => (
+                            {products[currentProductIndex]?.productDetails?.map((detail, i) => (
                                 <ProductCardDetails
-                                    key={detailIndex}
+                                    key={i}
                                     productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
                                     productCharacteristic={detail.productCharacteristic}
                                 />
                             ))}
                         </ProductCard>
-                    ))}
+                    ) : (
+                        products
+                            .slice(currentProductIndex, currentProductIndex + itemsPerPage)
+                            .map((product, index) => (
+                                <ProductCard
+                                    key={`${currentProductIndex}-${index}`}
+                                    productIcon={assets[product.image]}
+                                    productName={product.heading}
+                                    productDescription={product.description}
+                                    productPrice={product.price}
+                                >
+                                    {product.productDetails?.map((detail, i) => (
+                                        <ProductCardDetails
+                                            key={i}
+                                            productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
+                                            productCharacteristic={detail.productCharacteristic}
+                                        />
+                                    ))}
+                                </ProductCard>
+                            ))
+                    )}
                 </Slider>
                 <ProductSlider
-                    currentPage={currentProductIndex}
-                    lastPage={products.length}
+                    currentPage={currentPage}
+                    lastPage={totalPages}
                     onClickNext={handleNextProduct}
                     onClickPrev={handlePrevProduct}
                 >

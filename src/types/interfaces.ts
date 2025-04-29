@@ -9,6 +9,7 @@ export interface IButtonProps extends IChildren {
     variant?: "primary" | "secondary" | "circle-button";
     onClick?: React.MouseEventHandler;
     className?: string;
+    disabled?: boolean;
 }
 
 export interface FeedbackText {

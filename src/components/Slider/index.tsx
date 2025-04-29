@@ -1,35 +1,40 @@
 import { AnimatedBox } from "../common/AnimatedBox";
 import { FC } from "react";
-import { SliderProps} from "../../types/interfaces"
+import { SliderProps } from "../../types/interfaces"
 
 export const Slider: FC<SliderProps> = ({
     products,
     currentIndex,
     direction,
     isMobile,
-    itemsToShow = 2,
+    itemsToShow = 3,
     children
 }) => {
     const visibleItems = isMobile ? 1 : itemsToShow;
-    const endIndex = Math.min(currentIndex + visibleItems - 1, products.length);
+    
+    const animationKey = isMobile 
+        ? `mobile-${currentIndex}`
+        : `desktop-${currentIndex}-${Math.min(currentIndex + visibleItems - 1, products.length - 1)}`;
 
     return (
-        <AnimatedBox
-            className="products"
-            key={`${currentIndex}-${endIndex}`}
-            initial={{
-                x: direction > 0 ? 50 : -50,
-                opacity: 0
-            }}
-            animate={{
-                x: 0,
-                opacity: 1
-            }}
-            transition={{
-                duration: 0.6,
-            }}
-        >
-            {children}
-        </AnimatedBox>
+        <div className="slider-container">
+            <AnimatedBox
+                className="products"
+                key={animationKey}
+                initial={{
+                    x: direction > 0 ? (isMobile ? 100 : 50) : (isMobile ? -100 : -50),
+                    opacity: 0
+                }}
+                animate={{
+                    x: 0,
+                    opacity: 1
+                }}
+                transition={{
+                    duration: 0.6,
+                }}
+            >
+                {children}
+            </AnimatedBox>
+        </div>
     );
 };
