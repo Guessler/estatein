@@ -1,24 +1,32 @@
 import { Request, Response } from 'express';
-import pool from '../db';
+import pool from '../models/db';
 
 export const getProducts = async (req: Request, res: Response) => {
     try {
-        const { rows: products } = await pool.query('SELECT * FROM products');
+        const { rows: products } = await pool.query(
+            'SELECT * FROM PRODUCTS'
+        );
         res.json(products);
+
+        console.log('SQL query result:', products);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
 
-export const createProduct = async (req: Request, res: Response) => {
+
+
+
+export const updateProduct = async (req: Request, res: Response) => {
     try {
+        const { productId } = req.params;
         const { name, description, price } = req.body;
-        const { rows: [newProduct] } = await pool.query(
-            'INSERT INTO products (name, description, price) VALUES ($1, $2, $3) RETURNING *',
-            [name, description, price]
+        const { rows: [updatedProduct] } = await pool.query(
+            'UPDATE PRODUCTS SET NAME = $1, DESCRIPTION = $2, PRICE = $3, UPDATED_AT = CURRENT_TIMESTAMP WHERE PRODUCT_ID = $4 RETURNING *',
+            [name, description, price, productId]
         );
-        res.status(201).json(newProduct);
+        res.json(updatedProduct);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
