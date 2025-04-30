@@ -12,15 +12,28 @@ export interface IButtonProps extends IChildren {
     disabled?: boolean;
 }
 
+export interface IFeedbackFromDB {
+    feedback_id: string;
+    star_count: number;
+    heading: string;
+    description: string;
+    user_name: string;
+    user_location: string;
+    created_at?: string;
+    icon: string;
+}
+
 export interface FeedbackText {
     heading: string;
     description: string;
     userName: string;
     userLocation: string;
+    userIcon: string;
+    stars: number;
 }
 
 export interface FeedbackData {
-    text?: FeedbackText;
+    text: FeedbackText;
 }
 
 export interface IOption {
@@ -52,6 +65,12 @@ export interface Product {
     productDetails: ProductDetail[];
 }
 
+export interface IQuestionFromDB {
+    question_id: number;
+    heading: string;
+    description: string;
+};
+
 export interface ProductDTO {
     icon: string;
     name: string;
@@ -60,8 +79,8 @@ export interface ProductDTO {
     details: ProductDetail[];
 }
 
-export interface SliderProps {
-    products: Product[];
+export interface SliderProps<T> {
+    items: T[];
     currentIndex: number;
     direction: number;
     handleNext: () => void;

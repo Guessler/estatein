@@ -8,66 +8,16 @@ import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
 import { ProductCard } from "../components/ProductCard";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
-import { Product } from "../types/interfaces";
+import { FeedbackText, IFeedbackFromDB, IQuestionFromDB, Product } from "../types/interfaces";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
 import { Questions } from "../components/Questions";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../services/products"
-
-const feedbacks = [
-    {
-        heading: "Metropolitan Haven",
-        description:
-            "I fell in love with this apartment at first sight! Two spacious bedrooms, modern furniture, and panoramic windows with stunning city views—what more could you ask for? Every evening, I enjoy breathtaking sunsets over the horizon. I've been living here for six months now, and every day feels like staying in a premium hotel. Thank you for such a cozy and stylish home!",
-        userName: "Sarah Johnson",
-        userLocation: "San Francisco, CA",
-    },
-    {
-        heading: "Urban Retreat",
-        description:
-            "This is exactly what I was looking for: a stylish and convenient studio right in the heart of the city. I can walk to work and cafes in minutes, yet the apartment remains quiet and cozy despite the bustling neighborhood. The modern design and thoughtful layout make it the perfect place to live. If you value comfort and proximity to an active urban lifestyle, this is your spot!",
-        userName: "Michael Brown",
-        userLocation: "Chicago, IL",
-    },
-    {
-        heading: "Seaside Serenity Villa",
-        description:
-            "Our new seaside villa is nothing short of paradise! This spacious 4-bedroom, 3-bathroom home is absolutely perfect for our family. We love spending evenings on the terrace, listening to the sound of the waves and enjoying the fresh ocean breeze. And the neighborhood! Quiet, green, and incredibly friendly. This place embodies tranquility and luxury. We've finally found our dream home!",
-        userName: "Emily Davis",
-        userLocation: "Miami, FL",
-    },
-];
-
-const faq = [
-    {
-        heading: "What services does Estatein offer?",
-        description:
-            "Estatein provides a comprehensive range of real estate services, including property listings, market analysis, and property management.",
-    },
-    {
-        heading: "How can I schedule a property viewing?",
-        description:
-            "You can schedule a property viewing by contacting our agents through the website or by calling our office directly.",
-    },
-    {
-        heading: "What are the fees associated with buying a property?",
-        description:
-            "Fees may vary depending on the property and location, but typically include closing costs, inspection fees, and real estate agent commissions.",
-    },
-    {
-        heading: "Can I sell my property through Estatein?",
-        description:
-            "Yes, Estatein offers services for property sellers, including market evaluations and listing on our platform.",
-    },
-    {
-        heading: "Is financing available for purchasing a property?",
-        description:
-            "Yes, we can connect you with trusted mortgage lenders to help you secure financing for your property purchase.",
-    },
-];
+import { fetchProducts } from "../services/products";
+import { fetchFeedbacks } from "../services/feedbacks";
+import { fetchQuestions } from "../services/questions";
 
 const AdBlock = ({ number, text }: { number: string; text: string }) => (
     <div className="ad-blocks">
@@ -76,19 +26,22 @@ const AdBlock = ({ number, text }: { number: string; text: string }) => (
     </div>
 );
 
+export interface QuestionText {
+    heading: string;
+    description: string;
+}
+
 export const HomePage = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [currentProductIndex, setCurrentProductIndex] = useState<number>(1);
     const [productDirection, setProductDirection] = useState<number>(1);
-    const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState<number>(1);
+    // const [currentFeedbackIndex] = useState<number>(1);
     const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
 
     const handleResize = () => {
         setIsMobile(window.innerWidth < 1596);
     };
-
-    console.log("Products: ", products)
 
     useEffect(() => {
         window.addEventListener("resize", handleResize);
@@ -97,21 +50,21 @@ export const HomePage = () => {
         };
     }, []);
 
-    const { data: fetchedProductsData, error, isLoading } = useQuery({
+    const { data: fetchedProductsData } = useQuery({
         queryKey: ['fetchProducts'],
         queryFn: fetchProducts,
     });
-    console.log("Loading:", isLoading);
-    console.log("Error:", error);
 
+    const { data: feedbacks = [] } = useQuery({
+        queryKey: ['fetchFeedbacks'],
+        queryFn: fetchFeedbacks,
+    });
 
     useEffect(() => {
         if (fetchedProductsData) {
             setProducts(fetchedProductsData);
         }
     }, [fetchedProductsData]);
-
-    console.log("1477", fetchedProductsData)
 
     const itemsPerPage = isMobile ? 1 : 3;
 
@@ -140,8 +93,6 @@ export const HomePage = () => {
             );
         }
     };
-
-
     const currentPage = isMobile
         ? currentProductIndex + 1
         : Math.floor(currentProductIndex / itemsPerPage) + 1;
@@ -150,17 +101,62 @@ export const HomePage = () => {
         ? products.length
         : Math.ceil(products.length / itemsPerPage);
 
+
+    const transformFeedbackData = (dbFeedback: IFeedbackFromDB): FeedbackText => ({
+        heading: dbFeedback.heading,
+        description: dbFeedback.description,
+        userName: dbFeedback.user_name,
+        userLocation: dbFeedback.user_location,
+        stars: dbFeedback.star_count,
+        userIcon: dbFeedback.icon,
+    });
+
+
+
+    const [currentFeedbackPage, setCurrentFeedbackPage] = useState<number>(0);
+
+    const feedbacksPerPage = isMobile ? 1 : 3;
+
     const handleNextFeedback = () => {
         setFeedbackDirection(1);
-        setCurrentFeedbackIndex((prev) =>
-            prev + 1 >= feedbacks.length ? 1 : prev + 1
+        setCurrentFeedbackPage(prev =>
+            (prev + 1) * feedbacksPerPage >= feedbacks.length ? 0 : prev + 1
         );
     };
 
     const handlePrevFeedback = () => {
         setFeedbackDirection(-1);
-        setCurrentFeedbackIndex((prev) => (prev <= 1 ? 1 : prev - 1));
+        setCurrentFeedbackPage(prev =>
+            prev <= 0 ? Math.ceil(feedbacks.length / feedbacksPerPage) - 1 : prev - 1
+        );
     };
+
+
+
+    const { data: questions = [] } = useQuery<IQuestionFromDB[]>({
+        queryKey: ['fetchQuestions'],
+        queryFn: fetchQuestions,
+    });
+
+    const [currentQuestionPage, setCurrentQuestionPage] = useState<number>(0);
+    const questionsPerPage = isMobile ? 1 : 3;
+
+    const handleNextQuestion = () => {
+        setCurrentQuestionPage(prev =>
+            (prev + 1) * questionsPerPage >= questions.length ? 0 : prev + 1
+        );
+    };
+
+    const handlePrevQuestion = () => {
+        setCurrentQuestionPage(prev =>
+            prev <= 0 ? Math.ceil(questions.length / questionsPerPage) - 1 : prev - 1
+        );
+    };
+
+    const transformQuestionData = (dbQuestion: IQuestionFromDB): QuestionText => ({
+        heading: dbQuestion.heading,
+        description: dbQuestion.description,
+    });
 
     return (
         <div>
@@ -347,8 +343,8 @@ export const HomePage = () => {
                     </p>
                 </div>
                 <Slider
-                    products={products}
-                    currentIndex={currentFeedbackIndex}
+                    products={feedbacks}
+                    currentIndex={currentFeedbackPage * feedbacksPerPage}
                     direction={feedbackDirection}
                     handleNext={handleNextFeedback}
                     handlePrev={handlePrevFeedback}
@@ -356,20 +352,24 @@ export const HomePage = () => {
                 >
                     {feedbacks
                         .slice(
-                            currentFeedbackIndex - 1,
-                            isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2
+                            currentFeedbackPage * feedbacksPerPage,
+                            currentFeedbackPage * feedbacksPerPage + feedbacksPerPage
                         )
-                        .map((feedback, index) => (
-                            <Feedback key={index} text={feedback} />
+                        .map((dbFeedback: IFeedbackFromDB) => (
+                            <Feedback
+                                key={dbFeedback.feedback_id}
+                                text={transformFeedbackData(dbFeedback)}
+                            />
                         ))}
                 </Slider>
+
                 <ProductSlider
-                    currentPage={currentFeedbackIndex}
-                    lastPage={feedbacks.length}
+                    currentPage={currentFeedbackPage + 1}
+                    lastPage={Math.ceil(feedbacks.length / feedbacksPerPage)}
                     onClickNext={handleNextFeedback}
                     onClickPrev={handlePrevFeedback}
                 >
-                    <img src={assets["Vector (Stroke)"]} alt={assets["Vector (Stroke)"]} />
+                    <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>
             </section>
 
@@ -386,32 +386,32 @@ export const HomePage = () => {
                     </p>
                 </div>
                 <Slider
-                    products={products}
-                    currentIndex={currentFeedbackIndex}
+                    products={questions}
+                    currentIndex={currentQuestionPage * questionsPerPage}
                     direction={feedbackDirection}
-                    handleNext={handleNextFeedback}
-                    handlePrev={handlePrevFeedback}
+                    handleNext={handleNextQuestion}
+                    handlePrev={handlePrevQuestion}
                     isMobile={isMobile}
                 >
-                    {faq
+                    {questions
                         .slice(
-                            currentFeedbackIndex - 1,
-                            isMobile ? currentFeedbackIndex : currentFeedbackIndex + 2
+                            currentQuestionPage * questionsPerPage,
+                            currentQuestionPage * questionsPerPage + questionsPerPage
                         )
-                        .map((item, index) => (
+                        .map((dbQuestion) => (
                             <Questions
-                                key={index}
-                                text={{ heading: item.heading, description: item.description }}
+                                key={dbQuestion.question_id}
+                                text={transformQuestionData(dbQuestion)}
                             />
                         ))}
                 </Slider>
                 <ProductSlider
-                    currentPage={currentFeedbackIndex}
-                    lastPage={faq.length}
-                    onClickNext={handleNextFeedback}
-                    onClickPrev={handlePrevFeedback}
+                    currentPage={currentQuestionPage + 1}
+                    lastPage={Math.ceil(questions.length / questionsPerPage)}
+                    onClickNext={handleNextQuestion}
+                    onClickPrev={handlePrevQuestion}
                 >
-                    <img src={assets["Vector (Stroke)"]} alt={assets["Vector (Stroke)"]} />
+                    <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>
             </section>
         </div>

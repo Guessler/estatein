@@ -285,3 +285,18 @@
 .first-container {
     @include size(default, 760px);
 }
+
+
+.product-card__image{
+    @include size(default, 100%, 312px);
+    border-radius: 10px;
+}
+
+.star-container{
+    @include flex(on, $gap: 10px);
+}
+
+.user-avatar{
+    @include size(default, 60px, 60px);
+    border-radius: 50%;
+}
