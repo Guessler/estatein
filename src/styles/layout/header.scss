@@ -38,3 +38,20 @@ header{
         background-color: get-color(gray, slate_gray);
     }
 }
+
+
+
+.mobile-menu {
+    @include position(absolute, (top, right), 100px, 0px);
+    @include size(default, 100%);
+}
+
+
+.mobile-header-items {
+    @include flex(on, null, space-between);
+
+}
+
+.mobile-header-item {
+    @include spacing(padding, (x, y), 10px, 15px);
+}

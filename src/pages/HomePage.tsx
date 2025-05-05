@@ -35,7 +35,6 @@ export const HomePage = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [currentProductIndex, setCurrentProductIndex] = useState<number>(1);
     const [productDirection, setProductDirection] = useState<number>(1);
-    // const [currentFeedbackIndex] = useState<number>(1);
     const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
 
@@ -271,7 +270,7 @@ export const HomePage = () => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            <section className="container products-slide">
+            <AnimatedSection className="container products-slide">
                 <h2 className="second-heading">Featured Properties</h2>
                 <Slider
                     products={products}
@@ -328,11 +327,10 @@ export const HomePage = () => {
                 >
                     <img src={assets["Vector (Stroke)"]} alt={assets["Vector (Stroke)"]} />
                 </ProductSlider>
-            </section>
+            </AnimatedSection>
 
-            <section
+            <AnimatedSection
                 className="container products-slide"
-                style={{ display: "flex", flexDirection: "column" }}
             >
                 <div>
                     <h2 className="second-heading">What Our Clients Say</h2>
@@ -371,11 +369,10 @@ export const HomePage = () => {
                 >
                     <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>
-            </section>
+            </AnimatedSection>
 
-            <section
+            <AnimatedSection
                 className="container products-slide"
-                style={{ display: "flex", flexDirection: "column" }}
             >
                 <div>
                     <h2 className="second-heading">Frequently Asked Questions</h2>
@@ -413,7 +410,7 @@ export const HomePage = () => {
                 >
                     <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>
-            </section>
+            </AnimatedSection>
         </div>
     );
 };

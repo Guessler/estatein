@@ -31,7 +31,7 @@ export const Header = () => {
 
     return (
         <header>
-            <div className="header-container">
+            <div className="header-container" style={{position: "relative"}}>
                 <img src={assets["Logo"]} alt="Company Logo" />
                 
                 {!isMobileView ? (
@@ -62,20 +62,18 @@ export const Header = () => {
                                 <nav>
                                     <ul className="mobile-header-items">
                                         {navItems.map((item, index) => (
-                                            <li key={index} className="mobile-header-item">
+                                            <li key={index} className="mobile-header-item header-items-text">
                                                 {item}
                                             </li>
                                         ))}
                                     </ul>
                                 </nav>
-                                <Button>
-                                    Contact Us
-                                </Button>
                             </div>
                         )}
                     </>
                 )}
             </div>
+
         </header>
     );
 };
