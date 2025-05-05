@@ -1,8 +1,75 @@
 @use "../utils/function" as *;
+@use "../utils/mixins" as *; 
+@use "../utils/maps" as *;
 
 body {
     background-color: get-color(gray, dark_gray);
 }
 .cursor-p{
     cursor: pointer;
+}
+
+.first-slide__buttons {
+    @include flex(on, $gap: 20px);
+
+    @include respond-to(desktop) {
+        @include flex(on, column, $gap: 16px);
+    }
+}
+
+
+.slider-component-wrapper {
+    background-color: get-color(gray, charcoal);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 12px;
+
+    @include size(max, 512px);
+    @include flex(on, column, $gap: 40px);
+    @include spacing(padding, all, 50px);
+
+    @include respond-to(desktop) {
+        @include spacing(padding, all, 30px);
+        @include flex($gap: 24px);
+    }
+}
+
+
+.star-border {
+    background-color: get-color(gray, charcoal);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 50%;
+    @include size(max, 44px);
+    @include spacing(padding, all, 10px);
+}
+
+
+.star-container{
+    @include flex(on, $gap: 10px);
+}
+
+
+
+.user-avatar {
+    @include size(default, 60px, 60px);
+    border-radius: 50%;
+}
+
+
+
+.feedback-user {
+    @include flex(on, $gap: 12px);
+}
+
+
+.products-slide {
+    @include flex(on, column, $gap: 80px);
+}
+
+
+.rotated-arrow {
+    transform: rotate(180deg);
+}
+
+.text-spacing {
+    @include flex(on, column, $gap: 14px);
 }

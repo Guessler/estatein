@@ -16,7 +16,7 @@
     @include spacing(margin, x, auto);
     @include spacing(padding, y, 140px);
     @include size(default, 1596px);
-    
+
     @include respond-to(desktop) {
         @include flex(on, column);
         @include spacing(padding, y, 40px);
@@ -80,13 +80,7 @@
     }
 }
 
-.first-slide__buttons {
-    @include flex(on, $gap: 20px);
 
-    @include respond-to(desktop) {
-        @include flex(on, column, $gap: 16px);
-    }
-}
 
 .spinning-ad {
     @include spacing(padding, x, y, 35px, 35px);
@@ -239,64 +233,32 @@
     transform: rotate(180deg);
 }
 
-.products-slide {
-    @include flex(on, column, $gap: 80px);
-}
 
-.slider-component-wrapper {
-    background-color: get-color(gray, charcoal);
-    border: 1px solid get-color(gray, slate_gray);
-    border-radius: 12px;
-
-    @include size(max, 512px);
-    @include flex(on, column, $gap: 40px);
-    @include spacing(padding, all, 50px);
-
-    @include respond-to(desktop) {
-        @include spacing(padding, all, 30px);
-        @include flex($gap: 24px);
-    }
-}
-
-.rotated-arrow {
-    transform: rotate(180deg);
-}
-
-.text-spacing {
-    @include flex(on, column, $gap: 14px);
-}
-
-.feedback-user {
-    @include flex(on, $gap: 12px);
-}
-
-.star-border {
-    background-color: get-color(gray, charcoal);
-    border: 1px solid get-color(gray, slate_gray);
-    border-radius: 50%;
-    @include size(max, 44px);
-    @include spacing(padding, all, 10px);
-}
-
-.spacing-0 {
-    @include spacing(padding, all, 0);
-}
 
 .first-container {
     @include size(default, 760px);
 }
 
-
-.product-card__image{
+.product-card__image {
     @include size(default, 100%, 312px);
     border-radius: 10px;
+
+    @include respond-to(desktop) {
+        @include size(min, auto, auto);
+    }
 }
 
-.star-container{
-    @include flex(on, $gap: 10px);
+
+
+.AboutUs__image-size{
+    @include size(min, 654px);
+
+    @include respond-to(desktop){
+        @include size(min, auto);
+    }
 }
 
-.user-avatar{
-    @include size(default, 60px, 60px);
-    border-radius: 50%;
+
+.spacing-0 {
+    @include spacing(padding, all, 0);
 }

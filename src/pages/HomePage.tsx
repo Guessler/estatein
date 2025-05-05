@@ -19,12 +19,8 @@ import { fetchProducts } from "../services/products";
 import { fetchFeedbacks } from "../services/feedbacks";
 import { fetchQuestions } from "../services/questions";
 
-const AdBlock = ({ number, text }: { number: string; text: string }) => (
-    <div className="ad-blocks">
-        <h3 className="ad-text-fat">{number}</h3>
-        <span className="ad-text-medium">{text}</span>
-    </div>
-);
+import { AdBlock } from "../components/adBlock"
+
 
 export interface QuestionText {
     heading: string;
