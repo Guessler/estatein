@@ -1,2 +1,35 @@
 
+@use "../utils/mixins" as *;
+@use "../utils/function" as *;
 
+.values-container {
+    background-color: get-color(gray, dark_gray);
+    @include spacing(padding, all, 40px);
+    @include flex(on, null, null, null, null, wrap, $gap: 60px);
+    border: 1px solid get-color(gray, charcoal);
+    border-radius: 12px;
+}
+
+.values{
+    @include size(default, 410px);
+    @include flex(on, column, $gap: 20px);
+}
+
+.values-wrapper{
+    @include size(default, 1000px);
+    @include spacing(padding, all, 8px);
+    border-radius: 16px;
+    background-color: get-color(gray, back_gray);
+}
+
+.row-center{
+    @include flex(on, row, null, null, center, $gap: 14px);
+}
+
+.values-section{
+    @include flex(on, row, null, null, center, $gap: 80px);
+}
+
+.values-text{
+    @include size(default, 517px)
+}

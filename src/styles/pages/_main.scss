@@ -73,3 +73,7 @@ body {
 .text-spacing {
     @include flex(on, column, $gap: 14px);
 }
+
+.row{
+    @include flex(on, row);
+}
