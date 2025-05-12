@@ -77,3 +77,7 @@ body {
 .row{
     @include flex(on, row);
 }
+
+.heading-gap{
+    @include flex(on, column, $gap: 10px)
+}

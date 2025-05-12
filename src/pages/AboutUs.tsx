@@ -4,6 +4,7 @@ import { AnimatedImage } from "../components/common/AnimatedImg"
 import { assets } from "../utils/exports/directories/assets"
 import { AnimatedBox } from "../components/common/AnimatedBox"
 import { OurValues } from "../components/OurValues"
+import { Achievements } from "../components/Achievements"
 export const AboutUs = () => {
 
     const data = [
@@ -29,6 +30,21 @@ export const AboutUs = () => {
         },
     ]
 
+    const achievementsData = [
+        {
+            heading: "3+ Years of Excellence",
+            description: "With over 3 years in the industry, we've amassed a wealth of knowledge and experience, becoming a go-to resource for all things real estate."
+        },
+        {
+            heading: "Happy Clients",
+            description: "Our greatest achievement is the satisfaction of our clients. Their success stories fuel our passion for what we do."
+        },
+        {
+            heading: "Industry Recognition",
+            description: "We've earned the respect of our peers and industry leaders, with accolades and awards that reflect our commitment to excellence."
+        },
+    ]
+
     return (
         <div>
             <AnimatedSection className="container first-slide">
@@ -43,9 +59,10 @@ export const AboutUs = () => {
                     <AnimatedImage className="apartments" src={assets['AboutUsHouse']} alt={assets['AboutUsHouse']} />
                 </div>
                 <div className="first-slide__spacing">
-                    <h1 className="heading">Our Journey</h1>
-                    <p className="description-text">Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary. Over the years, we've expanded our reach, forged valuable partnerships, and gained the trust of countless clients.</p>
-
+                    <div className="heading-gap">
+                        <h1 className="heading">Our Journey</h1>
+                        <p className="description-text">Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary. Over the years, we've expanded our reach, forged valuable partnerships, and gained the trust of countless clients.</p>
+                    </div>
                     <AnimatedBox
                         className="mobile-container "
                         initial={{ opacity: 0, y: 50 }}
@@ -73,6 +90,17 @@ export const AboutUs = () => {
                         transition={{ duration: 0.8, delay: 1.8 }}>
                         <OurValues items={data} />
                     </AnimatedBox>
+                </div>
+            </AnimatedSection>
+            <AnimatedSection className="container achivements">
+                <div className="heading-gap">
+                    <h1 className="heading">Our Achievements</h1>
+                    <p className="description-text">Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary.</p>
+                </div>
+                <div className="achievements-container">
+                    {achievementsData.map((item, index) => (
+                        <Achievements key={index} heading={item.heading} description={item.description} />
+                    ))}
                 </div>
             </AnimatedSection>
         </div>

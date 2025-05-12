@@ -44,5 +44,9 @@ $text-list: (
         "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 18px),
         "desktop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 14px),
     ),
+    "card_text": (
+        "default": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 30px),
+        "desktop": ("Urbanist", semi-bold, normal, "neutral-100", 150%, 20px)
+    )
 );
 $dynamic-text-list: ();

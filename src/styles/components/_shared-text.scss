@@ -49,6 +49,11 @@
     @include apply-text-style("switched_text");
 }
 
+.card-text{
+    color: get-color(absolute, white);
+    @include apply-text-style("card_text");
+}
+
 .gray-white-color{
     color: get-color(gray, light_gray_1) !important;
 }
