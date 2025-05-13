@@ -56,18 +56,57 @@
     }
 }
 
-.achievements-container {
+.card-container {
     @include flex(on, row, space-between, null, null, wrap, $gap: 20px);
 }
 
 .achivements-card {
     background-color: get-color(gray, dark_gray);
     border-radius: 12px;
-    @include spacing(padding, all, 50px);
-    @include size(default, 500px);
+    border: 1px solid get-color(gray, slate_gray);
+    @include spacing(padding, all, 40px);
+    @include size(default, 512px, 268px);
+
 
     @include respond-to(desktop) {
-    @include spacing(padding, all, 30px);
-    @include size(default, 100%);
+        @include spacing(padding, all, 30px);
+        @include size(default, auto, auto);
+        @include flex(on, column, center, null, null);
     }
+}
+
+.purple-line {
+    @include size(default, 1px, 64px);
+    background-color: #703bf775;
+}
+
+.card-container__line {
+    @include flex(on, $gap: 20px);
+}
+
+.purple-corner {
+    position: relative;
+    border-radius: 0 12px 12px 12px;
+    padding: 20px;
+}
+
+.purple-corner::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at left top, #703bf775 0%, transparent 60%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+.spacing {
+    @include flex(on, column, $gap: 80px)
+}
+
+.centered-text {
+    @include flex(on, null, null, null, center);
 }

@@ -6,7 +6,7 @@
 
     @include respond-to(desktop) {
         @include size(default, 358px);
-        @include spacing(padding, top, 70px);
+        @include spacing(padding, top, 70px !important);
         @include spacing(margin, x, auto);
         @include flex(on, column);
     }
@@ -14,7 +14,7 @@
 
 .container {
     @include spacing(margin, x, auto);
-    @include spacing(padding, y, 140px);
+    @include spacing(padding, y, 90px);
     @include size(default, 1596px);
 
     @include respond-to(desktop) {

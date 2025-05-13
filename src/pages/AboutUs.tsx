@@ -4,50 +4,15 @@ import { AnimatedImage } from "../components/common/AnimatedImg"
 import { assets } from "../utils/exports/directories/assets"
 import { AnimatedBox } from "../components/common/AnimatedBox"
 import { OurValues } from "../components/OurValues"
-import { Achievements } from "../components/Achievements"
+import { Card } from "../components/Card"
+import { valuesData } from "../data"
+import { achievementsData } from "../data"
+import { experienceData } from "../data"
+
 export const AboutUs = () => {
-
-    const data = [
-        {
-            heading: "Trust",
-            description: "Trust is the cornerstone of every successful real estate transaction.",
-            image: assets["starValues"]
-        },
-        {
-            heading: "Excellence",
-            description: "We set the bar high for ourselves. From the properties we list to the services we provide.",
-            image: assets["ClientValues"]
-        },
-        {
-            heading: "Client-Centric",
-            description: "Your dreams and needs are at the center of our universe. We listen, understand.",
-            image: assets["exellentValues"]
-        },
-        {
-            heading: "Our Commitment",
-            description: "We are dedicated to providing you with the highest level of service, professionalism, and support.",
-            image: assets["starValues"]
-        },
-    ]
-
-    const achievementsData = [
-        {
-            heading: "3+ Years of Excellence",
-            description: "With over 3 years in the industry, we've amassed a wealth of knowledge and experience, becoming a go-to resource for all things real estate."
-        },
-        {
-            heading: "Happy Clients",
-            description: "Our greatest achievement is the satisfaction of our clients. Their success stories fuel our passion for what we do."
-        },
-        {
-            heading: "Industry Recognition",
-            description: "We've earned the respect of our peers and industry leaders, with accolades and awards that reflect our commitment to excellence."
-        },
-    ]
-
     return (
         <div>
-            <AnimatedSection className="container first-slide">
+            <AnimatedSection className="container first-slide padding-top">
                 <div className="apartaments-container AboutUs__image-size">
                     <AnimatedImage
                         src={assets["Group"]}
@@ -56,7 +21,11 @@ export const AboutUs = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
                     />
-                    <AnimatedImage className="apartments" src={assets['AboutUsHouse']} alt={assets['AboutUsHouse']} />
+                    <AnimatedImage
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                        className="apartments" src={assets['AboutUsHouse']} alt={assets['AboutUsHouse']} />
                 </div>
                 <div className="first-slide__spacing">
                     <div className="heading-gap">
@@ -88,7 +57,7 @@ export const AboutUs = () => {
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.8 }}>
-                        <OurValues items={data} />
+                        <OurValues items={valuesData} />
                     </AnimatedBox>
                 </div>
             </AnimatedSection>
@@ -97,10 +66,36 @@ export const AboutUs = () => {
                     <h1 className="heading">Our Achievements</h1>
                     <p className="description-text">Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary.</p>
                 </div>
-                <div className="achievements-container">
+                <div className="card-container">
                     {achievementsData.map((item, index) => (
-                        <Achievements key={index} heading={item.heading} description={item.description} />
+                        <Card variant="basic" key={index} heading={item.heading} description={item.description} />
                     ))}
+                </div>
+            </AnimatedSection>
+            <AnimatedSection className="container spacing">
+                <div className="heading-gap">
+                    <h1 className="heading">Navigating the Estatein Experience</h1>
+                    <p className="description-text">At Estatein, we've designed a straightforward process to help you find and purchase your dream property with ease. Here's a step-by-step guide to how it all works.</p>
+                </div>
+                <div className="card-container">
+                    {experienceData.map((item, index) => (
+                        <div>
+                            <div className="card-container__line">
+                                <div className="purple-line"></div>
+                                <p className="switched-text centered-text">Step 0{index += 1}</p>
+                            </div>
+                            <Card variant="purple" key={index} heading={item.heading} description={item.description} />
+                        </div>
+                    ))}
+                </div>
+            </AnimatedSection>
+            <AnimatedSection className="container spacing">
+                <div className="heading-gap">
+                    <h1 className="heading">Meet the Estatein Team</h1>
+                    <p className="description-text">At Estatein, our success is driven by the dedication and expertise of our team. Get to know the people behind our mission to make your real estate dreams a reality.</p>
+                </div>
+                <div>
+                    
                 </div>
             </AnimatedSection>
         </div>

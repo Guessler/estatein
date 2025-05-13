@@ -81,3 +81,7 @@ body {
 .heading-gap{
     @include flex(on, column, $gap: 10px)
 }
+
+.padding-top{
+    @include spacing(padding, y, 140px);
+}
