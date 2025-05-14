@@ -110,3 +110,58 @@
 .centered-text {
     @include flex(on, null, null, null, center);
 }
+
+.person-card{
+    border: 1px solid get-color(gray, slate_gray);
+    @include spacing(padding, all, 30px);
+    @include flex(on, column, center,  $gap: 50px);
+    text-align: center;
+    border-radius: 12px;
+}
+
+.personal-container{
+    @include flex(on, row, space-between, $gap: 30px);
+
+    @include respond-to(desktop) {
+        @include flex(null, null, null, null, null, wrap, $gap: 20px);
+    }
+}
+
+.person-card__button {
+    background-color: get-color(purple, vivid_purple);
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+        background-color: get-color(purple, deep_purple);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+.personal-card__social{
+    border-radius: 43px;
+    @include size(default, 76px, 52px);
+    @include flex(on, null, center, null, center);
+    @include position(absolute, (top, left), 90%, 40%);
+
+}
+
+.personal-card__send{
+    border-radius: 50%;
+    @include size(default, 44px, 44px);
+
+    @include position(absolute, (right, top), 20px, 20%);
+}
+
+.person-card__relative{
+    @include position(relative);
+}
+
+.person-card__name-sayHello{
+    @include flex(on, column, $gap: 24px);
+}
+
+.questions-person-input{
+    background-color: get-color(gray, charcoal);
+    border-radius: 100px;
+    border: 1px, solid get-color(gray, slate_gray);
+    @include spacing(padding, (left, y, right), 24px, 22px, 78px);
+}

@@ -8,6 +8,8 @@ import { Card } from "../components/Card"
 import { valuesData } from "../data"
 import { achievementsData } from "../data"
 import { experienceData } from "../data"
+import { OurTeamCard } from "../components/OurTeamCard"
+import { ourPersonalDate } from "../data"
 
 export const AboutUs = () => {
     return (
@@ -94,9 +96,21 @@ export const AboutUs = () => {
                     <h1 className="heading">Meet the Estatein Team</h1>
                     <p className="description-text">At Estatein, our success is driven by the dedication and expertise of our team. Get to know the people behind our mission to make your real estate dreams a reality.</p>
                 </div>
-                <div>
-                    
+                <div className="personal-container">
+                    {ourPersonalDate.map((item, index) => (
+                        <OurTeamCard key={index} image={item.image} name={item.name} profession={item.profession} />
+                    ))}
                 </div>
+            </AnimatedSection>
+
+            <AnimatedSection>
+                <div className="heading-gap">
+                    <h1 className="heading">Meet the Estatein Team</h1>
+                    <p className="description-text">At Estatein, our success is driven by the dedication and expertise of our team. Get to know the people behind our mission to make your real estate dreams a reality.</p>
+                </div>
+                {/* <Slider>
+
+                </Slider> */}
             </AnimatedSection>
         </div>
     )

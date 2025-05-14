@@ -68,22 +68,22 @@ export const experienceData = [
 
 export const ourPersonalDate = [
     {
-        image: assets['Max'],
+        image: 'Max',
         name: "Max Mitchell",
         profession: "Founder",
     },
     {
-        image: assets['Sarah'],
+        image: 'Sarah',
         name: "Sarah Johnson",
         profession: "Chief Real Estate Officer",
     },
     {
-        image: assets['David'],
+        image: 'David',
         name: "David Brown",
         profession: "Head of Property Management",
     },
     {
-        image: assets['Michael'],
+        image: 'Michael',
         name: "Michael Turner",
         profession: "Legal Counsel",
     },
