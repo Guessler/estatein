@@ -103,15 +103,15 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
 
-            <AnimatedSection>
-                <div className="heading-gap">
+            {/* <AnimatedSection> */}
+                {/* <div className="heading-gap">
                     <h1 className="heading">Meet the Estatein Team</h1>
                     <p className="description-text">At Estatein, our success is driven by the dedication and expertise of our team. Get to know the people behind our mission to make your real estate dreams a reality.</p>
-                </div>
+                </div> */}
                 {/* <Slider>
 
                 </Slider> */}
-            </AnimatedSection>
+            {/* </AnimatedSection> */}
         </div>
     )
 }

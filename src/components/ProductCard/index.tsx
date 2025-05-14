@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Button } from "../Button";
-import {IProductChildren} from "../../types/interfaces"
+import {ProductChildren} from "../../types/interfaces"
 
 
 
-export const ProductCard: FC<IProductChildren> = ({ productIcon, productName, productDescription, productPrice, children }) => {
+export const ProductCard: FC<ProductChildren> = ({ productIcon, productName, productDescription, productPrice, children }) => {
     return (
         <div className="product-card">
             <img

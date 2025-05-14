@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { IButtonProps } from "../../types/interfaces"
+import { ButtonProps } from "../../types/interfaces"
 
-export const Button: FC<IButtonProps> = ({ children, variant = "primary", onClick, className = "", disabled }) => {
+export const Button: FC<ButtonProps> = ({ children, variant = "primary", onClick, className = "", disabled }) => {
     return (
         <button
             disabled= {disabled}

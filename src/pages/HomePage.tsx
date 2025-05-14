@@ -8,7 +8,7 @@ import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
 import { ProductCard } from "../components/ProductCard";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
-import { FeedbackText, IFeedbackFromDB, IQuestionFromDB, Product } from "../types/interfaces";
+import { FeedbackText, FeedbackFromDB, IQuestionFromDB, Product } from "../types/interfaces";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
@@ -97,7 +97,7 @@ export const HomePage = () => {
         : Math.ceil(products.length / itemsPerPage);
 
 
-    const transformFeedbackData = (dbFeedback: IFeedbackFromDB): FeedbackText => ({
+    const transformFeedbackData = (dbFeedback: FeedbackFromDB): FeedbackText => ({
         heading: dbFeedback.heading,
         description: dbFeedback.description,
         userName: dbFeedback.user_name,
@@ -269,7 +269,7 @@ export const HomePage = () => {
             <AnimatedSection className="container products-slide">
                 <h2 className="second-heading">Featured Properties</h2>
                 <Slider
-                    products={products}
+                    items={products}
                     currentIndex={currentProductIndex}
                     direction={productDirection}
                     handleNext={handleNextProduct}
@@ -337,7 +337,7 @@ export const HomePage = () => {
                     </p>
                 </div>
                 <Slider
-                    products={feedbacks}
+                    items={feedbacks}
                     currentIndex={currentFeedbackPage * feedbacksPerPage}
                     direction={feedbackDirection}
                     handleNext={handleNextFeedback}
@@ -349,7 +349,7 @@ export const HomePage = () => {
                             currentFeedbackPage * feedbacksPerPage,
                             currentFeedbackPage * feedbacksPerPage + feedbacksPerPage
                         )
-                        .map((dbFeedback: IFeedbackFromDB) => (
+                        .map((dbFeedback: FeedbackFromDB) => (
                             <Feedback
                                 key={dbFeedback.feedback_id}
                                 text={transformFeedbackData(dbFeedback)}
@@ -379,7 +379,7 @@ export const HomePage = () => {
                     </p>
                 </div>
                 <Slider
-                    products={questions}
+                    items={questions}
                     currentIndex={currentQuestionPage * questionsPerPage}
                     direction={feedbackDirection}
                     handleNext={handleNextQuestion}

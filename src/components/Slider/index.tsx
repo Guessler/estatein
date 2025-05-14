@@ -1,9 +1,9 @@
 import { AnimatedBox } from "../common/AnimatedBox";
 import { FC } from "react";
-import { SliderProps } from "../../types/interfaces"
+import { SliderProps } from "../../types/interfaces";
 
-export const Slider: FC<SliderProps> = ({
-    products,
+export const Slider: FC<SliderProps<{ id: string; name: string }>> = ({
+    items,
     currentIndex,
     direction,
     isMobile,
@@ -11,10 +11,10 @@ export const Slider: FC<SliderProps> = ({
     children
 }) => {
     const visibleItems = isMobile ? 1 : itemsToShow;
-    
+
     const animationKey = isMobile 
         ? `mobile-${currentIndex}`
-        : `desktop-${currentIndex}-${Math.min(currentIndex + visibleItems - 1, products.length - 1)}`;
+        : `desktop-${currentIndex}-${Math.min(currentIndex + visibleItems - 1, items.length - 1)}`;
 
     return (
         <div className="slider-container">

@@ -1,31 +1,33 @@
 import { TargetAndTransition, Variants } from "framer-motion";
 import { ReactNode } from "react";
 
-export interface IChildren {
+export interface Children {
     children: ReactNode;
 }
 
-export interface IButtonProps extends IChildren {
+export interface ButtonProps extends Children {
     variant?: "primary" | "secondary" | "circle-button";
     onClick?: React.MouseEventHandler;
     className?: string;
     disabled?: boolean;
 }
 
-export interface IFeedbackFromDB {
-    feedback_id: string;
-    star_count: number;
+
+interface BaseEntity {
     heading: string;
     description: string;
+}
+
+export interface FeedbackFromDB extends BaseEntity{
+    feedback_id: string;
+    star_count: number;
     user_name: string;
     user_location: string;
     created_at?: string;
     icon: string;
 }
 
-export interface FeedbackText {
-    heading: string;
-    description: string;
+export interface FeedbackText extends BaseEntity{
     userName: string;
     userLocation: string;
     userIcon: string;
@@ -36,14 +38,12 @@ export interface FeedbackData {
     text: FeedbackText;
 }
 
-export interface IOption {
+export interface OprionProps {
     text: ReactNode;
     middleImage: string;
 }
 
-export interface QuestionsText {
-    heading: string;
-    description: string;
+export interface QuestionsText extends BaseEntity{
     question?: string;
     answer?: string;
 }
@@ -57,18 +57,14 @@ export interface ProductDetail {
     productCharacteristic: string;
 }
 
-export interface Product {
+export interface Product extends BaseEntity{
     image: string;
-    heading: string;
-    description: string;
     price: string;
     productDetails: ProductDetail[];
 }
 
-export interface IQuestionFromDB {
+export interface IQuestionFromDB extends BaseEntity{
     question_id: number;
-    heading: string;
-    description: string;
 };
 
 export interface ProductDTO {
@@ -100,7 +96,7 @@ export interface AnimatedBoxProps {
 
 }
 
-export interface IProductChildren {
+export interface ProductChildren {
     productIcon?: string | undefined;
     productName?: ReactNode;
     productDescription?: ReactNode;
@@ -108,12 +104,12 @@ export interface IProductChildren {
     children?: ReactNode;
 }
 
-export interface IProduct extends IChildren {
-    currentPage?: ReactNode;
-    lastPage?: ReactNode;
-    onClickNext?: React.MouseEventHandler;
-    onClickPrev?: React.MouseEventHandler;
-}
+// export interface IProduct extends Children {
+//     currentPage?: ReactNode;
+//     lastPage?: ReactNode;
+//     onClickNext?: React.MouseEventHandler;
+//     onClickPrev?: React.MouseEventHandler;
+// }
 
 export type ProductSummary = Pick<Product, "image" | "heading" | "price">;
 

@@ -117,10 +117,11 @@
     @include flex(on, column, center,  $gap: 50px);
     text-align: center;
     border-radius: 12px;
+    @include size(default, 376px);
 }
 
 .personal-container{
-    @include flex(on, row, space-between, $gap: 30px);
+    @include flex(on, row, space-between ,null, null, wrap, $gap: 10px);
 
     @include respond-to(desktop) {
         @include flex(null, null, null, null, null, wrap, $gap: 20px);
@@ -148,7 +149,7 @@
     border-radius: 50%;
     @include size(default, 44px, 44px);
 
-    @include position(absolute, (right, top), 20px, 20%);
+    @include position(absolute, (right, top), 10px, 20%);
 }
 
 .person-card__relative{

@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FC } from "react";
-import { IChildren } from "../types/interfaces";
+import { Children } from "../types/interfaces";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -13,6 +13,6 @@ const queryClient = new QueryClient({
 });
 
 
-export const ReactQueryProvider: FC<IChildren> = ({ children }) => (
+export const ReactQueryProvider: FC<Children> = ({ children }) => (
     <QueryClientProvider client= { queryClient } > { children } </QueryClientProvider>
 );
