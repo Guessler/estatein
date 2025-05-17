@@ -88,3 +88,32 @@ export const ourPersonalDate = [
         profession: "Legal Counsel",
     },
 ]
+
+
+export const ValuedClientsData = [
+    {
+        id: "1",
+        date: "Since 2019",
+        corporationName: "ABC Corporation",
+        domain: "Commercial Real Estate",
+        Category: "Luxury Home Development",
+        comment: "Estatein's expertise in finding the perfect office space for our expanding operations was invaluable. They truly understand our business needs."
+    },
+    {
+        id: "2",
+        date: "Since 2020",
+        corporationName: "XYZ Enterprises",
+        domain: "Residential Properties",
+        Category: "Premium Apartments",
+        comment: "The team at Estatein made our property search effortless and found us exactly what we were looking for."
+    },
+    {
+        id: "3",
+        date: "Since 2021",
+        corporationName: "QWE Enterprises",
+        domain: "Bibiziana new",
+        Category: "Premium Apartments",
+        comment: "The team at Estatein made our property search effortless and found us exactly what we were looking for."
+    }
+    // Add more items as needed
+];

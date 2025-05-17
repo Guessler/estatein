@@ -1,0 +1,55 @@
+@use "../utils/mixins" as *;
+@use "../utils/function" as *;
+
+.search-property {
+    @include size(default, 100%);
+}
+
+.search-property__button {
+    @include position(absolute, (right, top), 20px, 20px);
+}
+
+.search-villa {
+    @include position(relative);
+    @include spacing(padding, (left, y, right), 24px, 34px, 255px);
+    @include size(default, 1300px);
+    background-color: get-color(gray, dark_gray);
+    border: 1px solid get-color(gray, slate_gray);
+
+
+    border-radius: 12px 12px 0 0;
+}
+
+.search-flex{
+    @include flex(on, column, center, null, center);
+}
+
+.villa-description{
+    @include flex(on, row, center);
+    @include size(default, 100%);
+    @include spacing(padding, all, 10px);
+    background-color: get-color(gray, charcoal);
+    border-radius: 12px;
+}
+
+.villa-input{
+    @include spacing(padding, all, 20px);
+    @include size(default, 270px, 72px);
+    @include flex(on, row, space-between, null, center);
+    background-color: get-color(gray, dark_gray);
+}
+
+.villa-input__location{
+    @include flex(on, $gap: 10px);
+}
+.villa-input__stick{
+    @include size(default, 1px, 26px);
+    background-color: get-color(gray, slate_gray);
+}
+
+.drop-down{
+    @include size(default, 42px, 42px);
+    @include flex(on, null, center, null, center);
+    background-color: get-color(gray, charcoal);
+    border-radius: 50%;
+}

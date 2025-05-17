@@ -166,3 +166,44 @@
     border: 1px, solid get-color(gray, slate_gray);
     @include spacing(padding, (left, y, right), 24px, 22px, 78px);
 }
+
+.valued-clients{
+    @include spacing(padding, all, 50px);
+    @include size(default, 772px);
+    @include flex(on, column, $gap: 40px);
+    background-color: get-color(gray, dark_gray);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 12px;
+}
+
+.valued-clients-info{
+    @include flex(on, row, space-between);
+}
+
+.valued-clients-info__domain{
+    text-align: start;
+    @include flex(on, $gap: 10px);
+}
+.valued-clients-info__category{
+    @include flex(on, $gap: 10px);
+}
+
+.valued-clients__corporation-web{
+    @include flex(on, row, space-between, null, center);
+}
+
+.valued-clients-feedback{
+    border: 1px solid get-color(gray, slate_gray);
+    @include spacing(padding, all, 30px);
+    @include flex(on, column, $gap: 14px);
+    border-radius: 12px;
+}
+
+.valued-clients-info-gap{
+    @include flex(on, column, $gap:8px);
+}
+
+
+.our-valued-clients-gap{
+    @include flex(on, column, $gap: 80px);
+}

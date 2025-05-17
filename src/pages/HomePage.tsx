@@ -379,7 +379,10 @@ export const HomePage = () => {
                     </p>
                 </div>
                 <Slider
-                    items={questions}
+                    items={questions.map(q => ({
+                        id: q.heading,
+                        name: q.heading
+                    }))}
                     currentIndex={currentQuestionPage * questionsPerPage}
                     direction={feedbackDirection}
                     handleNext={handleNextQuestion}

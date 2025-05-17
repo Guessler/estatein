@@ -10,8 +10,45 @@ import { achievementsData } from "../data"
 import { experienceData } from "../data"
 import { OurTeamCard } from "../components/OurTeamCard"
 import { ourPersonalDate } from "../data"
+import { ValuedClientsFeedback } from "../components/ValuedClientsFeedback"
+import { Slider } from "../components/Slider"
+import { ProductSlider } from "../components/Slider/ProductSlider"
+import { ValuedClientsData } from "../data"
+import { useEffect, useState } from "react"
 
 export const AboutUs = () => {
+
+    const [currentFeedbackPage, setCurrentFeedbackPage] = useState(0);
+    const [feedbackDirection, setFeedbackDirection] = useState(1);
+    const [isMobile, setIsMobile] = useState(false);
+    const feedbacksPerPage = isMobile ? 1 : 1;
+
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1596);
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const handleNextFeedback = () => {
+        if (currentFeedbackPage < Math.ceil(ValuedClientsData.length / feedbacksPerPage) - 1) {
+            setFeedbackDirection(1);
+            setCurrentFeedbackPage(currentFeedbackPage + 1);
+        }
+    };
+
+    const handlePrevFeedback = () => {
+        if (currentFeedbackPage > 0) {
+            setFeedbackDirection(-1);
+            setCurrentFeedbackPage(currentFeedbackPage - 1);
+        }
+    };
+
+
     return (
         <div>
             <AnimatedSection className="container first-slide padding-top">
@@ -103,15 +140,44 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
 
-            {/* <AnimatedSection> */}
-                {/* <div className="heading-gap">
-                    <h1 className="heading">Meet the Estatein Team</h1>
-                    <p className="description-text">At Estatein, our success is driven by the dedication and expertise of our team. Get to know the people behind our mission to make your real estate dreams a reality.</p>
-                </div> */}
-                {/* <Slider>
+            <AnimatedSection className="container our-valued-clients-gap">
+    <div className="heading-gap">
+        <h1 className="heading">Our Valued Clients</h1>
+        <p className="description-text">Hear what our clients have to say about their experience with Estatein.</p>
+    </div>
 
-                </Slider> */}
-            {/* </AnimatedSection> */}
+    {/* Slider с двумя отзывами на слайд */}
+    <Slider
+        items={ValuedClientsData.map(item => ({
+            id: item.id,
+            name: item.corporationName 
+        }))}
+        currentIndex={currentFeedbackPage}
+        direction={feedbackDirection}
+        isMobile={isMobile}
+        handleNext={handleNextFeedback}
+        handlePrev={handlePrevFeedback}
+        itemsToShow={2}
+    >
+        {/* Отображаем 2 отзыва на слайд */}
+        {ValuedClientsData.slice(
+            currentFeedbackPage * feedbacksPerPage,
+            (currentFeedbackPage + 1) * feedbacksPerPage
+        ).map((feedback, index) => (
+            <ValuedClientsFeedback key={index} feedback={feedback} />
+        ))}
+    </Slider>
+
+    {/* Пагинация */}
+    <ProductSlider
+        currentPage={currentFeedbackPage + 1}
+        lastPage={Math.ceil(ValuedClientsData.length / feedbacksPerPage)}
+        onClickNext={handleNextFeedback}
+        onClickPrev={handlePrevFeedback}
+    >
+        <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
+    </ProductSlider>
+</AnimatedSection>
         </div>
     )
 }

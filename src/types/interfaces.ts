@@ -58,6 +58,8 @@ export interface ProductDetail {
 }
 
 export interface Product extends BaseEntity{
+    id: string;
+    name: string; 
     image: string;
     price: string;
     productDetails: ProductDetail[];
