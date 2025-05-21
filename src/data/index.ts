@@ -115,5 +115,78 @@ export const ValuedClientsData = [
         Category: "Premium Apartments",
         comment: "The team at Estatein made our property search effortless and found us exactly what we were looking for."
     }
-    // Add more items as needed
 ];
+
+
+export const propertyFiltersData = [
+    {
+        image: "location",
+        imageName: "Location"
+    },
+    {
+        image: "location",
+        imageName: "Property Type"
+    },
+    {
+        image: "location",
+        imageName: "Pricing Range"
+    },
+    {
+        image: "location",
+        imageName: "Property Size"
+    },
+    {
+        image: "location",
+        imageName: "Build Year"
+    },
+]
+
+export const registerInformation = [
+    {
+        heading: "First Name",
+        description: "Enter First Name"
+    },
+    {
+        heading: "Last Name",
+        description: "Enter Last Name"
+    },
+    {
+        heading: "Email",
+        description: "Enter your Email"
+    },
+    {
+        heading: "Phone",
+        description: "Enter Phone Number"
+    },
+    {
+        heading: "Preferred Location",
+        description: "Select Location",
+        isArrow: true
+    },
+    {
+        heading: "Property Type",
+        description: "Select Property Type",
+        isArrow: true
+    },
+    {
+        heading: "No. of Bathrooms",
+        description: "Select no. of Bedrooms",
+        isArrow: true
+    },
+    {
+        heading: "No. of Bedrooms",
+        description: "Select no. of Bedrooms",
+        isArrow: true
+    },
+    {
+        heading: "No. of Bedrooms",
+        description: "Select no. of Bedrooms",
+        isArrow: true,
+        isLarge: true
+    },
+    {
+        heading: "Preferred Contact Method",
+        description: "Enter Your Number",
+        isBasic: true
+    },
+]

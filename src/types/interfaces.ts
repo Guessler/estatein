@@ -13,7 +13,7 @@ export interface ButtonProps extends Children {
 }
 
 
-interface BaseEntity {
+export interface BaseEntity {
     heading: string;
     description: string;
 }

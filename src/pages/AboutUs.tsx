@@ -15,6 +15,7 @@ import { Slider } from "../components/Slider"
 import { ProductSlider } from "../components/Slider/ProductSlider"
 import { ValuedClientsData } from "../data"
 import { useEffect, useState } from "react"
+import { TitleAndText } from "../components/TitleAndText"
 
 export const AboutUs = () => {
 
@@ -67,10 +68,7 @@ export const AboutUs = () => {
                         className="apartments" src={assets['AboutUsHouse']} alt={assets['AboutUsHouse']} />
                 </div>
                 <div className="first-slide__spacing">
-                    <div className="heading-gap">
-                        <h1 className="heading">Our Journey</h1>
-                        <p className="description-text">Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary. Over the years, we've expanded our reach, forged valuable partnerships, and gained the trust of countless clients.</p>
-                    </div>
+                    <TitleAndText heading="Our Journey" description="Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary. Over the years, we've expanded our reach, forged valuable partnerships, and gained the trust of countless clients." />
                     <AnimatedBox
                         className="mobile-container "
                         initial={{ opacity: 0, y: 50 }}
@@ -101,10 +99,7 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
             <AnimatedSection className="container achivements">
-                <div className="heading-gap">
-                    <h1 className="heading">Our Achievements</h1>
-                    <p className="description-text">Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary.</p>
-                </div>
+                <TitleAndText heading="Our Achievements" description="Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary." />
                 <div className="card-container">
                     {achievementsData.map((item, index) => (
                         <Card variant="basic" key={index} heading={item.heading} description={item.description} />
@@ -112,10 +107,7 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
             <AnimatedSection className="container spacing">
-                <div className="heading-gap">
-                    <h1 className="heading">Navigating the Estatein Experience</h1>
-                    <p className="description-text">At Estatein, we've designed a straightforward process to help you find and purchase your dream property with ease. Here's a step-by-step guide to how it all works.</p>
-                </div>
+            <TitleAndText heading="Navigating the Estatein Experience" description="At Estatein, we've designed a straightforward process to help you find and purchase your dream property with ease. Here's a step-by-step guide to how it all works." />
                 <div className="card-container">
                     {experienceData.map((item, index) => (
                         <div>
@@ -129,10 +121,7 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
             <AnimatedSection className="container spacing">
-                <div className="heading-gap">
-                    <h1 className="heading">Meet the Estatein Team</h1>
-                    <p className="description-text">At Estatein, our success is driven by the dedication and expertise of our team. Get to know the people behind our mission to make your real estate dreams a reality.</p>
-                </div>
+            <TitleAndText heading="Meet the Estatein Team" description="At Estatein, our success is driven by the dedication and expertise of our team. Get to know the people behind our mission to make your real estate dreams a reality." />
                 <div className="personal-container">
                     {ourPersonalDate.map((item, index) => (
                         <OurTeamCard key={index} image={item.image} name={item.name} profession={item.profession} />
@@ -141,43 +130,37 @@ export const AboutUs = () => {
             </AnimatedSection>
 
             <AnimatedSection className="container our-valued-clients-gap">
-    <div className="heading-gap">
-        <h1 className="heading">Our Valued Clients</h1>
-        <p className="description-text">Hear what our clients have to say about their experience with Estatein.</p>
-    </div>
+            <TitleAndText heading="Our Valued Clients" description="Hear what our clients have to say about their experience with Estatein." />
 
-    {/* Slider с двумя отзывами на слайд */}
-    <Slider
-        items={ValuedClientsData.map(item => ({
-            id: item.id,
-            name: item.corporationName 
-        }))}
-        currentIndex={currentFeedbackPage}
-        direction={feedbackDirection}
-        isMobile={isMobile}
-        handleNext={handleNextFeedback}
-        handlePrev={handlePrevFeedback}
-        itemsToShow={2}
-    >
-        {/* Отображаем 2 отзыва на слайд */}
-        {ValuedClientsData.slice(
-            currentFeedbackPage * feedbacksPerPage,
-            (currentFeedbackPage + 1) * feedbacksPerPage
-        ).map((feedback, index) => (
-            <ValuedClientsFeedback key={index} feedback={feedback} />
-        ))}
-    </Slider>
+                <Slider
+                    items={ValuedClientsData.map(item => ({
+                        id: item.id,
+                        name: item.corporationName
+                    }))}
+                    currentIndex={currentFeedbackPage}
+                    direction={feedbackDirection}
+                    isMobile={isMobile}
+                    handleNext={handleNextFeedback}
+                    handlePrev={handlePrevFeedback}
+                    itemsToShow={2}
+                >
+                    {ValuedClientsData.slice(
+                        currentFeedbackPage * feedbacksPerPage,
+                        (currentFeedbackPage + 1) * feedbacksPerPage
+                    ).map((feedback, index) => (
+                        <ValuedClientsFeedback key={index} feedback={feedback} />
+                    ))}
+                </Slider>
 
-    {/* Пагинация */}
-    <ProductSlider
-        currentPage={currentFeedbackPage + 1}
-        lastPage={Math.ceil(ValuedClientsData.length / feedbacksPerPage)}
-        onClickNext={handleNextFeedback}
-        onClickPrev={handlePrevFeedback}
-    >
-        <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
-    </ProductSlider>
-</AnimatedSection>
+                <ProductSlider
+                    currentPage={currentFeedbackPage + 1}
+                    lastPage={Math.ceil(ValuedClientsData.length / feedbacksPerPage)}
+                    onClickNext={handleNextFeedback}
+                    onClickPrev={handlePrevFeedback}
+                >
+                    <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
+                </ProductSlider>
+            </AnimatedSection>
         </div>
     )
 }

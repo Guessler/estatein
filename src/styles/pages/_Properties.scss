@@ -7,6 +7,12 @@
 
 .search-property__button {
     @include position(absolute, (right, top), 20px, 20px);
+    @include flex(on, $gap: 8px);
+
+    @include respond-to(desktop) {
+        @include position(absolute, (right, top), 7px, 7px);
+
+    }
 }
 
 .search-villa {
@@ -15,41 +21,173 @@
     @include size(default, 1300px);
     background-color: get-color(gray, dark_gray);
     border: 1px solid get-color(gray, slate_gray);
-
-
     border-radius: 12px 12px 0 0;
+
+    @include respond-to(desktop) {
+        @include size(default, 100%);
+        @include spacing(padding, (left, y, right), 18px, 22px, 90px);
+
+    }
 }
 
-.search-flex{
+.search-flex {
     @include flex(on, column, center, null, center);
+
+    @include respond-to(desktop){
+        @include flex($gap: 20px)
+    }
 }
 
-.villa-description{
-    @include flex(on, row, center);
-    @include size(default, 100%);
-    @include spacing(padding, all, 10px);
-    background-color: get-color(gray, charcoal);
-    border-radius: 12px;
-}
-
-.villa-input{
+.villa-input {
     @include spacing(padding, all, 20px);
     @include size(default, 270px, 72px);
     @include flex(on, row, space-between, null, center);
+    border-radius: 12px;
+    border: 1px solid get-color(gray, slate_gray);
     background-color: get-color(gray, dark_gray);
+
+    @include respond-to(desktop) {
+        @include size(default, 100%);
+    }
 }
 
-.villa-input__location{
+.villa-input__location {
     @include flex(on, $gap: 10px);
 }
-.villa-input__stick{
+
+.villa-input__stick {
     @include size(default, 1px, 26px);
     background-color: get-color(gray, slate_gray);
 }
 
-.drop-down{
+.drop-down {
     @include size(default, 42px, 42px);
     @include flex(on, null, center, null, center);
     background-color: get-color(gray, charcoal);
     border-radius: 50%;
+}
+
+.villa-description-flex {
+    @include flex(on, row, $gap: 20px);
+    @include spacing(padding, all, 10px);
+    background-color: get-color(gray, charcoal);
+    border-radius: 12px;
+
+    @include respond-to(desktop) {
+        @include flex(on, column);
+        @include size(default, 100%)
+    }
+}
+
+.search-villa__border {
+    background-color: get-color(gray, back_gray);
+    @include spacing(padding, all, 15px);
+    border-radius: 16px 16px 0 0;
+}
+
+
+.property-slide {
+    @include flex(on, column, $gap: 100px);
+
+}
+
+
+.register-text__gap{
+    @include flex(on, column, $gap: 16px);
+
+    @include respond-to(desktop){
+        @include size(default, 100%);
+    }
+}
+
+.register-box{
+    @include spacing(padding, all, 100px);
+    @include flex(on, row, null,null,null, wrap, $gap: 50px);
+    border-radius: 12px;
+    border: 1px solid get-color(gray, slate_gray);
+
+    @include respond-to(desktop){
+        @include spacing(padding, all, 20px);
+        @include flex($gap: 20px);
+    }
+
+}
+
+.register-input{
+    @include spacing(padding, (x, y), 20px, 24px);
+    @include size(default, 310px);
+    background-color: get-color(gray, charcoal);
+    border: 1px, solid get-color(gray, slate_gray);
+    border-radius: 8px;
+
+    @include respond-to(desktop){
+        @include size(default, 100%);
+    }
+}
+
+.arrow-list{
+    @include position(absolute, (top, right), 25px, 10px);
+}
+
+.register-input-place{
+    @include position(relative);
+}
+
+.large-input{
+    @include size(default, 672px);
+}
+
+.phone-or-email-input{
+    @include flex(on, $gap: 16px);
+
+    @include respond-to(desktop){
+        @include flex(on, column);
+    }
+
+}
+
+.email-or-phone-position{
+    @include position(absolute, (top, left), 25px, 24px);
+}
+
+.register-input-big-padding{
+    @include spacing(padding, x, 60px);
+}
+
+.register-input-active{
+    @include position(absolute, (top, right), 30px, 24px);
+    @include size(default, 16px, 16px);
+    background-color: get-color(purple, vivid_purple);
+    border-radius: 50%;
+}
+
+.registration-spacing{
+    @include flex(on, column, $gap: 80px);
+}
+
+.registered-box-text-area{
+    @include size(min, 100%, 170px);
+    @include spacing(padding, (x, y), 20px, 24px);
+    border-radius: 8px;
+    background-color: get-color(gray, charcoal);
+    border: 1px solid get-color(gray, slate_gray);
+}
+
+.register-checkbox{
+    @include size(default, 24px, 24px);
+    border-radius: 4px;
+    background-color: get-color(gray, charcoal);
+}
+
+.regiter__send-message{
+    @include size(default, 100%);
+    @include flex(on, row, space-between);
+
+    @include respond-to(desktop){
+        @include flex(on, column, $gap: 20px)
+    }
+}
+
+.flex{
+    @include flex(on, null, null, null, center, $gap: 10px);
 }

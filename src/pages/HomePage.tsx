@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { assets } from "../utils/exports/directories/assets";
 import { Button } from "../components/Button";
 import { Option } from "../components/Option";
@@ -6,20 +6,22 @@ import { OptionsWrapper } from "../components/Option/OptionsWrapper";
 import { AnimatedBox } from "../components/common/AnimatedBox";
 import { AnimatedImage } from "../components/common/AnimatedImg";
 import { AnimatedSection } from "../components/common/AnimatedSection";
-import { ProductCard } from "../components/ProductCard";
-import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
-import { FeedbackText, FeedbackFromDB, IQuestionFromDB, Product } from "../types/interfaces";
+import { FeedbackText, FeedbackFromDB, IQuestionFromDB } from "../types/interfaces";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
 import { Questions } from "../components/Questions";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../services/products";
 import { fetchFeedbacks } from "../services/feedbacks";
 import { fetchQuestions } from "../services/questions";
 
-import { AdBlock } from "../components/adBlock"
+import { AllHousing } from "../components/AllHousing";
+
+import { AdBlock } from "../components/adBlock";
+
+import {useIsMobile} from "../hooks/useIsMobile"
+
 
 
 export interface QuestionText {
@@ -28,74 +30,13 @@ export interface QuestionText {
 }
 
 export const HomePage = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [currentProductIndex, setCurrentProductIndex] = useState<number>(1);
-    const [productDirection, setProductDirection] = useState<number>(1);
+
     const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
-    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
-
-    const handleResize = () => {
-        setIsMobile(window.innerWidth < 1596);
-    };
-
-    useEffect(() => {
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
-    const { data: fetchedProductsData } = useQuery({
-        queryKey: ['fetchProducts'],
-        queryFn: fetchProducts,
-    });
 
     const { data: feedbacks = [] } = useQuery({
         queryKey: ['fetchFeedbacks'],
         queryFn: fetchFeedbacks,
     });
-
-    useEffect(() => {
-        if (fetchedProductsData) {
-            setProducts(fetchedProductsData);
-        }
-    }, [fetchedProductsData]);
-
-    const itemsPerPage = isMobile ? 1 : 3;
-
-    const handleNextProduct = () => {
-        setProductDirection(1);
-        if (isMobile) {
-            setCurrentProductIndex(prev =>
-                prev + 1 >= products.length ? 0 : prev + 1
-            );
-        } else {
-            setCurrentProductIndex(prev =>
-                prev + itemsPerPage >= products.length ? 0 : prev + itemsPerPage
-            );
-        }
-    };
-
-    const handlePrevProduct = () => {
-        setProductDirection(-1);
-        if (isMobile) {
-            setCurrentProductIndex(prev =>
-                prev <= 0 ? products.length - 1 : prev - 1
-            );
-        } else {
-            setCurrentProductIndex(prev =>
-                prev <= 0 ? products.length - itemsPerPage : prev - itemsPerPage
-            );
-        }
-    };
-    const currentPage = isMobile
-        ? currentProductIndex + 1
-        : Math.floor(currentProductIndex / itemsPerPage) + 1;
-
-    const totalPages = isMobile
-        ? products.length
-        : Math.ceil(products.length / itemsPerPage);
-
 
     const transformFeedbackData = (dbFeedback: FeedbackFromDB): FeedbackText => ({
         heading: dbFeedback.heading,
@@ -106,9 +47,9 @@ export const HomePage = () => {
         userIcon: dbFeedback.icon,
     });
 
-
-
     const [currentFeedbackPage, setCurrentFeedbackPage] = useState<number>(0);
+
+    const isMobile = useIsMobile();
 
     const feedbacksPerPage = isMobile ? 1 : 3;
 
@@ -266,64 +207,7 @@ export const HomePage = () => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            <AnimatedSection className="container products-slide">
-                <h2 className="second-heading">Featured Properties</h2>
-                <Slider
-                    items={products}
-                    currentIndex={currentProductIndex}
-                    direction={productDirection}
-                    handleNext={handleNextProduct}
-                    handlePrev={handlePrevProduct}
-                    isMobile={isMobile}
-                    itemsToShow={3}
-                >
-                    {isMobile ? (
-                        <ProductCard
-                            key={currentProductIndex}
-                            productIcon={assets[products[currentProductIndex]?.image]}
-                            productName={products[currentProductIndex]?.heading}
-                            productDescription={products[currentProductIndex]?.description}
-                            productPrice={products[currentProductIndex]?.price}
-                        >
-                            {products[currentProductIndex]?.productDetails?.map((detail, i) => (
-                                <ProductCardDetails
-                                    key={i}
-                                    productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
-                                    productCharacteristic={detail.productCharacteristic}
-                                />
-                            ))}
-                        </ProductCard>
-                    ) : (
-                        products
-                            .slice(currentProductIndex, currentProductIndex + itemsPerPage)
-                            .map((product, index) => (
-                                <ProductCard
-                                    key={`${currentProductIndex}-${index}`}
-                                    productIcon={assets[product.image]}
-                                    productName={product.heading}
-                                    productDescription={product.description}
-                                    productPrice={product.price}
-                                >
-                                    {product.productDetails?.map((detail, i) => (
-                                        <ProductCardDetails
-                                            key={i}
-                                            productCharacteristicIcon={assets[detail.productCharacteristicIcon]}
-                                            productCharacteristic={detail.productCharacteristic}
-                                        />
-                                    ))}
-                                </ProductCard>
-                            ))
-                    )}
-                </Slider>
-                <ProductSlider
-                    currentPage={currentPage}
-                    lastPage={totalPages}
-                    onClickNext={handleNextProduct}
-                    onClickPrev={handlePrevProduct}
-                >
-                    <img src={assets["Vector (Stroke)"]} alt={assets["Vector (Stroke)"]} />
-                </ProductSlider>
-            </AnimatedSection>
+            <AllHousing/>
 
             <AnimatedSection
                 className="container products-slide"
