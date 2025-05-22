@@ -12,6 +12,7 @@
 .values {
     @include size(default, 410px);
     @include flex(on, column, $gap: 20px);
+    
 }
 
 .values-wrapper {

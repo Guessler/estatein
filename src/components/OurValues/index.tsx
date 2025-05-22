@@ -5,6 +5,7 @@ interface OurValueItem {
     heading: string;
     description: string;
     image: string;
+    className?: string
 }
 
 interface OurValuesProps {
@@ -17,12 +18,12 @@ export const OurValues: FC<OurValuesProps> = ({ items }) => {
             {items.map((item, index) => (
                 <AnimatedBox
                     key={index}
-                    className="values"
+                    className={`values ${item.className || ''}`}
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.8 + index * 0.1 }}>
                     <div className="row-center">
-                        <img src={item.image} alt={item.heading} />
+                        <img className="values-image-mobile" src={item.image} alt={item.heading} />
                         <h2 className="card-heading-text">{item.heading}</h2>
                     </div>
                     <p className="description-text">{item.description}</p>

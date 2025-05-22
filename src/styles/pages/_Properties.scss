@@ -191,3 +191,8 @@
 .flex{
     @include flex(on, null, null, null, center, $gap: 10px);
 }
+
+.property-value{
+    @include flex(on, row, null, null, null, wrap, $gap: 30px)
+}
+

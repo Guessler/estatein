@@ -190,3 +190,61 @@ export const registerInformation = [
         isBasic: true
     },
 ]
+
+
+export const propertyValue = [
+    {
+        image: assets["chart"],
+        heading: "Valuation Mastery",
+        description: "Discover the true worth of your property with our expert valuation services.",
+        className: "property-value__card"
+    },
+    {
+        image: assets["circle-chart"],
+        heading: "Strategic Marketing",
+        description: "Selling a property requires more than just a listing; it demands a strategic marketing approach.",
+        className: "property-value__card"
+    },
+    {
+        image: assets["db-chart"],
+        heading: "Negotiation Wizardry",
+        description: "Negotiating the best deal is an art, and our negotiation experts are masters of it.",
+        className: "property-value__card"
+    },
+    {
+        image: assets["megaphone"],
+        heading: "Closing Success",
+        description: "A successful sale is not complete until the closing. We guide you through the intricate closing process.",
+        className: "property-value__card"
+
+    },
+] 
+
+
+export const propertyManagement = [
+    {
+        image: assets["newApp"],
+        heading: "Tenant Harmony",
+        description: "Our Tenant Management services ensure that your tenants have a smooth and reducing vacancies.",
+        className: "property-value__card"
+    },
+    {
+        image: assets["maintencance"],
+        heading: "Maintenance Ease",
+        description: "Say goodbye to property maintenance headaches. We handle all aspects of property upkeep.",
+        className: "property-value__card"
+    },
+    {
+        image: assets["Financial-Peace-of-Mind"],
+        heading: "Financial Peace of Mind",
+        description: "Managing property finances can be complex. Our financial experts take care of rent collection",
+        className: "property-value__card"
+    },
+    {
+        image: assets["Legal-Guardian"],
+        heading: "Legal Guardian",
+        description: "Stay compliant with property laws and regulations effortlessly.",
+        className: "property-value__card"
+
+    },
+]

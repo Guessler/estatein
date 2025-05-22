@@ -1,0 +1,57 @@
+@use "../utils/mixins" as *;
+@use "../utils/function" as *;
+
+
+.property-value__card{
+    @include size(default, 512px);
+    border: 1px solid get-color(gray, slate_gray);
+    @include spacing(padding, all, 50px);
+    border-radius: 12px;
+
+    @include respond-to(desktop){
+        @include size(default, 100%, 170px);
+            @include spacing(padding, all, 24px);
+    }
+}
+
+.property-value__unlock-property{
+    @include size(default, 1052px);
+    @include spacing(padding, all, 50px);
+    @include position(relative);
+    border-radius: 12px;
+    border: 1px solid get-color(gray, slate_gray);
+    background-color: get-color(gray, charcoal);
+    z-index: 1;
+
+    @include respond-to(desktop) {
+        @include spacing(padding, all, 24px);
+    }
+}
+
+.property-value__flex{
+    @include flex(on, null, space-between, null, center);
+
+    @include respond-to(desktop) {
+        @include flex(null, column, $gap: 20px);
+    }
+}
+
+.property-value__text-gap{
+    @include flex(on, column, $gap: 30px);
+}
+
+.property-value__image{
+    @include position(absolute, (top, left), 0, 0);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.property-value-block{
+    @include flex(on, column, $gap: 80px);
+}
+
+.values-image-mobile{
+    @include respond-to(desktop) {
+        @include size(default, 48px);
+    }
+}
