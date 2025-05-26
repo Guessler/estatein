@@ -1,0 +1,79 @@
+@use "../utils/mixins" as *;
+@use "../utils/function" as *;
+
+
+.contacts-input{
+    @include size(default, 430px);
+}
+
+.office-locations__show{
+    @include spacing(padding, all, 10px);
+    @include spacing(margin, (top, bottom), 80px, 50px);
+    @include flex(on, row, $gap: 10px);
+    @include size(default, 516px);
+    background-color: get-color(gray, charcoal);
+
+    @include respond-to(desktop){
+        @include size(default, 100%)
+    }
+}
+
+.office-locations-btn{
+    @include size(default, 160px, 62px);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 10px;
+}
+
+.office-locations-btn__active{
+    background-color: get-color(gray, dark_gray);
+}
+
+
+.office-locations__card{
+    @include spacing(padding, all, 50px);
+    @include flex(on, column, $gap: 40px);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 12px;
+}
+
+.office-locations__card-text{
+    @include flex(on, column, $gap: 14px);
+}
+
+.office-locations__cards{
+    @include flex(on, $gap: 30px);
+
+    @include respond-to(desktop) {
+        @include flex(null, null, null, null, null, wrap);
+    }
+}
+
+.estatein-world{
+    @include spacing(padding, all, 50px);
+    @include flex(on, null, null, null, null, wrap, $gap: 20px);
+    background-color: get-color(gray, back_gray);
+    border-radius: 12px;
+
+    @include respond-to(desktop){
+    @include spacing(padding, all, 24px);  
+    @include flex($gap:10px)      
+    }
+}
+
+
+.estatein-world__text-block{
+    @include flex(on,null, null, null, center, $gap: 20px);
+
+    @include respond-to(desktop){
+        @include flex(on, column);
+    }
+}
+
+.estatein-world__text{
+    @include size(default, 708px);
+
+    @include respond-to(desktop){
+        @include size(default, 100%);
+    }
+}
+

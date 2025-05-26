@@ -5,11 +5,12 @@ interface RegisterInputProps {
     heading?: string,
     description: string,
     isArrow: boolean | undefined,
-    isLarge: boolean | undefined,
-    isBasic: boolean | undefined
+    isLarge?: boolean | undefined,
+    isBasic?: boolean | undefined,
+    className?: string
 }
 
-export const RegisterInput: FC<RegisterInputProps> = ({ heading, description, isArrow, isLarge, isBasic }) => {
+export const RegisterInput: FC<RegisterInputProps> = ({ heading, description, isArrow, isLarge, isBasic, className }) => {
     return (
         <div className="register-text__gap">
             <p className="options-text">{heading}</p>
@@ -32,7 +33,7 @@ export const RegisterInput: FC<RegisterInputProps> = ({ heading, description, is
                     :
 
                     <>
-                        <input className={isLarge ? "register-input header-items-text large-input" : "register-input header-items-text"} type="text" placeholder={description} />
+                        <input className={isLarge ? `register-input header-items-text large-input` : `register-input header-items-text ${className || ''}`} type="text" placeholder={description} />
                         {isArrow &&
                             < img className="arrow-list" src={assets["arrow-list"]} alt={assets["arrow-list"]} />
                         }

@@ -5,7 +5,7 @@ import { assets } from "../utils/exports/directories/assets"
 import { Option } from "../components/Option"
 import { OurValues } from "../components/OurValues"
 
-import { propertyManagement, propertyValue } from "../data"
+import { informedDecisions, propertyManagement, propertyValue } from "../data"
 import { Button } from "../components/Button"
 export const Services = () => {
     return (
@@ -65,6 +65,28 @@ export const Services = () => {
                             </div>
                             <p className="description-text">Ready to experience hassle-free property management? Explore our Property Management Service categories and let us handle the complexities while you enjoy the benefits of property ownership.</p>
                         </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            <AnimatedSection className="container">
+                <div className="informed-decisions">
+                    <div className="informed-decisions__text">
+                        <TitleAndText heading="Smart Investments, Informed Decisions" description="Building a real estate portfolio requires a strategic approach. Estatein's Investment Advisory Service empowers you to make smart investments and informed decisions." />
+                        <div className="property-value__unlock-property small-unlock-property">
+                            <div className="property-value__text-gap">
+                                <img className="property-value__image" src={assets['property-value-back']} alt={assets['property-value-back']} />
+
+                                <div className="property-value__flex">
+                                    <h2 className="card-heading-text">Unlock Your Investment Potential</h2>
+                                </div>
+                                <p className="description-text">Explore our Property Management Service categories and let us handle the complexities while you enjoy the benefits of property ownership.</p>
+                                <Button>Learn More</Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="informed-decisions__cards">
+                    <OurValues items={informedDecisions} />
                     </div>
                 </div>
             </AnimatedSection>

@@ -248,3 +248,67 @@ export const propertyManagement = [
 
     },
 ]
+
+
+export const informedDecisions = [
+    {
+        image: assets["newApp"],
+        heading: "Market Insight",
+        description: "Stay ahead of market trends with our expert Market Analysis. We provide in-depth insights into real estate market conditions",
+        className: "property-value__card property-value__card-informed-decisions"
+
+    },
+    {
+        image: assets["maintencance"],
+        heading: "ROI Assessment",
+        description: "Make investment decisions with confidence. Our ROI Assessment services evaluate the potential returns on your investments",
+        className: "property-value__card property-value__card-informed-decisions"
+
+    },
+    {
+        image: assets["Financial-Peace-of-Mind"],
+        heading: "Customized Strategies",
+        description: "Every investor is unique, and so are their goals. We develop Customized Investment Strategies tailored to your specific needs",
+        className: "property-value__card property-value__card-informed-decisions"
+
+    },
+    {
+        image: assets["Legal-Guardian"],
+        heading: "Diversification Mastery",
+        description: "Diversify your real estate portfolio effectively. Our experts guide you in spreading your investments across various property types and locations",
+        className: "property-value__card property-value__card-informed-decisions"
+
+    },
+]
+
+
+export const connectUs = [
+    {
+        heading: "First Name",
+        description: "Enter First Name"
+    },
+    {
+        heading: "Last Name",
+        description: "Enter Last Name"
+    },
+    {
+        heading: "Email",
+        description: "Enter your Email"
+    },
+    {
+        heading: "Phone",
+        description: "Enter Phone Number"
+    },
+    {
+        heading: "Inquiry Type",
+        description: "Select Inquiry Type",
+        isArrow: true
+    },
+    {
+        heading: "How Did You Hear About Us?",
+        description: "Select",
+        isArrow: true,
+        isBasic: false,
+        isLarge: false
+    },
+]

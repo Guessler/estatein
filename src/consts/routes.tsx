@@ -6,12 +6,14 @@ import { Footer } from '../components/Footer';
 import { AboutUs } from "../pages/AboutUs";
 import { Properties } from "../pages/Properties"
 import { Services } from "../pages/Services"
+import { Contacts } from '../pages/Contacts';
 
 const enum Paths {
     Home = '/',
     AboutUs = '/about-us',
     Properties = '/properties',
     Services = '/services',
+    Contacts = '/contacts'
 }
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -63,6 +65,16 @@ const router = createBrowserRouter([
             <ProtectedRoute>
                 <CommonLayout>
                     <Services />
+                </CommonLayout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: Paths.Contacts,
+        element: (
+            <ProtectedRoute>
+                <CommonLayout>
+                    <Contacts />
                 </CommonLayout>
             </ProtectedRoute>
         ),

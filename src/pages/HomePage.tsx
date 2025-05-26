@@ -95,7 +95,7 @@ export const HomePage = () => {
     });
 
     return (
-        <div>
+        <>
             <AnimatedSection
                 className="first-slide"
                 initial={{ opacity: 0 }}
@@ -294,6 +294,6 @@ export const HomePage = () => {
                     <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>
             </AnimatedSection>
-        </div>
+        </>
     );
 };

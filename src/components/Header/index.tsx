@@ -55,9 +55,11 @@ export const Header = () => {
                                 ))}
                             </ul>
                         </nav>
+                        <Link to={'/contacts'}>
                         <Button variant="primary">
                             Contact Us
                         </Button>
+                        </Link>
                     </>
                 ) : (
                     <>

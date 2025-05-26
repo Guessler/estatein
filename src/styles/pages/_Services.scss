@@ -28,6 +28,10 @@
     }
 }
 
+.small-unlock-property{
+    @include size(default, 100%)
+}
+
 .property-value__flex{
     @include flex(on, null, space-between, null, center);
 
@@ -53,5 +57,44 @@
 .values-image-mobile{
     @include respond-to(desktop) {
         @include size(default, 48px);
+    }
+}
+
+.informed-decisions__text{
+    @include size(default, 520px);
+    @include flex(on, column, $gap: 50px);
+
+    @include respond-to(desktop) {
+        @include size(default, 100%);
+
+    }
+}
+
+.informed-decisions{
+    @include flex(on, $gap: 60px);
+
+    @include respond-to(desktop) {
+        @include flex(null, column);
+    }
+}
+
+.informed-decisions__cards{
+    @include size(default, 1016px);
+    @include flex(on, null, null, null, null, wrap, $gap: 10px);
+    background-color: get-color(gray, back_gray);
+    @include spacing(padding, all, 10px);
+    border-radius: 12px;
+
+    @include respond-to(desktop){
+        @include size(default, 100%);
+    }
+}
+
+.property-value__card-informed-decisions{
+    @include size(default, 492px) ;
+    background-color: get-color(gray, dark_gray);
+
+    @include respond-to(desktop){
+        @include size(default, 492px, 186px);
     }
 }
