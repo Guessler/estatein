@@ -1,5 +1,5 @@
-import { assets } from "../../utils/exports/directories/assets"
-import { Button } from "../Button"
+import { assets } from "../../../utils/exports/directories/assets"
+import { Button } from "../../UI/Button"
 import { SupportingCompanies } from "./SupportingCompanies"
 
 export const Footer = () => {

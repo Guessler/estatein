@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AnimatedBox } from "../common/AnimatedBox";
+import { AnimatedBox } from "../common/Animated/AnimatedBox";
 
 interface OurValueItem {
     heading: string;

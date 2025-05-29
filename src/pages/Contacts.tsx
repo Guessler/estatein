@@ -1,10 +1,10 @@
-import { AnimatedSection } from "../components/common/AnimatedSection"
+import { AnimatedSection } from "../components/common/Animated/AnimatedSection"
 import { OptionsWrapper } from "../components/Option/OptionsWrapper"
 import { TitleAndText } from "../components/TitleAndText"
 import { Option } from "../components/Option"
 import { assets } from "../utils/exports/directories/assets"
 import { RegisterInput } from "../components/RegisterInput"
-import { Button } from "../components/Button"
+import { Button } from "../components/UI/Button"
 import { connectUs } from "../data"
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails"
 

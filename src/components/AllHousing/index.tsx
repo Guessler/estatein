@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { assets } from "../../utils/exports/directories/assets";
-import { AnimatedSection } from "../common/AnimatedSection";
+import { AnimatedSection } from "../common/Animated/AnimatedSection";
 import { ProductCard } from "../ProductCard";
 import { Slider } from "../Slider";
 import { ProductSlider } from "../Slider/ProductSlider";

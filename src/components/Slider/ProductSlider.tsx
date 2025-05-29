@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Button } from "../Button";
+import { Button } from "../UI/Button";
 
 // Обновленный интерфейс для пропсов ProductSlider
 interface ProductSliderProps {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Header } from "../components/Header";
+import { Header } from "../components/common/Header";
 import { HomePage } from '../pages/HomePage';
-import { Footer } from '../components/Footer';
+import { Footer } from '../components/common/Footer';
 import { AboutUs } from "../pages/AboutUs";
 import { Properties } from "../pages/Properties"
 import { Services } from "../pages/Services"

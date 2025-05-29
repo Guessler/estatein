@@ -1,6 +1,7 @@
 import { FC, useRef, useState, useEffect } from "react";
 import { motion, TargetAndTransition } from "framer-motion";
-import { useOnScreen } from "../../../hooks/useOnScreen";
+import { useOnScreen } from "../../../../hooks/useOnScreen";
+import React from "react";
 
 interface AnimatedSectionProps {
     initial?: TargetAndTransition;
@@ -16,7 +17,7 @@ interface AnimatedSectionProps {
     };
 }
 
-export const AnimatedSection: FC<AnimatedSectionProps> = ({
+export const AnimatedSection: FC<AnimatedSectionProps> = React.memo(({
     initial,
     animate,
     whileInView,
@@ -28,6 +29,8 @@ export const AnimatedSection: FC<AnimatedSectionProps> = ({
     const ref = useRef<HTMLElement>(null);
     const isVisible = useOnScreen(ref, viewport.margin);
     const [hasBeenVisible, setHasBeenVisible] = useState(false);
+
+    console.log('Элемент перерисовался')
 
     useEffect(() => {
         if (isVisible && !hasBeenVisible) {
@@ -47,4 +50,4 @@ export const AnimatedSection: FC<AnimatedSectionProps> = ({
             {children}
         </motion.section>
     );
-};
+})

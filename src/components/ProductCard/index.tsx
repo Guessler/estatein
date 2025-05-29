@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "../Button";
+import { Button } from "../UI/Button";
 import {ProductChildren} from "../../types/interfaces"
 
 

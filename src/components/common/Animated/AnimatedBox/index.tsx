@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
-import {AnimatedBoxProps} from "../../../types/interfaces"
+import {AnimatedBoxProps} from "../../../../types/interfaces"
 
 
 

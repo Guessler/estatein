@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { AnimatedBox } from "../common/AnimatedBox"
+import { AnimatedBox } from "../common/Animated/AnimatedBox"
 
 export const Card: FC<{ heading: string; description: string; variant: "basic" | "purple" }> = ({ heading, description, variant }) => {
 

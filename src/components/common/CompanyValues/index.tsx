@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { assets } from "../../utils/exports/directories/assets"
+import { assets } from "../../../utils/exports/directories/assets"
 
 interface ICompanyValues {
     text: CompanyValuesProps[]

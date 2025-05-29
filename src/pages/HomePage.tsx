@@ -1,98 +1,112 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { assets } from "../utils/exports/directories/assets";
-import { Button } from "../components/Button";
+import { Button } from "../components/UI/Button";
 import { Option } from "../components/Option";
 import { OptionsWrapper } from "../components/Option/OptionsWrapper";
-import { AnimatedBox } from "../components/common/AnimatedBox";
-import { AnimatedImage } from "../components/common/AnimatedImg";
-import { AnimatedSection } from "../components/common/AnimatedSection";
-import { FeedbackText, FeedbackFromDB, IQuestionFromDB } from "../types/interfaces";
+import { AnimatedBox } from "../components/common/Animated/AnimatedBox";
+import { AnimatedImage } from "../components/common/Animated/AnimatedImg";
+import { AnimatedSection } from "../components/common/Animated/AnimatedSection";
+import { FeedbackFromDB, IQuestionFromDB } from "../types/interfaces";
+// import { FeedbackText, QuestionText } from "../types/interfaces";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
 import { Questions } from "../components/Questions";
-
 import { useQuery } from "@tanstack/react-query";
 import { fetchFeedbacks } from "../services/feedbacks";
 import { fetchQuestions } from "../services/questions";
-
 import { AllHousing } from "../components/AllHousing";
-
 import { AdBlock } from "../components/adBlock";
-
-import {useIsMobile} from "../hooks/useIsMobile"
-
-
-
-export interface QuestionText {
-    heading: string;
-    description: string;
-}
+import { useIsMobile } from "../hooks/useIsMobile";
+import { usePaginator } from "../hooks/usePaginator";
 
 export const HomePage = () => {
-
-    const [feedbackDirection, setFeedbackDirection] = useState<number>(1);
+    const isMobile = useIsMobile();
+    const feedbacksPerPage = isMobile ? 1 : 3;
+    const questionsPerPage = isMobile ? 1 : 3;
 
     const { data: feedbacks = [] } = useQuery({
-        queryKey: ['fetchFeedbacks'],
+        queryKey: ["fetchFeedbacks"],
         queryFn: fetchFeedbacks,
     });
 
-    const transformFeedbackData = (dbFeedback: FeedbackFromDB): FeedbackText => ({
-        heading: dbFeedback.heading,
-        description: dbFeedback.description,
-        userName: dbFeedback.user_name,
-        userLocation: dbFeedback.user_location,
-        stars: dbFeedback.star_count,
-        userIcon: dbFeedback.icon,
-    });
-
-    const [currentFeedbackPage, setCurrentFeedbackPage] = useState<number>(0);
-
-    const isMobile = useIsMobile();
-
-    const feedbacksPerPage = isMobile ? 1 : 3;
-
-    const handleNextFeedback = () => {
-        setFeedbackDirection(1);
-        setCurrentFeedbackPage(prev =>
-            (prev + 1) * feedbacksPerPage >= feedbacks.length ? 0 : prev + 1
-        );
-    };
-
-    const handlePrevFeedback = () => {
-        setFeedbackDirection(-1);
-        setCurrentFeedbackPage(prev =>
-            prev <= 0 ? Math.ceil(feedbacks.length / feedbacksPerPage) - 1 : prev - 1
-        );
-    };
-
-
-
     const { data: questions = [] } = useQuery<IQuestionFromDB[]>({
-        queryKey: ['fetchQuestions'],
+        queryKey: ["fetchQuestions"],
         queryFn: fetchQuestions,
     });
 
-    const [currentQuestionPage, setCurrentQuestionPage] = useState<number>(0);
-    const questionsPerPage = isMobile ? 1 : 3;
+    const {
+        currentPage: feedbackPage,
+        nextPage: nextFeedback,
+        prevPage: prevFeedback,
+        paginatedItems: feedbacksToShow
+    } = usePaginator<FeedbackFromDB>(feedbacks, feedbacksPerPage);
 
-    const handleNextQuestion = () => {
-        setCurrentQuestionPage(prev =>
-            (prev + 1) * questionsPerPage >= questions.length ? 0 : prev + 1
-        );
-    };
+    const {
+        currentPage: questionPage,
+        nextPage: nextQuestion,
+        prevPage: prevQuestion,
+        paginatedItems: questionsToShow
+    } = usePaginator<IQuestionFromDB>(questions, questionsPerPage);
 
-    const handlePrevQuestion = () => {
-        setCurrentQuestionPage(prev =>
-            prev <= 0 ? Math.ceil(questions.length / questionsPerPage) - 1 : prev - 1
-        );
-    };
+    // const transformFeedbackData = useCallback((dbFeedback: FeedbackFromDB): FeedbackText => ({
+    //     heading: dbFeedback.heading,
+    //     description: dbFeedback.description,
+    //     userName: dbFeedback.user_name,
+    //     userLocation: dbFeedback.user_location,
+    //     stars: dbFeedback.star_count,
+    //     userIcon: dbFeedback.icon,
+    // }), []);
 
-    const transformQuestionData = (dbQuestion: IQuestionFromDB): QuestionText => ({
-        heading: dbQuestion.heading,
-        description: dbQuestion.description,
-    });
+    // const transformQuestionData = (dbQuestion: IQuestionFromDB): QuestionText => ({
+    //     heading: dbQuestion.heading,
+    //     description: dbQuestion.description,
+    // });
+
+    const [feedbackDirection, setFeedbackDirection] = useState(1);
+
+    const handleNextFeedback = useCallback(() => {
+        setFeedbackDirection(1);
+        nextFeedback();
+    }, [setFeedbackDirection, nextFeedback])
+
+
+    const handlePrevFeedback = useCallback(() => {
+        setFeedbackDirection(-1);
+        prevFeedback();
+    }, [setFeedbackDirection, prevFeedback])
+
+    const handleNextQuestion = useCallback(() => {
+        setFeedbackDirection(1);
+        nextQuestion();
+    }, [setFeedbackDirection, nextQuestion])
+
+    const handlePrevQuestion = useCallback(() => {
+        setFeedbackDirection(-1);
+        prevQuestion();
+    }, [setFeedbackDirection, prevQuestion])
+
+    const memoizedFeedbacks = useMemo(() => {
+        return feedbacksToShow.map(feedback => ({
+            id: String(feedback.feedback_id),
+            name: feedback.heading,
+            heading: feedback.heading,
+            description: feedback.description,
+            userName: feedback.user_name,
+            userLocation: feedback.user_location,
+            stars: feedback.star_count,
+            userIcon: feedback.icon,
+        }));
+    }, [feedbacksToShow]);
+
+    const memoizedQuestions = useMemo(() => {
+        return questionsToShow.map(q => ({
+            id: String(q.question_id),
+            name: q.heading,
+            heading: q.heading,
+            description: q.description,
+        }));
+    }, [questionsToShow]);
 
     return (
         <>
@@ -137,6 +151,7 @@ export const HomePage = () => {
                         </div>
                     </AnimatedBox>
                 </div>
+
                 <main className="container first-container">
                     <AnimatedBox
                         className="first-slide__spacing"
@@ -159,8 +174,7 @@ export const HomePage = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8, delay: 1.4 }}
                             >
-                                Your journey to finding the perfect property begins here. Explore
-                                our listings to find the home that matches your dreams.
+                                Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.
                             </AnimatedBox>
                         </div>
                         <AnimatedBox
@@ -207,86 +221,63 @@ export const HomePage = () => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            <AllHousing/>
+            <AllHousing />
 
-            <AnimatedSection
-                className="container products-slide"
-            >
+            <AnimatedSection className="container products-slide">
                 <div>
                     <h2 className="second-heading">What Our Clients Say</h2>
                     <p className="description-text">
-                        Read the success stories and heartfelt testimonials from our valued
-                        clients. Discover why they chose Estatein for their real estate
-                        needs.
+                        Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs.
                     </p>
                 </div>
+
                 <Slider
-                    items={feedbacks}
-                    currentIndex={currentFeedbackPage * feedbacksPerPage}
+                    items={memoizedFeedbacks}
+                    currentIndex={feedbackPage * feedbacksPerPage}
                     direction={feedbackDirection}
                     handleNext={handleNextFeedback}
                     handlePrev={handlePrevFeedback}
                     isMobile={isMobile}
                 >
-                    {feedbacks
-                        .slice(
-                            currentFeedbackPage * feedbacksPerPage,
-                            currentFeedbackPage * feedbacksPerPage + feedbacksPerPage
-                        )
-                        .map((dbFeedback: FeedbackFromDB) => (
-                            <Feedback
-                                key={dbFeedback.feedback_id}
-                                text={transformFeedbackData(dbFeedback)}
-                            />
-                        ))}
+                    {memoizedFeedbacks.map(feedback => (
+                        <Feedback key={feedback.id} text={feedback} />
+                    ))}
                 </Slider>
 
                 <ProductSlider
-                    currentPage={currentFeedbackPage + 1}
+                    currentPage={feedbackPage + 1}
                     lastPage={Math.ceil(feedbacks.length / feedbacksPerPage)}
                     onClickNext={handleNextFeedback}
-                    onClickPrev={handlePrevFeedback}
+                    onClickPrev={handleNextFeedback}
                 >
                     <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>
             </AnimatedSection>
 
-            <AnimatedSection
-                className="container products-slide"
-            >
+            <AnimatedSection className="container products-slide">
                 <div>
                     <h2 className="second-heading">Frequently Asked Questions</h2>
                     <p className="description-text">
-                        Find answers to common questions about Estatein's services, property
-                        listings, and the real estate process. We're here to provide clarity
-                        and assist you every step of the way.
+                        Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way.
                     </p>
                 </div>
+
                 <Slider
-                    items={questions.map(q => ({
-                        id: q.heading,
-                        name: q.heading
-                    }))}
-                    currentIndex={currentQuestionPage * questionsPerPage}
+                    items={memoizedQuestions}
+                    currentIndex={questionPage * questionsPerPage}
                     direction={feedbackDirection}
                     handleNext={handleNextQuestion}
                     handlePrev={handlePrevQuestion}
                     isMobile={isMobile}
                 >
-                    {questions
-                        .slice(
-                            currentQuestionPage * questionsPerPage,
-                            currentQuestionPage * questionsPerPage + questionsPerPage
-                        )
-                        .map((dbQuestion) => (
-                            <Questions
-                                key={dbQuestion.question_id}
-                                text={transformQuestionData(dbQuestion)}
-                            />
-                        ))}
+                    {memoizedQuestions.map((question) => (
+                        <Questions key={question.id} text={question}
+                        />
+                    ))}
                 </Slider>
+
                 <ProductSlider
-                    currentPage={currentQuestionPage + 1}
+                    currentPage={questionPage + 1}
                     lastPage={Math.ceil(questions.length / questionsPerPage)}
                     onClickNext={handleNextQuestion}
                     onClickPrev={handlePrevQuestion}

@@ -1,5 +1,5 @@
-import { Button } from "../components/Button"
-import { AnimatedSection } from "../components/common/AnimatedSection"
+import { Button } from "../components/UI/Button"
+import { AnimatedSection } from "../components/common/Animated/AnimatedSection"
 import { assets } from "../utils/exports/directories/assets"
 import { PropertyFilters } from "../components/PropertyFilters"
 import { propertyFiltersData } from "../data"

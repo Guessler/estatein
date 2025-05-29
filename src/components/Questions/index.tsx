@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "../Button";
+import { Button } from "../UI/Button";
 import {QuestionsProps} from "../../types/interfaces"
 
 export const Questions: FC<QuestionsProps> = ({ text }) => {

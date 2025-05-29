@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { assets } from "../../utils/exports/directories/assets";
-import { Button } from "../Button";
+import { Button } from "../UI/Button";
 
 interface FeedbackItem {
     id: string;

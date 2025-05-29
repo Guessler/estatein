@@ -113,6 +113,12 @@ export interface ProductChildren {
 //     onClickPrev?: React.MouseEventHandler;
 // }
 
+
+export interface QuestionText {
+    heading: string;
+    description: string;
+}
+
 export type ProductSummary = Pick<Product, "image" | "heading" | "price">;
 
 export type ProductWithoutDescription = Omit<Product, "productDescription">;

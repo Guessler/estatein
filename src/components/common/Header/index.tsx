@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { assets } from "../../utils/exports/directories/assets";
-import { Button } from "../Button";
+import { assets } from "../../../utils/exports/directories/assets";
+import { Button } from "../../UI/Button";
 import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {

@@ -1,8 +1,9 @@
-import { AnimatedBox } from "../common/AnimatedBox";
+import { AnimatedBox } from "../common/Animated/AnimatedBox";
 import { FC } from "react";
 import { SliderProps } from "../../types/interfaces";
+import React from "react";
 
-export const Slider: FC<SliderProps<{ id: string; name: string }>> = ({
+export const Slider: FC<SliderProps<{ id: string; name: string }>> = React.memo(({
     items,
     currentIndex,
     direction,
@@ -37,4 +38,4 @@ export const Slider: FC<SliderProps<{ id: string; name: string }>> = ({
             </AnimatedBox>
         </div>
     );
-};
+});

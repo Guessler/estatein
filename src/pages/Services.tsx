@@ -1,4 +1,4 @@
-import { AnimatedSection } from "../components/common/AnimatedSection"
+import { AnimatedSection } from "../components/common/Animated/AnimatedSection"
 import { OptionsWrapper } from "../components/Option/OptionsWrapper"
 import { TitleAndText } from "../components/TitleAndText"
 import { assets } from "../utils/exports/directories/assets"
@@ -6,7 +6,7 @@ import { Option } from "../components/Option"
 import { OurValues } from "../components/OurValues"
 
 import { informedDecisions, propertyManagement, propertyValue } from "../data"
-import { Button } from "../components/Button"
+import { Button } from "../components/UI/Button"
 export const Services = () => {
     return (
         <>
