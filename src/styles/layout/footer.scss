@@ -71,7 +71,7 @@
     border-radius: 12px;
 
     @include size(default, 420px);
-    @include spacing(padding, (y, left), 21px, 51px);
+    @include spacing(padding, (y, left, right), 21px, 51px, 70px);
 
     @include respond-to(desktop) {
         @include size(default, 100%);
@@ -101,7 +101,6 @@
 .social-network {
     background-color: get-color(gray, dark_gray);
     border-radius: 50%;
-
     @include flex(on, null, center, null, center);
     @include size(default, 52px, 52px);
 }

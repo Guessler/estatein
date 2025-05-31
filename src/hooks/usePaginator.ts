@@ -1,4 +1,3 @@
-// hooks/usePaginator.ts
 import { useState, useCallback } from "react";
 
 type UsePaginatorReturn<T> = {

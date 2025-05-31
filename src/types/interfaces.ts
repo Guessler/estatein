@@ -50,6 +50,7 @@ export interface QuestionsText extends BaseEntity{
 
 export interface QuestionsProps {
     text?: QuestionsText;
+    onClick: () => void
 }
 
 export interface ProductDetail {

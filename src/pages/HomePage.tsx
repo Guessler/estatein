@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { assets } from "../utils/exports/directories/assets";
 import { Button } from "../components/UI/Button";
 import { Option } from "../components/Option";
@@ -7,7 +7,6 @@ import { AnimatedBox } from "../components/common/Animated/AnimatedBox";
 import { AnimatedImage } from "../components/common/Animated/AnimatedImg";
 import { AnimatedSection } from "../components/common/Animated/AnimatedSection";
 import { FeedbackFromDB, IQuestionFromDB } from "../types/interfaces";
-// import { FeedbackText, QuestionText } from "../types/interfaces";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
 import { ProductSlider } from "../components/Slider/ProductSlider";
@@ -20,10 +19,18 @@ import { AdBlock } from "../components/adBlock";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { usePaginator } from "../hooks/usePaginator";
 
+import { usePaginationHandlers } from "../hooks/usePaginationHandlers";
+
+import { HOME_PAGE } from "../consts/text/HomePageText";
+
+import { Popup } from "../components/UI/Popup/Popup";
+import { TitleAndText } from "../components/TitleAndText";
+
 export const HomePage = () => {
+
     const isMobile = useIsMobile();
-    const feedbacksPerPage = isMobile ? 1 : 3;
-    const questionsPerPage = isMobile ? 1 : 3;
+
+    const adaptivePerPage = isMobile ? 1 : 3;
 
     const { data: feedbacks = [] } = useQuery({
         queryKey: ["fetchFeedbacks"],
@@ -40,51 +47,28 @@ export const HomePage = () => {
         nextPage: nextFeedback,
         prevPage: prevFeedback,
         paginatedItems: feedbacksToShow
-    } = usePaginator<FeedbackFromDB>(feedbacks, feedbacksPerPage);
+    } = usePaginator<FeedbackFromDB>(feedbacks, adaptivePerPage);
 
     const {
         currentPage: questionPage,
         nextPage: nextQuestion,
         prevPage: prevQuestion,
         paginatedItems: questionsToShow
-    } = usePaginator<IQuestionFromDB>(questions, questionsPerPage);
-
-    // const transformFeedbackData = useCallback((dbFeedback: FeedbackFromDB): FeedbackText => ({
-    //     heading: dbFeedback.heading,
-    //     description: dbFeedback.description,
-    //     userName: dbFeedback.user_name,
-    //     userLocation: dbFeedback.user_location,
-    //     stars: dbFeedback.star_count,
-    //     userIcon: dbFeedback.icon,
-    // }), []);
-
-    // const transformQuestionData = (dbQuestion: IQuestionFromDB): QuestionText => ({
-    //     heading: dbQuestion.heading,
-    //     description: dbQuestion.description,
-    // });
+    } = usePaginator<IQuestionFromDB>(questions, adaptivePerPage);
 
     const [feedbackDirection, setFeedbackDirection] = useState(1);
 
-    const handleNextFeedback = useCallback(() => {
-        setFeedbackDirection(1);
-        nextFeedback();
-    }, [setFeedbackDirection, nextFeedback])
+    const feedbackHandlers = usePaginationHandlers({
+        directionSetter: setFeedbackDirection,
+        onNext: nextFeedback,
+        onPrev: prevFeedback,
+    })
 
-
-    const handlePrevFeedback = useCallback(() => {
-        setFeedbackDirection(-1);
-        prevFeedback();
-    }, [setFeedbackDirection, prevFeedback])
-
-    const handleNextQuestion = useCallback(() => {
-        setFeedbackDirection(1);
-        nextQuestion();
-    }, [setFeedbackDirection, nextQuestion])
-
-    const handlePrevQuestion = useCallback(() => {
-        setFeedbackDirection(-1);
-        prevQuestion();
-    }, [setFeedbackDirection, prevQuestion])
+    const questionsHandlers = usePaginationHandlers({
+        directionSetter: setFeedbackDirection,
+        onNext: nextQuestion,
+        onPrev: prevQuestion,
+    })
 
     const memoizedFeedbacks = useMemo(() => {
         return feedbacksToShow.map(feedback => ({
@@ -105,11 +89,36 @@ export const HomePage = () => {
             name: q.heading,
             heading: q.heading,
             description: q.description,
+            originalData: q,
         }));
     }, [questionsToShow]);
 
+    const [selectedQuestion, setSelectedQuestion] = useState<IQuestionFromDB | null>(null);
+
+    useEffect(() => {
+        if (selectedQuestion) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [selectedQuestion]);
+
+
     return (
         <>
+
+            {selectedQuestion && (
+                <Popup onClose={() => setSelectedQuestion(null)}>
+                    <TitleAndText
+                        heading={selectedQuestion.heading}
+                        description={selectedQuestion.description}
+                    />
+                </Popup>
+            )}
             <AnimatedSection
                 className="first-slide"
                 initial={{ opacity: 0 }}
@@ -166,7 +175,7 @@ export const HomePage = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8, delay: 1.2 }}
                             >
-                                Discover Your Dream Property with Estatein
+                                {HOME_PAGE.HERO.HEADING}
                             </AnimatedBox>
                             <AnimatedBox
                                 className="description-text"
@@ -174,7 +183,7 @@ export const HomePage = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8, delay: 1.4 }}
                             >
-                                Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.
+                                {HOME_PAGE.HERO.DESCRIPTION}
                             </AnimatedBox>
                         </div>
                         <AnimatedBox
@@ -183,8 +192,8 @@ export const HomePage = () => {
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.8, delay: 1.6 }}
                         >
-                            <Button>Learn More</Button>
-                            <Button variant="secondary">Browse Properties</Button>
+                            <Button>{HOME_PAGE.HERO.BUTTON_PRIMARY}</Button>
+                            <Button variant="secondary">{HOME_PAGE.HERO.BUTTON_SECONDINARY}</Button>
                         </AnimatedBox>
                         <AnimatedBox
                             className="mobile-container"
@@ -193,10 +202,10 @@ export const HomePage = () => {
                             transition={{ duration: 0.8, delay: 1.8 }}
                         >
                             <div className="ad-block-row">
-                                <AdBlock number="200+" text="Happy Customers" />
-                                <AdBlock number="10k+" text="Properties For Clients" />
+                                <AdBlock number="200+" text={HOME_PAGE.AD_BLOCK.HAPPY_CUSTOMERS} />
+                                <AdBlock number="10k+" text={HOME_PAGE.AD_BLOCK.PROPERTIES_FOR_CLIENTS} />
                             </div>
-                            <AdBlock number="16+" text="Years of Experience" />
+                            <AdBlock number="16+" text={HOME_PAGE.AD_BLOCK.YEARS_OF_EXPERIANCE} />
                         </AnimatedBox>
                     </AnimatedBox>
                 </main>
@@ -225,18 +234,18 @@ export const HomePage = () => {
 
             <AnimatedSection className="container products-slide">
                 <div>
-                    <h2 className="second-heading">What Our Clients Say</h2>
+                    <h2 className="second-heading">{HOME_PAGE.FEEDBACKSECTION.HEADING}</h2>
                     <p className="description-text">
-                        Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs.
+                        {HOME_PAGE.FEEDBACKSECTION.DESCRIPTION}
                     </p>
                 </div>
 
                 <Slider
                     items={memoizedFeedbacks}
-                    currentIndex={feedbackPage * feedbacksPerPage}
+                    currentIndex={feedbackPage * adaptivePerPage}
                     direction={feedbackDirection}
-                    handleNext={handleNextFeedback}
-                    handlePrev={handlePrevFeedback}
+                    handleNext={feedbackHandlers.handleNext}
+                    handlePrev={feedbackHandlers.handlePrev}
                     isMobile={isMobile}
                 >
                     {memoizedFeedbacks.map(feedback => (
@@ -246,9 +255,9 @@ export const HomePage = () => {
 
                 <ProductSlider
                     currentPage={feedbackPage + 1}
-                    lastPage={Math.ceil(feedbacks.length / feedbacksPerPage)}
-                    onClickNext={handleNextFeedback}
-                    onClickPrev={handleNextFeedback}
+                    lastPage={Math.ceil(feedbacks.length / adaptivePerPage)}
+                    onClickNext={feedbackHandlers.handleNext}
+                    onClickPrev={feedbackHandlers.handlePrev}
                 >
                     <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>
@@ -256,31 +265,34 @@ export const HomePage = () => {
 
             <AnimatedSection className="container products-slide">
                 <div>
-                    <h2 className="second-heading">Frequently Asked Questions</h2>
+                    <h2 className="second-heading">{HOME_PAGE.QUESTIONS.HEADING}</h2>
                     <p className="description-text">
-                        Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way.
+                        {HOME_PAGE.QUESTIONS.DESCRIPTION}
                     </p>
                 </div>
 
                 <Slider
                     items={memoizedQuestions}
-                    currentIndex={questionPage * questionsPerPage}
+                    currentIndex={questionPage * adaptivePerPage}
                     direction={feedbackDirection}
-                    handleNext={handleNextQuestion}
-                    handlePrev={handlePrevQuestion}
+                    handleNext={questionsHandlers.handleNext}
+                    handlePrev={questionsHandlers.handlePrev}
                     isMobile={isMobile}
                 >
                     {memoizedQuestions.map((question) => (
-                        <Questions key={question.id} text={question}
+                        <Questions
+                            key={question.id}
+                            text={question}
+                            onClick={() => setSelectedQuestion(question.originalData)}
                         />
                     ))}
                 </Slider>
 
                 <ProductSlider
                     currentPage={questionPage + 1}
-                    lastPage={Math.ceil(questions.length / questionsPerPage)}
-                    onClickNext={handleNextQuestion}
-                    onClickPrev={handlePrevQuestion}
+                    lastPage={Math.ceil(questions.length / adaptivePerPage)}
+                    onClickNext={questionsHandlers.handleNext}
+                    onClickPrev={questionsHandlers.handlePrev}
                 >
                     <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                 </ProductSlider>

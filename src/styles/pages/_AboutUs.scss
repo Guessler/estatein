@@ -157,6 +157,8 @@
     @include position(relative);
 }
 
+
+
 .person-card__name-sayHello{
     @include flex(on, column, $gap: 24px);
 }
