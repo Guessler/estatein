@@ -59,6 +59,17 @@ export const AboutUs = () => {
         }
     }
 
+    const [ initialMessage ,setInitialMessage] = useState('')
+    
+    const openChatWithMessage = (
+        employee: { icon: string; name: string; post: string },
+        message: string
+    ) => {
+        setSelectedEmployee(employee)
+        setInitialMessage(message)
+        setIsChatOpen(true)
+    }
+
     const handlePrevFeedback = () => {
         if (currentFeedbackPage > 0) {
             setFeedbackDirection(-1)
@@ -164,6 +175,12 @@ export const AboutUs = () => {
                             image={person.image}
                             name={person.name}
                             profession={person.profession}
+                            employee={{
+                                icon: person.image,
+                                name: person.name,
+                                post: person.profession
+                            }}
+                            onSendMessage={(employee, message) => openChatWithMessage(employee, message)}
                             onClick={() => handleOpenChat({
                                 icon: person.image,
                                 name: person.name,

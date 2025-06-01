@@ -137,8 +137,9 @@ body {
 }
 
 .small-chat__interlocutor-image{
-    @include size(default, 88px);
+    @include size(default, 60px, 60px);
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .small-chat__interlocutor{
