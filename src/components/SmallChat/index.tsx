@@ -1,17 +1,17 @@
-import { FC, useEffect, useRef } from "react"
-import { assets } from "../../utils/exports/directories/assets"
-import { Messages } from "./Messages"
-import { ChatInput } from "./ChatInput"
-import { useChatInput } from "../../hooks/useChatInput"
+import { FC, useEffect, useRef } from "react";
+import { assets } from "../../utils/exports/directories/assets";
+import { Messages } from "./Messages";
+import { ChatInput } from "./ChatInput";
+import { useChatInput } from "../../hooks/useChatInput";
 
 interface SmallChatProps {
     employee: {
-        icon: string
-        name: string
-        post: string
-    }
-    initialMessage?: string
-    onClose: () => void
+        icon: string;
+        name: string;
+        post: string;
+    };
+    initialMessage?: string;
+    onClose: () => void;
 }
 
 export const SmallChat: FC<SmallChatProps> = ({ 
@@ -23,17 +23,15 @@ export const SmallChat: FC<SmallChatProps> = ({
         value, 
         setValue, 
         messages, 
-        isHelloSent, 
-        handleSendMessage, 
-        // handleKeyDown 
-    } = useChatInput(initialMessage)
+        handleSendMessage 
+    } = useChatInput(initialMessage);
 
-    const messagesEndRef = useRef<HTMLDivElement>(null)
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Автопрокрутка
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }, [messages])
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
     return (
         <div className="small-chat">
@@ -68,8 +66,8 @@ export const SmallChat: FC<SmallChatProps> = ({
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 onSendMessage={handleSendMessage}
-                placeholder={isHelloSent ? "Type a message..." : "Say Hello 👋"}
+                placeholder="Type a message..."
             />
         </div>
-    )
-}
+    );
+};

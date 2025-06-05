@@ -42,6 +42,7 @@
     @include spacing(padding, all, 20px);
     @include size(default, 270px, 72px);
     @include flex(on, row, space-between, null, center);
+    @include position(relative);
     border-radius: 12px;
     border: 1px solid get-color(gray, slate_gray);
     background-color: get-color(gray, dark_gray);
@@ -49,6 +50,24 @@
     @include respond-to(desktop) {
         @include size(default, 100%);
     }
+}
+
+.villa-input__drop-down-list{
+    @include position(absolute, (top, left), 60px, 0);
+    @include spacing(padding, all, 20px);
+    @include size(default, 100%);
+    @include flex(on, column, $gap: 10px);
+    background-color: rgba(255, 0, 0, 0.397);
+    background-color: get-color(gray, dark_gray);
+    border: 1px solid get-color(gray, slate_gray);
+    border-top: none;
+}
+
+.villa-input__drop-down-oprions{
+    @include spacing(padding, all, 20px);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 12px;
+    @include flex(on, null, center)
 }
 
 .villa-input__location {

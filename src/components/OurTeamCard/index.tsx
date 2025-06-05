@@ -1,19 +1,18 @@
-import { FC } from "react"
-import { assets } from "../../utils/exports/directories/assets"
-import { ChatInput } from "../SmallChat/ChatInput"
-import { useChatInput } from "../../hooks/useChatInput"
-
+import { FC } from "react";
+import { assets } from "../../utils/exports/directories/assets";
+import { ChatInput } from "../SmallChat/ChatInput";
+import { useChatInput } from "../../hooks/useChatInput";
 interface OurTeamCardProps {
-    image: string
-    name: string
-    profession: string
+    image: string;
+    name: string;
+    profession: string;
     employee: {
-        icon: string
-        name: string
-        post: string
-    }
-    onSendMessage: (employee: { icon: string; name: string; post: string }, message: string) => void
-    onClick: () => void
+        icon: string;
+        name: string;
+        post: string;
+    };
+    onSendMessage: (employee: { icon: string; name: string; post: string }, message: string) => void;
+    addExternalMessage: (message: string) => void; // 👈 новый пропс
 }
 
 export const OurTeamCard: FC<OurTeamCardProps> = ({
@@ -22,20 +21,24 @@ export const OurTeamCard: FC<OurTeamCardProps> = ({
     profession,
     employee,
     onSendMessage,
-    onClick
 }) => {
-    const { value, setValue} = useChatInput("Hello 👋")
+    const { value, setValue } = useChatInput("Hello 👋");
 
     const handleSendClick = () => {
-        const trimmed = value.trim()
-        onSendMessage(employee, trimmed || "Hello 👋")
-    }
+        if (value.trim()) {
+            onSendMessage(employee, value); // Передаем сообщение в SmallChat
+            setValue(""); // Очищаем поле ввода
+            console.log("Sent message:", value); // Логируем отправленное сообщение
+        } else {
+            console.log("Message is empty");
+        }
+    };
 
     return (
         <div className="person-card">
             <div className="person-card__relative">
                 <img src={assets[image]} alt={name} />
-                <button onClick={onClick} className="person-card__button personal-card__social">
+                <button className="person-card__button personal-card__social">
                     <img src={assets["PersonTwitterIcon"]} alt="Twitter" />
                 </button>
             </div>
@@ -54,5 +57,5 @@ export const OurTeamCard: FC<OurTeamCardProps> = ({
                 />
             </div>
         </div>
-    )
-}
+    );
+};

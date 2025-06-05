@@ -7,13 +7,15 @@ import { AboutUs } from "../pages/AboutUs";
 import { Properties } from "../pages/Properties"
 import { Services } from "../pages/Services"
 import { Contacts } from '../pages/Contacts';
+import { NotFoundPage } from '../pages/NotFoundPage';
 
 const enum Paths {
     Home = '/',
     AboutUs = '/about-us',
     Properties = '/properties',
     Services = '/services',
-    Contacts = '/contacts'
+    Contacts = '/contacts',
+    NotFoundPage = '*'
 }
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -75,6 +77,16 @@ const router = createBrowserRouter([
             <ProtectedRoute>
                 <CommonLayout>
                     <Contacts />
+                </CommonLayout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: Paths.NotFoundPage,
+        element: (
+            <ProtectedRoute>
+                <CommonLayout>
+                    <NotFoundPage />
                 </CommonLayout>
             </ProtectedRoute>
         ),

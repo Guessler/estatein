@@ -24,7 +24,7 @@ export const Services = () => {
                     <Option text={"Unlock Property Value"} middleImage={assets["camera"]} />
                     <Option
                         text={"Effortless Property Management"}
-                        middleImage={assets["Management"]}
+                        middleImage={assets["Management"]}  
                     />
                     <Option
                         text={"Smart Investments, Informed Decisions"}

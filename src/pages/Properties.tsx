@@ -9,11 +9,15 @@ import { TitleAndText } from "../components/TitleAndText"
 import { useIsMobile } from "../hooks/useIsMobile";
 import { RegisterInput } from "../components/RegisterInput"
 
-import {registerInformation} from "../data"
+import { registerInformation } from "../data"
+
+
 
 export const Properties = () => {
 
     const isMobile = useIsMobile();
+
+
 
     return (
         <div>
@@ -30,9 +34,17 @@ export const Properties = () => {
                         </div>
                     </div>
                     <div className="villa-description-flex">
-                        {propertyFiltersData.map((item, index) => (
-                            <PropertyFilters key={index} image={item.image} imageName={item.imageName} />
-                        ))}
+                        <div className="villa-description-flex">
+                            {propertyFiltersData.map((item) => (
+                                <PropertyFilters
+                                    key={item.id}
+                                    listValue = {item.dropDown}
+                                    image={item.image}
+                                    imageName={item.imageName}
+                                />
+                            ))}
+                        </div>
+
                     </div>
                 </div>
             </AnimatedSection>
@@ -43,8 +55,8 @@ export const Properties = () => {
 
                 <div className="register-box">
                     {
-                        registerInformation.map((item, index)=>(
-                            <RegisterInput key={index} heading={item.heading} description={item.description} isArrow={item.isArrow} isLarge={item.isLarge} isBasic={item.isBasic}/>
+                        registerInformation.map((item, index) => (
+                            <RegisterInput key={index} heading={item.heading} description={item.description} isArrow={item.isArrow} isLarge={item.isLarge} isBasic={item.isBasic} />
                         ))
                     }
                     <p className="options-text">Message</p>
@@ -52,8 +64,8 @@ export const Properties = () => {
 
                     <div className="regiter__send-message">
                         <div className="flex">
-                        <input className="register-checkbox" type="checkbox" />
-                        <p className="header-items-text">I agree with Terms of Use and Privacy Policy</p>
+                            <input className="register-checkbox" type="checkbox" />
+                            <p className="header-items-text">I agree with Terms of Use and Privacy Policy</p>
                         </div>
                         <Button variant="secondary">Send Your Message</Button>
                     </div>

@@ -120,26 +120,37 @@ export const ValuedClientsData = [
 
 export const propertyFiltersData = [
     {
+        id: 1,
         image: "location",
-        imageName: "Location"
+        imageName: "Location",
+        dropDown: ["New York", "Los Angeles", "Chicago"], // Массив значений
     },
     {
+        id: 2,
         image: "location",
-        imageName: "Property Type"
+        imageName: "Property Type",
+        dropDown: ["Apartment", "Villa", "House"],
     },
     {
+        id: 3,
         image: "location",
-        imageName: "Pricing Range"
+        imageName: "Pricing Range",
+        dropDown: ["$100,000 - $200,000", "$200,000 - $300,000"],
     },
     {
+        id: 4,
         image: "location",
-        imageName: "Property Size"
+        imageName: "Property Size",
+        dropDown: ["1000 sqft", "2000 sqft", "3000 sqft"],
     },
     {
+        id: 5,
         image: "location",
-        imageName: "Build Year"
+        imageName: "Build Year",
+        dropDown: ["2020", "2021", "2022"],
     },
-]
+];
+
 
 export const registerInformation = [
     {
@@ -218,7 +229,7 @@ export const propertyValue = [
         className: "property-value__card"
 
     },
-] 
+]
 
 
 export const propertyManagement = [

@@ -1,39 +1,25 @@
-import { useState, useCallback } from "react"
+import { useState } from "react";
 
-export const useChatInput = (initialMessage: string = "") => {
-    const [value, setValue] = useState<string>("")
-    const [messages, setMessages] = useState<{ text: string; isMine: boolean }[]>([])
-    const [isHelloSent, setIsHelloSent] = useState<boolean>(false)
+export const useChatInput = (initialMessage: string) => {
+    const [value, setValue] = useState(initialMessage);
+    const [messages, setMessages] = useState<{ text: string; isMine: boolean }[]>([]);
 
-    // Отправка сообщения из инпута
-    const handleSendMessage = useCallback(() => {
-        const trimmed = value.trim()
-
-        if (trimmed === "") {
-            if (!isHelloSent && initialMessage) {
-                setMessages([{ text: initialMessage, isMine: true }])
-                setIsHelloSent(true)
-            }
-            return
+    const handleSendMessage = () => {
+        if (value.trim()) {
+            setMessages((prev) => [...prev, { text: value, isMine: true }]);
+            setValue("");
         }
+    };
 
-        setMessages(prev => [...prev, { text: trimmed, isMine: true }])
-        setValue("")
-    }, [value, isHelloSent, initialMessage])
-
-    // Обработка Enter
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            handleSendMessage()
-        }
-    }
+    const addExternalMessage = (message: string) => {
+        setMessages((prev) => [...prev, { text: message, isMine: false }]);
+    };
 
     return {
         value,
         setValue,
         messages,
-        isHelloSent,
         handleSendMessage,
-        handleKeyDown
-    }
-}
+        addExternalMessage,
+    };
+};

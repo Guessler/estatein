@@ -35,10 +35,10 @@ export const AboutUs = () => {
         post: string
     } | null>(null)
 
-    const handleOpenChat = (employee: { icon: string; name: string; post: string }) => {
-        setSelectedEmployee(employee)
-        setIsChatOpen(true)
-    }
+    // const handleOpenChat = (employee: { icon: string; name: string; post: string }) => {
+    //     setSelectedEmployee(employee)
+    //     setIsChatOpen(true)
+    // }
 
     const feedbacksPerPage = isMobile ? 1 : 2
 
@@ -181,11 +181,6 @@ export const AboutUs = () => {
                                 post: person.profession
                             }}
                             onSendMessage={(employee, message) => openChatWithMessage(employee, message)}
-                            onClick={() => handleOpenChat({
-                                icon: person.image,
-                                name: person.name,
-                                post: person.profession
-                            })}
                         />
                     ))}
                 </div>

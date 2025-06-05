@@ -30,7 +30,7 @@ export const AnimatedSection: FC<AnimatedSectionProps> = React.memo(({
     const isVisible = useOnScreen(ref, viewport.margin);
     const [hasBeenVisible, setHasBeenVisible] = useState(false);
 
-    console.log('Элемент перерисовался')
+    // console.log('Элемент перерисовался')
 
     useEffect(() => {
         if (isVisible && !hasBeenVisible) {
