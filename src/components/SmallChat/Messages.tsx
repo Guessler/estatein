@@ -1,7 +1,7 @@
 import { FC } from "react"
 
 interface MessagesProps {
-    variant: boolean,    
+    variant: "user" | "bot" ,    
     message: string
 }
 

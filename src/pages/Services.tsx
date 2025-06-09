@@ -1,46 +1,69 @@
-import { AnimatedSection } from "../components/common/Animated/AnimatedSection"
-import { OptionsWrapper } from "../components/Option/OptionsWrapper"
-import { TitleAndText } from "../components/TitleAndText"
-import { assets } from "../utils/exports/directories/assets"
-import { Option } from "../components/Option"
-import { OurValues } from "../components/OurValues"
+import AnimatedSection from "../components/common/Animated/AnimatedSection";
+import { OptionsWrapper } from "../components/Option/OptionsWrapper";
+import { TitleAndText } from "../components/TitleAndText";
+import { assets } from "../utils/exports/directories/assets";
+import { Option } from "../components/Option";
+import { OurValues } from "../components/OurValues";
+import { informedDecisions, propertyManagement, propertyValue } from "../data";
+import { Button } from "../components/UI/Button";
+import { useOnScreen } from "../hooks/useOnScreen"; // Импортируем useOnScreen
 
-import { informedDecisions, propertyManagement, propertyValue } from "../data"
-import { Button } from "../components/UI/Button"
 export const Services = () => {
+    // Используем useOnScreen для отслеживания видимости секций
+    const { ref: introRef, isVisible: isIntroVisible } = useOnScreen("0px");
+    const { ref: optionsRef, isVisible: isOptionsVisible } = useOnScreen("0px");
+    const { ref: propertyValueRef, isVisible: isPropertyValueVisible } = useOnScreen("0px");
+    const { ref: propertyManagementRef, isVisible: isPropertyManagementVisible } = useOnScreen("0px");
+    const { ref: informedDecisionsRef, isVisible: isInformedDecisionsVisible } = useOnScreen("0px");
+
     return (
         <>
-            <AnimatedSection className="container property-slide">
-                <TitleAndText heading="Elevate Your Real Estate Experience" description="Welcome to Estatein, where your real estate aspirations meet expert guidance. Explore our comprehensive range of services, each designed to cater to your unique needs and dreams." />
+            {/* Intro Section */}
+            <AnimatedSection
+                ref={introRef}
+                className="container property-slide"
+                initial={{ opacity: 0 }}
+                animate={isIntroVisible ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 1 }}
+            >
+                <TitleAndText 
+                    heading="Elevate Your Real Estate Experience" 
+                    description="Welcome to Estatein, where your real estate aspirations meet expert guidance. Explore our comprehensive range of services, each designed to cater to your unique needs and dreams." 
+                />
             </AnimatedSection>
 
+            {/* Options Section */}
             <AnimatedSection
+                ref={optionsRef}
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 2 }}
+                animate={isOptionsVisible ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}
             >
                 <OptionsWrapper>
                     <Option text={"Find Your Dream Home"} middleImage={assets["shop"]} />
                     <Option text={"Unlock Property Value"} middleImage={assets["camera"]} />
-                    <Option
-                        text={"Effortless Property Management"}
-                        middleImage={assets["Management"]}  
-                    />
-                    <Option
-                        text={"Smart Investments, Informed Decisions"}
-                        middleImage={assets["Smart-Investments"]}
-                    />
+                    <Option text={"Effortless Property Management"} middleImage={assets["Management"]} />
+                    <Option text={"Smart Investments, Informed Decisions"} middleImage={assets["Smart-Investments"]} />
                 </OptionsWrapper>
             </AnimatedSection>
 
-            <AnimatedSection className="container property-value-block">
-                <TitleAndText heading="Unlock Property Value" description="Selling your property should be a rewarding experience, and at Estatein, we make sure it is. Our Property Selling Service is designed to maximize the value of your property, ensuring you get the best deal possible. Explore the categories below to see how we can help you at every step of your selling journey" />
+            {/* Unlock Property Value Section */}
+            <AnimatedSection
+                ref={propertyValueRef}
+                className="container property-value-block"
+                initial={{ opacity: 0 }}
+                animate={isPropertyValueVisible ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 1 }}
+            >
+                <TitleAndText 
+                    heading="Unlock Property Value" 
+                    description="Selling your property should be a rewarding experience, and at Estatein, we make sure it is. Our Property Selling Service is designed to maximize the value of your property, ensuring you get the best deal possible. Explore the categories below to see how we can help you at every step of your selling journey." 
+                />
                 <div className="property-value">
                     <OurValues items={propertyValue} />
                     <div className="property-value__unlock-property">
                         <div className="property-value__text-gap">
-                            <img className="property-value__image" src={assets['property-value-back']} alt={assets['property-value-back']} />
-
+                            <img className="property-value__image" src={assets['property-value-back']} alt="Property Value Background" />
                             <div className="property-value__flex">
                                 <h2 className="card-text">Unlock the Value of Your Property Today</h2>
                                 <Button>Learn More</Button>
@@ -51,14 +74,23 @@ export const Services = () => {
                 </div>
             </AnimatedSection>
 
-            <AnimatedSection className="container property-value-block">
-                <TitleAndText heading="Effortless Property Management" description="Owning a property should be a pleasure, not a hassle. Estatein's Property Management Service takes the stress out of property ownership, offering comprehensive solutions tailored to your needs. Explore the categories below to see how we can make property management effortless for you" />
+            {/* Effortless Property Management Section */}
+            <AnimatedSection
+                ref={propertyManagementRef}
+                className="container property-value-block"
+                initial={{ opacity: 0 }}
+                animate={isPropertyManagementVisible ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 1 }}
+            >
+                <TitleAndText 
+                    heading="Effortless Property Management" 
+                    description="Owning a property should be a pleasure, not a hassle. Estatein's Property Management Service takes the stress out of property ownership, offering comprehensive solutions tailored to your needs. Explore the categories below to see how we can make property management effortless for you." 
+                />
                 <div className="property-value">
                     <OurValues items={propertyManagement} />
                     <div className="property-value__unlock-property">
                         <div className="property-value__text-gap">
-                            <img className="property-value__image" src={assets['property-value-back']} alt={assets['property-value-back']} />
-
+                            <img className="property-value__image" src={assets['property-value-back']} alt="Property Value Background" />
                             <div className="property-value__flex">
                                 <h2 className="card-text">Experience Effortless Property Management</h2>
                                 <Button>Learn More</Button>
@@ -69,14 +101,23 @@ export const Services = () => {
                 </div>
             </AnimatedSection>
 
-            <AnimatedSection className="container">
+            {/* Smart Investments Section */}
+            <AnimatedSection
+                ref={informedDecisionsRef}
+                className="container"
+                initial={{ opacity: 0 }}
+                animate={isInformedDecisionsVisible ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: 1 }}
+            >
                 <div className="informed-decisions">
                     <div className="informed-decisions__text">
-                        <TitleAndText heading="Smart Investments, Informed Decisions" description="Building a real estate portfolio requires a strategic approach. Estatein's Investment Advisory Service empowers you to make smart investments and informed decisions." />
+                        <TitleAndText 
+                            heading="Smart Investments, Informed Decisions" 
+                            description="Building a real estate portfolio requires a strategic approach. Estatein's Investment Advisory Service empowers you to make smart investments and informed decisions." 
+                        />
                         <div className="property-value__unlock-property small-unlock-property">
                             <div className="property-value__text-gap">
-                                <img className="property-value__image" src={assets['property-value-back']} alt={assets['property-value-back']} />
-
+                                <img className="property-value__image" src={assets['property-value-back']} alt="Property Value Background" />
                                 <div className="property-value__flex">
                                     <h2 className="card-heading-text">Unlock Your Investment Potential</h2>
                                 </div>
@@ -86,10 +127,10 @@ export const Services = () => {
                         </div>
                     </div>
                     <div className="informed-decisions__cards">
-                    <OurValues items={informedDecisions} />
+                        <OurValues items={informedDecisions} />
                     </div>
                 </div>
             </AnimatedSection>
         </>
-    )
-}
+    );
+};

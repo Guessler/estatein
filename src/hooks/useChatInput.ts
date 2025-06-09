@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export const useChatInput = (initialMessage: string) => {
-    const [value, setValue] = useState(initialMessage);
-    const [messages, setMessages] = useState<{ text: string; isMine: boolean }[]>([]);
+export const useChatInput = (initialMessage?: string) => {
+    const [value, setValue] = useState("");
+    const [messages, setMessages] = useState<Array<{
+        text: string;
+        isMine: boolean;
+    }>>([]);
+    const [isSending, setIsSending] = useState(false);
+
+    useEffect(() => {
+        if (initialMessage && initialMessage.trim() && messages.length === 0) {
+            setMessages([{ text: initialMessage, isMine: true }]);
+        }
+    }, [initialMessage]);
 
     const handleSendMessage = () => {
-        if (value.trim()) {
-            setMessages((prev) => [...prev, { text: value, isMine: true }]);
+        if (value.trim() && !isSending) {
+            setIsSending(true);
+            
+            // Сообщение пользователя
+            setMessages(prev => [...prev, { text: value, isMine: true }]);
             setValue("");
+            
         }
-    };
-
-    const addExternalMessage = (message: string) => {
-        setMessages((prev) => [...prev, { text: message, isMine: false }]);
     };
 
     return {
@@ -20,6 +30,5 @@ export const useChatInput = (initialMessage: string) => {
         setValue,
         messages,
         handleSendMessage,
-        addExternalMessage,
     };
 };

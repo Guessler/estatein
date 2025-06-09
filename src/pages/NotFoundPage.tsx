@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { AnimatedSection } from "../components/common/Animated/AnimatedSection"
+import  AnimatedSection  from "../components/common/Animated/AnimatedSection"
 
 export const NotFoundPage = () => {
     return (

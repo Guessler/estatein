@@ -1,12 +1,23 @@
 import { FC } from "react";
 import { Button } from "../UI/Button";
-import {ProductChildren} from "../../types/interfaces"
+import { ProductChildren } from "../../types/interfaces";
+import { AnimatedBox } from "../../components/common/Animated/AnimatedBox";
 
-
+const fadeIn = {
+    initial: { opacity: 0, scale: 0.9 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.5 },
+};
 
 export const ProductCard: FC<ProductChildren> = ({ productIcon, productName, productDescription, productPrice, children }) => {
     return (
-        <div className="product-card">
+        <AnimatedBox 
+            className="product-card" 
+            initial={{ opacity: 0, scale: 0.9 } }
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }} 
+            variants={fadeIn}
+        >
             <img
                 className="product-card__image"
                 src={productIcon}
@@ -24,12 +35,10 @@ export const ProductCard: FC<ProductChildren> = ({ productIcon, productName, pro
                     <span className="description-text">Price</span>
                     <b className="card-heading-text">${productPrice}</b>
                 </div>
-                <Button
-                    variant="secondary"
-                >
+                <Button variant="secondary">
                     View Property Details
                 </Button>
             </div>
-        </div>
+        </AnimatedBox>
     );
 };

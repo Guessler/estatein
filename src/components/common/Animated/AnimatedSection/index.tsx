@@ -1,7 +1,6 @@
-import { FC, useRef, useState, useEffect } from "react";
+import React, {  useState, useEffect, forwardRef, Ref } from "react";
 import { motion, TargetAndTransition } from "framer-motion";
 import { useOnScreen } from "../../../../hooks/useOnScreen";
-import React from "react";
 
 interface AnimatedSectionProps {
     initial?: TargetAndTransition;
@@ -10,27 +9,20 @@ interface AnimatedSectionProps {
     transition?: object;
     className?: string;
     children: React.ReactNode;
-    viewport?: {
-        once?: boolean;
-        margin?: string;
-        amount?: number;
-    };
+    viewportMargin?: string;
 }
 
-export const AnimatedSection: FC<AnimatedSectionProps> = React.memo(({
+const AnimatedSection = forwardRef<HTMLElement, AnimatedSectionProps>(({
     initial,
     animate,
     whileInView,
     transition,
     className,
     children,
-    viewport = { once: true, margin: "0px" },
-}) => {
-    const ref = useRef<HTMLElement>(null);
-    const isVisible = useOnScreen(ref, viewport.margin);
+    viewportMargin = "0px",
+}, ref: Ref<HTMLElement>) => {
+    const isVisible = useOnScreen(viewportMargin);
     const [hasBeenVisible, setHasBeenVisible] = useState(false);
-
-    // console.log('Элемент перерисовался')
 
     useEffect(() => {
         if (isVisible && !hasBeenVisible) {
@@ -45,9 +37,10 @@ export const AnimatedSection: FC<AnimatedSectionProps> = React.memo(({
             animate={hasBeenVisible ? animate || whileInView : initial}
             transition={transition}
             className={className}
-            viewport={viewport}
         >
             {children}
         </motion.section>
     );
-})
+});
+
+export default React.memo(AnimatedSection);

@@ -16,7 +16,7 @@ interface SmallChatProps {
 
 export const SmallChat: FC<SmallChatProps> = ({ 
     employee, 
-    initialMessage = "Hello 👋",
+    initialMessage,
     onClose 
 }) => {
     const { 
@@ -28,7 +28,7 @@ export const SmallChat: FC<SmallChatProps> = ({
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Автопрокрутка
+    // Автопрокрутка к новым сообщениям
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
@@ -37,7 +37,7 @@ export const SmallChat: FC<SmallChatProps> = ({
         <div className="small-chat">
             <div onClick={onClose} className="close-chat"></div>        
 
-            {/* Заголовок */}
+            {/* Заголовок чата */}
             <div className="small-chat__interlocutor">
                 <img 
                     className="small-chat__interlocutor-image" 
@@ -48,25 +48,33 @@ export const SmallChat: FC<SmallChatProps> = ({
                     <h3 className="card-heading-text">{employee.name}</h3>
                     <p className="description-text">{employee.post}</p>
                 </div>
-                <button className="small-chat__close-button" onClick={onClose}>
+                <button 
+                    className="small-chat__close-button" 
+                    onClick={onClose}
+                    aria-label="Close chat"
+                >
                     &times;
                 </button>
             </div>
 
-            {/* Сообщения */}
+            {/* Область сообщений */}
             <div className="small-chat__workspace">
                 {messages.map((message, index) => (
-                    <Messages key={index} message={message.text} variant={message.isMine} />
+                    <Messages 
+                        key={index} 
+                        message={message.text} 
+                        variant={message.isMine ? "user" : "bot"} 
+                    />
                 ))}
                 <div ref={messagesEndRef} />
             </div>
 
-            {/* Инпут и кнопка Send */}
+            {/* Поле ввода */}
             <ChatInput
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 onSendMessage={handleSendMessage}
-                placeholder="Type a message..."
+                placeholder="Type your message here..."
             />
         </div>
     );

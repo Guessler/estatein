@@ -5,7 +5,8 @@ import { Option } from "../components/Option";
 import { OptionsWrapper } from "../components/Option/OptionsWrapper";
 import { AnimatedBox } from "../components/common/Animated/AnimatedBox";
 import { AnimatedImage } from "../components/common/Animated/AnimatedImg";
-import { AnimatedSection } from "../components/common/Animated/AnimatedSection";
+// import AnimatedSection from "../components/common/Animated/AnimatedSection";
+import AnimatedSection from "../components/common/Animated/AnimatedSection";
 import { FeedbackFromDB, IQuestionFromDB } from "../types/interfaces";
 import { Slider } from "../components/Slider";
 import { Feedback } from "../components/Feedback";
@@ -18,18 +19,14 @@ import { AllHousing } from "../components/AllHousing";
 import { AdBlock } from "../components/adBlock";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { usePaginator } from "../hooks/usePaginator";
-
 import { usePaginationHandlers } from "../hooks/usePaginationHandlers";
-
 import { HOME_PAGE } from "../consts/text/HomePageText";
-
 import { Popup } from "../components/UI/Popup/Popup";
 import { TitleAndText } from "../components/TitleAndText";
+import { useOnScreen } from "../hooks/useOnScreen";
 
 export const HomePage = () => {
-
     const isMobile = useIsMobile();
-
     const adaptivePerPage = isMobile ? 1 : 3;
 
     const { data: feedbacks = [] } = useQuery({
@@ -57,18 +54,17 @@ export const HomePage = () => {
     } = usePaginator<IQuestionFromDB>(questions, adaptivePerPage);
 
     const [feedbackDirection, setFeedbackDirection] = useState(1);
-
     const feedbackHandlers = usePaginationHandlers({
         directionSetter: setFeedbackDirection,
         onNext: nextFeedback,
         onPrev: prevFeedback,
-    })
+    });
 
     const questionsHandlers = usePaginationHandlers({
         directionSetter: setFeedbackDirection,
         onNext: nextQuestion,
         onPrev: prevQuestion,
-    })
+    });
 
     const memoizedFeedbacks = useMemo(() => {
         return feedbacksToShow.map(feedback => ({
@@ -107,10 +103,14 @@ export const HomePage = () => {
         };
     }, [selectedQuestion]);
 
+    // Используем useOnScreen для отслеживания видимости секций
+    const { ref: optionsWrapperRef, isVisible: isOptionsVisible } = useOnScreen("0px");
+    const { ref: allHousingRef, isVisible: isAllHousingVisible } = useOnScreen("0px");
+    const { ref: feedbackSectionRef, isVisible: isFeedbackSectionVisible } = useOnScreen("0px");
+    const { ref: questionsSectionRef, isVisible: isQuestionsSectionVisible } = useOnScreen("0px");
 
     return (
         <>
-
             {selectedQuestion && (
                 <Popup onClose={() => setSelectedQuestion(null)}>
                     <TitleAndText
@@ -212,8 +212,9 @@ export const HomePage = () => {
             </AnimatedSection>
 
             <AnimatedSection
+                ref={optionsWrapperRef}
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                animate={isOptionsVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1, delay: 2 }}
             >
                 <OptionsWrapper>
@@ -230,9 +231,22 @@ export const HomePage = () => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            <AllHousing />
+            <AnimatedSection
+                ref={allHousingRef} // Теперь это работает
+                initial={{ opacity: 0, y: 50 }}
+                animate={isAllHousingVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }} // Анимация при видимости
+                transition={{ duration: 1 }}
+            >
+                <AllHousing />
+            </AnimatedSection>
 
-            <AnimatedSection className="container products-slide">
+            <AnimatedSection
+                ref={feedbackSectionRef} // Теперь это работает
+                className="container products-slide"
+                initial={{ opacity: 0 }}
+                animate={isFeedbackSectionVisible ? { opacity: 1 } : { opacity: 0 }} // Анимация при видимости
+                transition={{ duration: 1 }}
+            >
                 <div>
                     <h2 className="second-heading">{HOME_PAGE.FEEDBACKSECTION.HEADING}</h2>
                     <p className="description-text">
@@ -263,7 +277,13 @@ export const HomePage = () => {
                 </ProductSlider>
             </AnimatedSection>
 
-            <AnimatedSection className="container products-slide">
+            <AnimatedSection
+                ref={questionsSectionRef} // Теперь это работает
+                className="container products-slide"
+                initial={{ opacity: 0 }}
+                animate={isQuestionsSectionVisible ? { opacity: 1 } : { opacity: 0 }} // Анимация при видимости
+                transition={{ duration: 1 }}
+            >
                 <div>
                     <h2 className="second-heading">{HOME_PAGE.QUESTIONS.HEADING}</h2>
                     <p className="description-text">

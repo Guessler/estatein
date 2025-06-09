@@ -198,7 +198,7 @@
     background-color: get-color(gray, charcoal);
 }
 
-.regiter__send-message{
+.register__send-message{
     @include size(default, 100%);
     @include flex(on, row, space-between);
 
