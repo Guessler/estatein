@@ -1,13 +1,16 @@
 import { FC } from "react"
 
 interface ISupportingCompaniesProps {
-    image?: string
+    image: string,
+    link: string
 }
 
-export const SupportingCompanies:FC<ISupportingCompaniesProps> = ({ image }) => {
-    return(
+export const SupportingCompanies: FC<ISupportingCompaniesProps> = ({ image, link }) => {
+    return (
         <div className="social-network">
-            <img src={image} alt={image} />
+            <a href={link} target="_blank">
+                <img src={image} alt={image} />
+            </a>
         </div>
     )
 }

@@ -37,7 +37,6 @@ export const ChatInput: FC<ChatInputProps> = ({
             <button 
                 onClick={handleSubmit} 
                 className="person-card__button personal-card__send"
-                disabled={!value.trim()}
             >
                 <img src={assets['Send']} alt="Send" />
             </button>

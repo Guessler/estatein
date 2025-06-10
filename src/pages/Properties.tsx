@@ -9,12 +9,11 @@ import { useIsMobile } from "../hooks/useIsMobile";
 import { RegisterInput } from "../components/RegisterInput";
 import { registerInformation } from "../data";
 import { AnimatedBox } from "../components/common/Animated/AnimatedBox";
-import { useOnScreen } from "../hooks/useOnScreen"; // Импортируем useOnScreen
+import { useOnScreen } from "../hooks/useOnScreen";
 
 export const Properties = () => {
     const isMobile = useIsMobile();
 
-    // Используем useOnScreen для отслеживания видимости секций
     const { ref: heroSectionRef, isVisible: isHeroVisible } = useOnScreen("0px");
     const { ref: filtersSectionRef, isVisible: isFiltersVisible } = useOnScreen("0px");
     const { ref: allHousingSectionRef, isVisible: isAllHousingVisible } = useOnScreen("0px");
@@ -22,7 +21,6 @@ export const Properties = () => {
 
     return (
         <div>
-            {/* Hero Section */}
             <AnimatedSection
                 ref={heroSectionRef}
                 className="container property-slide"
@@ -56,7 +54,7 @@ export const Properties = () => {
                                     className="filter-animation" 
                                     initial={{ opacity: 0, y: 20 }} 
                                     animate={isFiltersVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} 
-                                    transition={{ duration: 0.5, delay: index * 0.1 }} // Delay for staggered animation
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
                                 >
                                     <PropertyFilters
                                         listValue={item.dropDown}
@@ -70,18 +68,16 @@ export const Properties = () => {
                 </div>
             </AnimatedSection>
 
-            {/* All Housing Section */}
             <AnimatedSection
                 ref={allHousingSectionRef}
                 className="container all-housing-section"
                 initial={{ opacity: 0 }}
                 animate={isAllHousingVisible ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }} // Delay for smooth transition
+                transition={{ duration: 0.5, delay: 0.2 }} 
             >
                 <AllHousing />
             </AnimatedSection>
 
-            {/* Registration Section */}
             <AnimatedSection
                 ref={registrationSectionRef}
                 className="container registration-spacing"
@@ -101,7 +97,7 @@ export const Properties = () => {
                             className="input-animation" 
                             initial={{ opacity: 0, y: 20 }} 
                             animate={isRegistrationVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} 
-                            transition={{ duration: 0.5, delay: index * 0.1 }} // Staggered animation
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
                             <RegisterInput 
                                 heading={item.heading} 

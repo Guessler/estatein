@@ -1,5 +1,5 @@
 import { assets } from "../utils/exports/directories/assets"
-
+import {Links} from "../consts/links/Links"
 export const valuesData = [
     {
         heading: "Trust",
@@ -97,7 +97,8 @@ export const ValuedClientsData = [
         corporationName: "ABC Corporation",
         domain: "Commercial Real Estate",
         Category: "Luxury Home Development",
-        comment: "Estatein's expertise in finding the perfect office space for our expanding operations was invaluable. They truly understand our business needs."
+        comment: "Estatein's expertise in finding the perfect office space for our expanding operations was invaluable. They truly understand our business needs.",
+        link: Links.GITHUB
     },
     {
         id: "2",
@@ -105,7 +106,8 @@ export const ValuedClientsData = [
         corporationName: "XYZ Enterprises",
         domain: "Residential Properties",
         Category: "Premium Apartments",
-        comment: "The team at Estatein made our property search effortless and found us exactly what we were looking for."
+        comment: "The team at Estatein made our property search effortless and found us exactly what we were looking for.",
+        link: Links.WEB_SITE
     },
     {
         id: "3",
@@ -113,7 +115,8 @@ export const ValuedClientsData = [
         corporationName: "QWE Enterprises",
         domain: "Bibiziana new",
         Category: "Premium Apartments",
-        comment: "The team at Estatein made our property search effortless and found us exactly what we were looking for."
+        comment: "The team at Estatein made our property search effortless and found us exactly what we were looking for.",
+        link: Links.GITHUB
     }
 ];
 

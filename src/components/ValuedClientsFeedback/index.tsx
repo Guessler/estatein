@@ -9,6 +9,7 @@ interface FeedbackItem {
     domain: string;
     Category: string;
     comment: string;
+    link: string
 }
 
 interface ValuedClientsFeedbackProps {
@@ -23,7 +24,9 @@ export const ValuedClientsFeedback: FC<ValuedClientsFeedbackProps> = ({ feedback
                     <span className="header-items-text gray-white-color">{feedback.date}</span>
                     <h2 className="card-text">{feedback.corporationName}</h2>
                 </div>
-                <Button>Visit Website</Button>
+                <a href={feedback.link} target="_blank">
+                    <Button>Visit Website</Button>
+                </a>
             </div>
             <div className="valued-clients-info">
                 <div className="valued-clients-info-gap">

@@ -9,7 +9,7 @@ interface OurTeamCardProps {
     profession: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onSendMessage: () => void; // Changed to match ChatInput expectations
+    onSendMessage: () => void;
 }
 
 export const OurTeamCard: FC<OurTeamCardProps> = ({
