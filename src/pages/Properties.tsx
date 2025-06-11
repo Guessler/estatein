@@ -10,6 +10,10 @@ import { RegisterInput } from "../components/RegisterInput";
 import { registerInformation } from "../data";
 import { AnimatedBox } from "../components/common/Animated/AnimatedBox";
 import { useOnScreen } from "../hooks/useOnScreen";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Product } from "../types/interfaces";
+import { fetchProducts } from "../services/products";
 
 export const Properties = () => {
     const isMobile = useIsMobile();
@@ -18,6 +22,24 @@ export const Properties = () => {
     const { ref: filtersSectionRef, isVisible: isFiltersVisible } = useOnScreen("0px");
     const { ref: allHousingSectionRef, isVisible: isAllHousingVisible } = useOnScreen("0px");
     const { ref: registrationSectionRef, isVisible: isRegistrationVisible } = useOnScreen("0px");
+
+    const [searchProperty, setSearchProperty] = useState('');
+    const [showProperties, setShowProperties] = useState(false);
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
+    // Получаем данные о продуктах
+    const { data: fetchedProductsData = [] } = useQuery({
+        queryKey: ["fetchProducts"],
+        queryFn: fetchProducts,
+    });
+
+    const handleShowProperties = () => {
+        const filtered = fetchedProductsData.filter((product: Product) => 
+            product.heading?.toLowerCase().includes(searchProperty.toLowerCase())
+        );
+        setFilteredProducts(filtered);
+        setShowProperties(true);
+    };
 
     return (
         <div>
@@ -36,18 +58,20 @@ export const Properties = () => {
                     <div className="search-villa__border">
                         <div className="search-villa">
                             <input 
+                                value={searchProperty}
+                                onChange={(e) => setSearchProperty(e.target.value)}
                                 className="card-heading-text search-property" 
                                 type="text" 
                                 placeholder="Search For A Property" 
                             />
-                            <Button className="search-property__button" variant="secondary">
+                            <Button onClick={handleShowProperties} className="search-property__button" variant="secondary">
                                 <img src={assets["Loop"]} alt="Search Icon" />
                                 {!isMobile && "Find Property"}
                             </Button>
                         </div>
                     </div>
                     <AnimatedSection ref={filtersSectionRef} className="villa-description-flex">
-                        <div className="villa-description-flex" >
+                        <div className="villa-description-flex">
                             {propertyFiltersData.map((item, index) => (
                                 <AnimatedBox 
                                     key={item.id} 
@@ -75,7 +99,7 @@ export const Properties = () => {
                 animate={isAllHousingVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }} 
             >
-                <AllHousing />
+                <AllHousing searchText={showProperties ? searchProperty : ""} products={showProperties ? filteredProducts : fetchedProductsData} />
             </AnimatedSection>
 
             <AnimatedSection

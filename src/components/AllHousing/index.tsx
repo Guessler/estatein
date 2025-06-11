@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { assets } from "../../utils/exports/directories/assets";
-import  AnimatedSection  from "../common/Animated/AnimatedSection";
+import AnimatedSection from "../common/Animated/AnimatedSection";
 import { ProductCard } from "../ProductCard";
 import { Slider } from "../Slider";
 import { ProductSlider } from "../Slider/ProductSlider";
-import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../../services/products";
 import { Product } from "../../types/interfaces";
 import { ProductCardDetails } from "../ProductCard/ProductCardDetails";
-
 import { usePaginationHandlers } from "../../hooks/usePaginationHandlers";
 import { usePaginator } from "../../hooks/usePaginator";
 
-export const AllHousing = () => {
+interface AllHousingProps {
+    searchText?: string;
+}
+
+export const AllHousing = ({ searchText = "", products = [] }: AllHousingProps) => {
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
 
     const handleResize = () => {
@@ -28,17 +29,15 @@ export const AllHousing = () => {
 
     const itemsPerPage = isMobile ? 1 : 3;
 
-    const { data: fetchedProductsData = [] } = useQuery({
-        queryKey: ["fetchProducts"],
-        queryFn: fetchProducts,
-    });
+    // Используем переданные продукты вместо загруженных
+    const filteredProducts = products;
 
     const {
         currentPage,
         nextPage,
         prevPage,
         paginatedItems
-    } = usePaginator<Product>(fetchedProductsData, itemsPerPage);
+    } = usePaginator<Product>(filteredProducts, itemsPerPage);
 
     const [direction, setDirection] = useState<number>(1);
 
@@ -48,13 +47,13 @@ export const AllHousing = () => {
         onPrev: prevPage,
     });
 
-    const totalPages = Math.ceil(fetchedProductsData.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
     return (
         <AnimatedSection className="container products-slide">
             <h2 className="second-heading">Featured Properties</h2>
             <Slider
-                items={fetchedProductsData}
+                items={filteredProducts}
                 currentIndex={currentPage * itemsPerPage}
                 direction={direction}
                 handleNext={handleNext}
