@@ -106,3 +106,73 @@ const router = createBrowserRouter([
 ]);
 
 export const AppRoutes: React.FC = () => <RouterProvider router={router} />;
+
+
+// import React from 'react';
+// import { useEffect } from "react";
+// import { Route, BrowserRouter as Router, Routes, useLocation, useNavigate } from "react-router-dom";
+// import { HomePage } from '../pages/HomePage';
+// import { AboutUs } from "../pages/AboutUs";
+// import { Properties } from "../pages/Properties"
+// import { Services } from "../pages/Services"
+// import { Contacts } from '../pages/Contacts';
+// import { NotFoundPage } from '../pages/NotFoundPage';
+// import { PropertyPage } from '../pages/PropertyPage';
+// import { Header } from '../components/common/Header';
+// import { Footer } from '../components/common/Footer';
+
+// interface PageComponents {
+//     Home: React.FC;
+//     AboutUs: React.FC;
+//     Properties: React.FC;
+//     PropertyPage: React.FC;
+//     Services: React.FC;
+//     Contacts: React.FC;
+//     NotFoundPage: React.FC;
+// }
+
+// const RedirectHandler: React.FC = () => {
+//     const location = useLocation();
+//     const navigate = useNavigate();
+
+//     useEffect(() => {
+//         const queryParams = new URLSearchParams(location.search);
+//         const redirect = queryParams.get("redirect");
+//         if (redirect) {
+//             navigate(redirect);
+//         }
+//     }, [location, navigate]);
+
+//     return null;
+// };
+
+// export const AppRoutes: React.FC = () => {
+//     const pageComponents: PageComponents = {
+//         Home: HomePage,
+//         AboutUs: AboutUs,
+//         Properties: Properties,
+//         PropertyPage: PropertyPage,
+//         Services: Services,
+//         Contacts: Contacts,
+//         NotFoundPage: NotFoundPage
+//     };
+
+//     return (
+//         <Router>
+//             <RedirectHandler />
+//             <Header />
+//             <Routes>
+//                 <Route path="/estateIn/" element={<pageComponents.Home />} />
+//                 <Route path="/estateIn/about-us" element={<pageComponents.AboutUs />} />
+//                 <Route path="/estateIn/properties" element={<pageComponents.Properties />} />
+//                 <Route path="/estateIn/id" element={<pageComponents.PropertyPage />} />
+//                 <Route path="/estateIn/services" element={<pageComponents.Services />} />
+//                 <Route path="/estateIn/contacts" element={<pageComponents.Contacts />} />
+//                 <Route path="*" element={<pageComponents.NotFoundPage />} />
+//             </Routes>
+//             <Footer />
+//         </Router>
+//     );
+// };
+
+// export default AppRoutes;

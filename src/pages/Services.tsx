@@ -6,10 +6,9 @@ import { Option } from "../components/Option";
 import { OurValues } from "../components/OurValues";
 import { informedDecisions, propertyManagement, propertyValue } from "../data";
 import { Button } from "../components/UI/Button";
-import { useOnScreen } from "../hooks/useOnScreen"; // Импортируем useOnScreen
+import { useOnScreen } from "../hooks/useOnScreen";
 
 export const Services = () => {
-    // Используем useOnScreen для отслеживания видимости секций
     const { ref: introRef, isVisible: isIntroVisible } = useOnScreen("0px");
     const { ref: optionsRef, isVisible: isOptionsVisible } = useOnScreen("0px");
     const { ref: propertyValueRef, isVisible: isPropertyValueVisible } = useOnScreen("0px");
@@ -18,10 +17,9 @@ export const Services = () => {
 
     return (
         <>
-            {/* Intro Section */}
             <AnimatedSection
                 ref={introRef}
-                className="container property-slide"
+                className="container property-slide first-slide"
                 initial={{ opacity: 0 }}
                 animate={isIntroVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}

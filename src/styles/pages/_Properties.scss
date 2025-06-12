@@ -54,6 +54,7 @@
 
 .villa-input__drop-down-list{
     @include position(absolute, (top, left), 60px, 0);
+    z-index: 100;
     @include spacing(padding, all, 20px);
     @include size(default, 100%);
     @include flex(on, column, $gap: 10px);

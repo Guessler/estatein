@@ -44,7 +44,7 @@ export const Properties = () => {
         <div>
             <AnimatedSection
                 ref={heroSectionRef}
-                className="container property-slide"
+                className="container property-slide first-slide"
                 initial={{ opacity: 0 }}
                 animate={isHeroVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.5 }}
