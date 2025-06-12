@@ -24,6 +24,7 @@ import { HOME_PAGE } from "../consts/text/HomePageText";
 import { Popup } from "../components/UI/Popup/Popup";
 import { TitleAndText } from "../components/TitleAndText";
 import { useOnScreen } from "../hooks/useOnScreen";
+import { fetchProducts } from "../services/products";
 
 export const HomePage = () => {
     const isMobile = useIsMobile();
@@ -38,6 +39,10 @@ export const HomePage = () => {
         queryKey: ["fetchQuestions"],
         queryFn: fetchQuestions,
     });
+        const { data: fetchedProductsData = [] } = useQuery({
+            queryKey: ["fetchProducts"],
+            queryFn: fetchProducts,
+        });
 
     const {
         currentPage: feedbackPage,
@@ -103,7 +108,6 @@ export const HomePage = () => {
         };
     }, [selectedQuestion]);
 
-    // Используем useOnScreen для отслеживания видимости секций
     const { ref: optionsWrapperRef, isVisible: isOptionsVisible } = useOnScreen("0px");
     const { ref: allHousingRef, isVisible: isAllHousingVisible } = useOnScreen("0px");
     const { ref: feedbackSectionRef, isVisible: isFeedbackSectionVisible } = useOnScreen("0px");
@@ -232,19 +236,19 @@ export const HomePage = () => {
             </AnimatedSection>
 
             <AnimatedSection
-                ref={allHousingRef} // Теперь это работает
+                ref={allHousingRef}
                 initial={{ opacity: 0, y: 50 }}
-                animate={isAllHousingVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }} // Анимация при видимости
+                animate={isAllHousingVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                 transition={{ duration: 1 }}
             >
-                <AllHousing />
+                <AllHousing products={fetchedProductsData}/>
             </AnimatedSection>
 
             <AnimatedSection
-                ref={feedbackSectionRef} // Теперь это работает
+                ref={feedbackSectionRef}
                 className="container products-slide"
                 initial={{ opacity: 0 }}
-                animate={isFeedbackSectionVisible ? { opacity: 1 } : { opacity: 0 }} // Анимация при видимости
+                animate={isFeedbackSectionVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
                 <div>
@@ -278,10 +282,10 @@ export const HomePage = () => {
             </AnimatedSection>
 
             <AnimatedSection
-                ref={questionsSectionRef} // Теперь это работает
+                ref={questionsSectionRef}
                 className="container products-slide"
                 initial={{ opacity: 0 }}
-                animate={isQuestionsSectionVisible ? { opacity: 1 } : { opacity: 0 }} // Анимация при видимости
+                animate={isQuestionsSectionVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
                 <div>

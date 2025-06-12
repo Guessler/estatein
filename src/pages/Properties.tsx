@@ -27,7 +27,6 @@ export const Properties = () => {
     const [showProperties, setShowProperties] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
-    // Получаем данные о продуктах
     const { data: fetchedProductsData = [] } = useQuery({
         queryKey: ["fetchProducts"],
         queryFn: fetchProducts,

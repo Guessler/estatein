@@ -11,10 +11,10 @@ import { usePaginator } from "../../hooks/usePaginator";
 
 interface AllHousingProps {
     searchText?: string;
-    products: Product[];
+    products?: Product[];
 }
 
-export const AllHousing = ({ searchText = "", products }: AllHousingProps) => {
+export const AllHousing = ({ searchText = "", products = [] }: AllHousingProps) => {
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
 
     const handleResize = () => {
@@ -30,7 +30,6 @@ export const AllHousing = ({ searchText = "", products }: AllHousingProps) => {
 
     const itemsPerPage = isMobile ? 1 : 3;
 
-    // Используем переданные продукты и фильтруем их по searchText
     const filteredProducts = products.filter((product: Product) => 
         product.heading?.toLowerCase().includes(searchText.toLowerCase())
     );

@@ -1,0 +1,64 @@
+@use "../utils/mixins" as *;
+@use "../utils/function" as *;
+
+.property-product{
+    @include flex(on, column, $gap: 60px);
+}
+
+.property-product__slider {
+    @include flex(on, row, space-between, null, center);
+    div {
+        @include flex(on, column);
+
+
+        span {
+            color: get-color(gray, light_gray_1);
+        }
+    }
+}
+
+.property-propduct__slider-top {
+    @include flex(on, row, center, $gap: 20px);
+    @include spacing(padding, all, 20px);
+    background-color: get-color(gray, dark_gray);
+    
+    border-radius: 12px;
+    
+    div {
+        @include flex(on, null, $gap: 20px);
+
+        img {
+            @include size(default, 144px);
+        }
+    }
+}
+
+.property-propduct__slider-twister {
+    @include spacing(padding, all, 50px);
+    @include flex(on, column, null, null, center, $gap: 30px);
+    border-radius: 12px;
+    background-color: get-color(gray, charcoal);
+
+}
+
+.property-propduct__slider-photos{
+    @include flex(on, $gap: 30px);
+    img{
+        @include size(default, 730px);
+    }
+}
+
+.property-propduct__slider-switcher{
+    @include size(default, 296px);
+    border-radius: 100px;
+    background-color: get-color(gray, dark_gray);
+    @include spacing(padding, all, 10px);
+
+    @include flex(on, null, center, null, center, $gap: 10px);
+}
+
+.property-product__slider-page{
+    @include size(default, 20px, 5px);
+    background-color: get-color(purple, vivid_purple);
+    border-radius: 60px;
+}

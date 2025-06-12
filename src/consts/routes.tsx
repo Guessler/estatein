@@ -8,11 +8,13 @@ import { Properties } from "../pages/Properties"
 import { Services } from "../pages/Services"
 import { Contacts } from '../pages/Contacts';
 import { NotFoundPage } from '../pages/NotFoundPage';
+import { PropertyPage } from '../pages/PropertyPage';
 
 const enum Paths {
     Home = '/',
     AboutUs = '/about-us',
     Properties = '/properties',
+    PropertyPage = "/id",
     Services = '/services',
     Contacts = '/contacts',
     NotFoundPage = '*'
@@ -57,6 +59,16 @@ const router = createBrowserRouter([
             <ProtectedRoute>
                 <CommonLayout>
                     <Properties />
+                </CommonLayout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: Paths.PropertyPage,
+        element: (
+            <ProtectedRoute>
+                <CommonLayout>
+                    <PropertyPage />
                 </CommonLayout>
             </ProtectedRoute>
         ),
