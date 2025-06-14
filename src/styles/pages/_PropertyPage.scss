@@ -1,12 +1,13 @@
 @use "../utils/mixins" as *;
 @use "../utils/function" as *;
 
-.property-product{
+.property-product {
     @include flex(on, column, $gap: 60px);
 }
 
 .property-product__slider {
     @include flex(on, row, space-between, null, center);
+
     div {
         @include flex(on, column);
 
@@ -21,9 +22,9 @@
     @include flex(on, row, center, $gap: 20px);
     @include spacing(padding, all, 20px);
     background-color: get-color(gray, dark_gray);
-    
+
     border-radius: 12px;
-    
+
     div {
         @include flex(on, null, $gap: 20px);
 
@@ -41,14 +42,15 @@
 
 }
 
-.property-propduct__slider-photos{
+.property-propduct__slider-photos {
     @include flex(on, $gap: 30px);
-    img{
+
+    img {
         @include size(default, 730px);
     }
 }
 
-.property-propduct__slider-switcher{
+.property-propduct__slider-switcher {
     @include size(default, 296px);
     border-radius: 100px;
     background-color: get-color(gray, dark_gray);
@@ -57,29 +59,30 @@
     @include flex(on, null, center, null, center, $gap: 10px);
 }
 
-.property-product__slider-page{
+.property-product__slider-page {
     @include size(default, 20px, 5px);
     background-color: get-color(purple, vivid_purple);
     border-radius: 60px;
 }
 
-.property-page-description{
+.property-page-description {
     @include flex(on, row, space-between, $gap: 30px);
 
-    .property-page-description-block{
+    .property-page-description-block {
         @include size(default, 782px);
         @include spacing(padding, all, 50px);
-        @include flex(on, column ,$gap: 30px);
+        @include flex(on, column, $gap: 30px);
         background-color: get-color(gray, dark_gray);
         border: 1px solid get-color(gray, slate_gray);
         border-radius: 12px;
 
-        .property-page-description-block__feature{
+        .property-page-description-block__feature {
             @include size(default, 682px, 62px);
             background: linear-gradient(to right, #191919, #141414);
-            @include flex(on , null, null, null, center, $gap: 10px);
+            @include flex(on, null, null, null, center, $gap: 10px);
             @include position(relative);
             @include spacing(padding, all, 18px);
+
             div {
                 background-color: get-color(purple, vivid_purple);
                 @include size(default, 1px, 100%);
@@ -90,49 +93,66 @@
     }
 }
 
-.property-page-description__conditions{
+.property-page-description__conditions {
     @include size(default, 200px, 72px);
     @include flex(on, column, $gap: 10px);
-    img{
+
+    img {
         @include size(default, 32px);
     }
-    div{
+
+    div {
         @include flex(on, null, null, null, center, $gap: 10px);
     }
 }
 
-.separation-horizontal{
+.separation-horizontal {
     @include size(default, 100%, 1px);
     background-color: get-color(gray, slate_gray);
 }
-.property-page-description__conditions-wrapper{
+
+.property-page-description__conditions-wrapper {
     @include flex(on, $gap: 40px);
 }
 
-.separation-vetrical{
+.separation-vetrical {
     @include size(default, 1px, 100%);
     background-color: get-color(gray, slate_gray);
 
 }
 
-.property-page__register{
+.property-page__register {
     @include flex(on, $gap: 100px);
 }
 
-.property-page__register-text{
+.property-page__register-text {
     @include size(default, 518px);
 }
 
-.property-page-register-box{
+.property-page-register-box {
     @include size(default, 1100px);
     @include spacing(padding, all, 50px);
-    @include flex(on, row, space-between,$gap: 30px);
+    @include flex(on, row, space-between, $gap: 30px);
 }
 
-.largest-input{
+.largest-input {
     @include size(default, 914px);
 }
 
-.property-page__note{
+.property-page__note {
     @include size(default, 100%);
+    @include spacing(padding, (x, y), 50px, 30px);
+    @include flex(on, null, null, null, center, $gap: 20px);
+    border-radius: 12px;
+    border: 1px solid get-color(gray, slate_gray);
+    background-color: get-color(gray, charcoal);
+
+    hr{
+        @include size(default, 1px, 36px);
+        background-color: get-color(gray, slate_gray);
+    }
+}
+
+.property-page__details{
+    @include flex(on, column, $gap: 80px);
 }
