@@ -4,8 +4,8 @@ import { Header } from "../components/common/Header";
 import { HomePage } from '../pages/HomePage';
 import { Footer } from '../components/common/Footer';
 import { AboutUs } from "../pages/AboutUs";
-import { Properties } from "../pages/Properties"
-import { Services } from "../pages/Services"
+import { Properties } from "../pages/Properties";
+import { Services } from "../pages/Services";
 import { Contacts } from '../pages/Contacts';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { PropertyPage } from '../pages/PropertyPage';
@@ -105,8 +105,7 @@ const router = createBrowserRouter([
     },
 ]);
 
-export const AppRoutes: React.FC = () => <RouterProvider router={router} />;
-
+export const AppRouter: React.FC = () => <RouterProvider router={router} />;
 
 // import React from 'react';
 // import { useEffect } from "react";
@@ -146,7 +145,7 @@ export const AppRoutes: React.FC = () => <RouterProvider router={router} />;
 //     return null;
 // };
 
-// export const AppRoutes: React.FC = () => {
+// export const AppRouter: React.FC = () => {
 //     const pageComponents: PageComponents = {
 //         Home: HomePage,
 //         AboutUs: AboutUs,
@@ -158,21 +157,23 @@ export const AppRoutes: React.FC = () => <RouterProvider router={router} />;
 //     };
 
 //     return (
-//         <Router>
-//             <RedirectHandler />
+//         <>
+//             <Router basename="/estateIn">
+//                 <RedirectHandler />
 //             <Header />
-//             <Routes>
-//                 <Route path="/estateIn/" element={<pageComponents.Home />} />
-//                 <Route path="/estateIn/about-us" element={<pageComponents.AboutUs />} />
-//                 <Route path="/estateIn/properties" element={<pageComponents.Properties />} />
-//                 <Route path="/estateIn/id" element={<pageComponents.PropertyPage />} />
-//                 <Route path="/estateIn/services" element={<pageComponents.Services />} />
-//                 <Route path="/estateIn/contacts" element={<pageComponents.Contacts />} />
-//                 <Route path="*" element={<pageComponents.NotFoundPage />} />
-//             </Routes>
+//                 <Routes>
+//                     <Route path="/" element={<pageComponents.Home />} />
+//                     <Route path="/about-us" element={<pageComponents.AboutUs />} />
+//                     <Route path="/properties" element={<pageComponents.Properties />} />
+//                     <Route path="/id" element={<pageComponents.PropertyPage />} />
+//                     <Route path="/services" element={<pageComponents.Services />} />
+//                     <Route path="/contacts" element={<pageComponents.Contacts />} />
+//                     <Route path="*" element={<pageComponents.NotFoundPage />} />
+//                 </Routes>
 //             <Footer />
-//         </Router>
+//             </Router>
+//         </>
 //     );
 // };
 
-// export default AppRoutes;
+// export default AppRouter;

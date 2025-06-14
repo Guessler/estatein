@@ -62,3 +62,77 @@
     background-color: get-color(purple, vivid_purple);
     border-radius: 60px;
 }
+
+.property-page-description{
+    @include flex(on, row, space-between, $gap: 30px);
+
+    .property-page-description-block{
+        @include size(default, 782px);
+        @include spacing(padding, all, 50px);
+        @include flex(on, column ,$gap: 30px);
+        background-color: get-color(gray, dark_gray);
+        border: 1px solid get-color(gray, slate_gray);
+        border-radius: 12px;
+
+        .property-page-description-block__feature{
+            @include size(default, 682px, 62px);
+            background: linear-gradient(to right, #191919, #141414);
+            @include flex(on , null, null, null, center, $gap: 10px);
+            @include position(relative);
+            @include spacing(padding, all, 18px);
+            div {
+                background-color: get-color(purple, vivid_purple);
+                @include size(default, 1px, 100%);
+                @include position(absolute, (left, top), 0, 0)
+            }
+
+        }
+    }
+}
+
+.property-page-description__conditions{
+    @include size(default, 200px, 72px);
+    @include flex(on, column, $gap: 10px);
+    img{
+        @include size(default, 32px);
+    }
+    div{
+        @include flex(on, null, null, null, center, $gap: 10px);
+    }
+}
+
+.separation-horizontal{
+    @include size(default, 100%, 1px);
+    background-color: get-color(gray, slate_gray);
+}
+.property-page-description__conditions-wrapper{
+    @include flex(on, $gap: 40px);
+}
+
+.separation-vetrical{
+    @include size(default, 1px, 100%);
+    background-color: get-color(gray, slate_gray);
+
+}
+
+.property-page__register{
+    @include flex(on, $gap: 100px);
+}
+
+.property-page__register-text{
+    @include size(default, 518px);
+}
+
+.property-page-register-box{
+    @include size(default, 1100px);
+    @include spacing(padding, all, 50px);
+    @include flex(on, row, space-between,$gap: 30px);
+}
+
+.largest-input{
+    @include size(default, 914px);
+}
+
+.property-page__note{
+    @include size(default, 100%);
+}

@@ -7,7 +7,7 @@ import { RegisterInput } from "../components/RegisterInput";
 import { Button } from "../components/UI/Button";
 import { connectUs } from "../data";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
-import { useOnScreen } from "../hooks/useOnScreen"; // Импортируем useOnScreen
+import { useOnScreen } from "../hooks/useOnScreen";
 
 const images = [
     assets['computers'],
@@ -18,7 +18,6 @@ const images = [
 ];
 
 export const Contacts = () => {
-    // Используем useOnScreen для отслеживания видимости секций
     const { ref: introRef, isVisible: isIntroVisible } = useOnScreen("0px");
     const { ref: optionsRef, isVisible: isOptionsVisible } = useOnScreen("0px");
     const { ref: connectRef, isVisible: isConnectVisible } = useOnScreen("0px");
@@ -27,7 +26,6 @@ export const Contacts = () => {
 
     return (
         <>
-            {/* Intro Section */}
             <AnimatedSection
                 ref={introRef}
                 className="container property-slide"
@@ -41,7 +39,6 @@ export const Contacts = () => {
                 />
             </AnimatedSection>
 
-            {/* Options Section */}
             <AnimatedSection
                 ref={optionsRef}
                 initial={{ opacity: 0 }}
@@ -56,7 +53,6 @@ export const Contacts = () => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            {/* Connect Section */}
             <AnimatedSection
                 ref={connectRef}
                 className="container property-slide"
@@ -96,7 +92,6 @@ export const Contacts = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Locations Section */}
             <AnimatedSection
                 ref={locationsRef}
                 className="container"
@@ -135,7 +130,6 @@ export const Contacts = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Estatein World Section */}
             <AnimatedSection
                 ref={worldRef}
                 className="container"
