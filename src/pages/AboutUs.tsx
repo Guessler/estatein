@@ -14,7 +14,7 @@ import { Slider } from "../components/Slider";
 import { ProductSlider } from "../components/Slider/ProductSlider";
 import { ValuedClientsData } from "../data";
 import { TitleAndText } from "../components/TitleAndText";
-import { ABOUT_PAGE } from "../consts/text/HomePageText";
+import { ABOUT_PAGE } from "../consts/text/en/AboutUsPageText";
 import { SmallChat } from "../components/SmallChat";
 import { useOnScreen } from "../hooks/useOnScreen";
 

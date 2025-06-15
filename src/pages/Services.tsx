@@ -7,6 +7,8 @@ import { OurValues } from "../components/OurValues";
 import { informedDecisions, propertyManagement, propertyValue } from "../data";
 import { Button } from "../components/UI/Button";
 import { useOnScreen } from "../hooks/useOnScreen";
+import { SERVICES_PAGE } from "../consts/text/en/ServicesText";
+
 
 export const Services = () => {
     const { ref: introRef, isVisible: isIntroVisible } = useOnScreen("0px");
@@ -17,6 +19,7 @@ export const Services = () => {
 
     return (
         <>
+            {/* Intro Section */}
             <AnimatedSection
                 ref={introRef}
                 className="container property-slide first-slide"
@@ -24,9 +27,9 @@ export const Services = () => {
                 animate={isIntroVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
-                <TitleAndText 
-                    heading="Elevate Your Real Estate Experience" 
-                    description="Welcome to Estatein, where your real estate aspirations meet expert guidance. Explore our comprehensive range of services, each designed to cater to your unique needs and dreams." 
+                <TitleAndText
+                    heading={SERVICES_PAGE.INTRO.HEADING}
+                    description={SERVICES_PAGE.INTRO.DESCRIPTION}
                 />
             </AnimatedSection>
 
@@ -38,10 +41,16 @@ export const Services = () => {
                 transition={{ duration: 1, delay: 0.5 }}
             >
                 <OptionsWrapper>
-                    <Option text={"Find Your Dream Home"} middleImage={assets["shop"]} />
-                    <Option text={"Unlock Property Value"} middleImage={assets["camera"]} />
-                    <Option text={"Effortless Property Management"} middleImage={assets["Management"]} />
-                    <Option text={"Smart Investments, Informed Decisions"} middleImage={assets["Smart-Investments"]} />
+                    <Option text={SERVICES_PAGE.OPTIONS.FIND_HOME} middleImage={assets["shop"]} />
+                    <Option text={SERVICES_PAGE.OPTIONS.UNLOCK_PROPERTY} middleImage={assets["camera"]} />
+                    <Option
+                        text={SERVICES_PAGE.OPTIONS.PROPERTY_MANAGEMENT}
+                        middleImage={assets["Management"]}
+                    />
+                    <Option
+                        text={SERVICES_PAGE.OPTIONS.SMART_INVESTMENTS}
+                        middleImage={assets["Smart-Investments"]}
+                    />
                 </OptionsWrapper>
             </AnimatedSection>
 
@@ -53,20 +62,26 @@ export const Services = () => {
                 animate={isPropertyValueVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
-                <TitleAndText 
-                    heading="Unlock Property Value" 
-                    description="Selling your property should be a rewarding experience, and at Estatein, we make sure it is. Our Property Selling Service is designed to maximize the value of your property, ensuring you get the best deal possible. Explore the categories below to see how we can help you at every step of your selling journey." 
+                <TitleAndText
+                    heading={SERVICES_PAGE.PROPERTY_VALUE.HEADING}
+                    description={SERVICES_PAGE.PROPERTY_VALUE.DESCRIPTION}
                 />
                 <div className="property-value">
                     <OurValues items={propertyValue} />
                     <div className="property-value__unlock-property">
                         <div className="property-value__text-gap">
-                            <img className="property-value__image" src={assets['property-value-back']} alt="Property Value Background" />
+                            <img
+                                className="property-value__image"
+                                src={assets["property-value-back"]}
+                                alt="Property Value Background"
+                            />
                             <div className="property-value__flex">
-                                <h2 className="card-text">Unlock the Value of Your Property Today</h2>
-                                <Button>Learn More</Button>
+                                <h2 className="card-text">{SERVICES_PAGE.PROPERTY_VALUE.CTA_HEADING}</h2>
+                                <Button>{SERVICES_PAGE.PROPERTY_VALUE.CTA_BUTTON}</Button>
                             </div>
-                            <p className="description-text">Ready to unlock the true value of your property? Explore our Property Selling Service categories and let us help you achieve the best deal possible for your valuable asset.</p>
+                            <p className="description-text">
+                                {SERVICES_PAGE.PROPERTY_VALUE.CTA_DESCRIPTION}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -80,20 +95,26 @@ export const Services = () => {
                 animate={isPropertyManagementVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
-                <TitleAndText 
-                    heading="Effortless Property Management" 
-                    description="Owning a property should be a pleasure, not a hassle. Estatein's Property Management Service takes the stress out of property ownership, offering comprehensive solutions tailored to your needs. Explore the categories below to see how we can make property management effortless for you." 
+                <TitleAndText
+                    heading={SERVICES_PAGE.PROPERTY_MANAGEMENT.HEADING}
+                    description={SERVICES_PAGE.PROPERTY_MANAGEMENT.DESCRIPTION}
                 />
                 <div className="property-value">
                     <OurValues items={propertyManagement} />
                     <div className="property-value__unlock-property">
                         <div className="property-value__text-gap">
-                            <img className="property-value__image" src={assets['property-value-back']} alt="Property Value Background" />
+                            <img
+                                className="property-value__image"
+                                src={assets["property-value-back"]}
+                                alt="Property Value Background"
+                            />
                             <div className="property-value__flex">
-                                <h2 className="card-text">Experience Effortless Property Management</h2>
-                                <Button>Learn More</Button>
+                                <h2 className="card-text">{SERVICES_PAGE.PROPERTY_MANAGEMENT.CTA_HEADING}</h2>
+                                <Button>{SERVICES_PAGE.PROPERTY_MANAGEMENT.CTA_BUTTON}</Button>
                             </div>
-                            <p className="description-text">Ready to experience hassle-free property management? Explore our Property Management Service categories and let us handle the complexities while you enjoy the benefits of property ownership.</p>
+                            <p className="description-text">
+                                {SERVICES_PAGE.PROPERTY_MANAGEMENT.CTA_DESCRIPTION}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -109,18 +130,24 @@ export const Services = () => {
             >
                 <div className="informed-decisions">
                     <div className="informed-decisions__text">
-                        <TitleAndText 
-                            heading="Smart Investments, Informed Decisions" 
-                            description="Building a real estate portfolio requires a strategic approach. Estatein's Investment Advisory Service empowers you to make smart investments and informed decisions." 
+                        <TitleAndText
+                            heading={SERVICES_PAGE.INVESTMENTS.HEADING}
+                            description={SERVICES_PAGE.INVESTMENTS.DESCRIPTION}
                         />
                         <div className="property-value__unlock-property small-unlock-property">
                             <div className="property-value__text-gap">
-                                <img className="property-value__image" src={assets['property-value-back']} alt="Property Value Background" />
+                                <img
+                                    className="property-value__image"
+                                    src={assets["property-value-back"]}
+                                    alt="Property Value Background"
+                                />
                                 <div className="property-value__flex">
-                                    <h2 className="card-heading-text">Unlock Your Investment Potential</h2>
+                                    <h2 className="card-heading-text">{SERVICES_PAGE.INVESTMENTS.CTA_HEADING}</h2>
                                 </div>
-                                <p className="description-text">Explore our Property Management Service categories and let us handle the complexities while you enjoy the benefits of property ownership.</p>
-                                <Button>Learn More</Button>
+                                <p className="description-text">
+                                    {SERVICES_PAGE.INVESTMENTS.CTA_DESCRIPTION}
+                                </p>
+                                <Button>{SERVICES_PAGE.INVESTMENTS.CTA_BUTTON}</Button>
                             </div>
                         </div>
                     </div>

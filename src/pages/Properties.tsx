@@ -14,6 +14,9 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "../types/interfaces";
 import { fetchProducts } from "../services/products";
+import { PROPERTIES_PAGE } from "../consts/text/en/PropertiesText";
+
+// Импортируем текстовые константы
 
 export const Properties = () => {
     const isMobile = useIsMobile();
@@ -23,7 +26,7 @@ export const Properties = () => {
     const { ref: allHousingSectionRef, isVisible: isAllHousingVisible } = useOnScreen("0px");
     const { ref: registrationSectionRef, isVisible: isRegistrationVisible } = useOnScreen("0px");
 
-    const [searchProperty, setSearchProperty] = useState('');
+    const [searchProperty, setSearchProperty] = useState("");
     const [showProperties, setShowProperties] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
@@ -33,7 +36,7 @@ export const Properties = () => {
     });
 
     const handleShowProperties = () => {
-        const filtered = fetchedProductsData.filter((product: Product) => 
+        const filtered = fetchedProductsData.filter((product: Product) =>
             product.heading?.toLowerCase().includes(searchProperty.toLowerCase())
         );
         setFilteredProducts(filtered);
@@ -42,6 +45,7 @@ export const Properties = () => {
 
     return (
         <div>
+            {/* Hero Section */}
             <AnimatedSection
                 ref={heroSectionRef}
                 className="container property-slide first-slide"
@@ -49,34 +53,43 @@ export const Properties = () => {
                 animate={isHeroVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <TitleAndText 
-                    heading="Find Your Dream Property" 
-                    description="Welcome to Estatein, where your dream property awaits in every corner of our beautiful world. Explore our curated selection of properties, each offering a unique story and a chance to redefine your life. With categories to suit every dreamer, your journey begins here." 
+                <TitleAndText
+                    heading={PROPERTIES_PAGE.HERO.HEADING}
+                    description={PROPERTIES_PAGE.HERO.DESCRIPTION}
                 />
                 <div className="search-flex">
                     <div className="search-villa__border">
                         <div className="search-villa">
-                            <input 
+                            <input
                                 value={searchProperty}
                                 onChange={(e) => setSearchProperty(e.target.value)}
-                                className="card-heading-text search-property" 
-                                type="text" 
-                                placeholder="Search For A Property" 
+                                className="card-heading-text search-property"
+                                type="text"
+                                placeholder={PROPERTIES_PAGE.HERO.SEARCH_PLACEHOLDER}
                             />
-                            <Button onClick={handleShowProperties} className="search-property__button" variant="secondary">
+                            <Button
+                                onClick={handleShowProperties}
+                                className="search-property__button"
+                                variant="secondary"
+                            >
                                 <img src={assets["Loop"]} alt="Search Icon" />
-                                {!isMobile && "Find Property"}
+                                {!isMobile && PROPERTIES_PAGE.HERO.BUTTON_FIND_PROPERTY}
                             </Button>
                         </div>
                     </div>
-                    <AnimatedSection ref={filtersSectionRef} className="villa-description-flex">
+
+                    {/* Filters Section */}
+                    <AnimatedSection
+                        ref={filtersSectionRef}
+                        className="villa-description-flex"
+                    >
                         <div className="villa-description-flex">
                             {propertyFiltersData.map((item, index) => (
-                                <AnimatedBox 
-                                    key={item.id} 
-                                    className="filter-animation" 
-                                    initial={{ opacity: 0, y: 20 }} 
-                                    animate={isFiltersVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} 
+                                <AnimatedBox
+                                    key={item.id}
+                                    className="filter-animation"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={isFiltersVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
                                 >
                                     <PropertyFilters
@@ -91,16 +104,21 @@ export const Properties = () => {
                 </div>
             </AnimatedSection>
 
+            {/* All Housing Section */}
             <AnimatedSection
                 ref={allHousingSectionRef}
                 className="container all-housing-section"
                 initial={{ opacity: 0 }}
                 animate={isAllHousingVisible ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }} 
+                transition={{ duration: 0.5, delay: 0.2 }}
             >
-                <AllHousing searchText={showProperties ? searchProperty : ""} products={showProperties ? filteredProducts : fetchedProductsData} />
+                <AllHousing
+                    searchText={showProperties ? searchProperty : ""}
+                    products={showProperties ? filteredProducts : fetchedProductsData}
+                />
             </AnimatedSection>
 
+            {/* Registration Section */}
             <AnimatedSection
                 ref={registrationSectionRef}
                 className="container registration-spacing"
@@ -108,41 +126,45 @@ export const Properties = () => {
                 animate={isRegistrationVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <TitleAndText 
-                    heading="Let's Make it Happen" 
-                    description="Ready to take the first step toward your dream property? Fill out the form below, and our real estate wizards will work their magic to find your perfect match. Don't wait; let's embark on this exciting journey together." 
+                <TitleAndText
+                    heading={PROPERTIES_PAGE.REGISTRATION.HEADING}
+                    description={PROPERTIES_PAGE.REGISTRATION.DESCRIPTION}
                 />
 
                 <div className="register-box">
                     {registerInformation.map((item, index) => (
-                        <AnimatedBox 
-                            key={index} 
-                            className="input-animation" 
-                            initial={{ opacity: 0, y: 20 }} 
-                            animate={isRegistrationVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} 
+                        <AnimatedBox
+                            key={index}
+                            className="input-animation"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isRegistrationVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <RegisterInput 
-                                heading={item.heading} 
-                                description={item.description} 
-                                isArrow={item.isArrow} 
-                                isLarge={item.isLarge} 
-                                isBasic={item.isBasic} 
+                            <RegisterInput
+                                heading={item.heading}
+                                description={item.description}
+                                isArrow={item.isArrow}
+                                isLarge={item.isLarge}
+                                isBasic={item.isBasic}
                             />
                         </AnimatedBox>
                     ))}
                     <p className="options-text">Message</p>
-                    <textarea 
-                        className="header-items-text registered-box-text-area" 
-                        placeholder="Enter your Message here.."
+                    <textarea
+                        className="header-items-text registered-box-text-area"
+                        placeholder={PROPERTIES_PAGE.REGISTRATION.MESSAGE_PLACEHOLDER}
                     ></textarea>
 
                     <div className="register__send-message">
                         <div className="flex">
                             <input className="register-checkbox" type="checkbox" />
-                            <p className="header-items-text">I agree with Terms of Use and Privacy Policy</p>
+                            <p className="header-items-text">
+                                {PROPERTIES_PAGE.REGISTRATION.AGREEMENT_TEXT}
+                            </p>
                         </div>
-                        <Button variant="secondary">Send Your Message</Button>
+                        <Button variant="secondary">
+                            {PROPERTIES_PAGE.REGISTRATION.BUTTON_SEND_MESSAGE}
+                        </Button>
                     </div>
                 </div>
             </AnimatedSection>

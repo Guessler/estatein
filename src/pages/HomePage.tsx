@@ -20,7 +20,7 @@ import { AdBlock } from "../components/adBlock";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { usePaginator } from "../hooks/usePaginator";
 import { usePaginationHandlers } from "../hooks/usePaginationHandlers";
-import { HOME_PAGE } from "../consts/text/HomePageText";
+import { HOME_PAGE } from "../consts/text/en/HomePageText";
 import { Popup } from "../components/UI/Popup/Popup";
 import { TitleAndText } from "../components/TitleAndText";
 import { useOnScreen } from "../hooks/useOnScreen";

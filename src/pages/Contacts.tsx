@@ -8,13 +8,15 @@ import { Button } from "../components/UI/Button";
 import { connectUs } from "../data";
 import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
 import { useOnScreen } from "../hooks/useOnScreen";
+import { CONTACTS_PAGE } from "../consts/text/en/ContactsText";
+
 
 const images = [
-    assets['computers'],
-    assets['personal'],
-    assets['second-personal'],
-    assets['third-personal'],
-    assets["fourth-personal"]
+    assets["computers"],
+    assets["personal"],
+    assets["second-personal"],
+    assets["third-personal"],
+    assets["fourth-personal"],
 ];
 
 export const Contacts = () => {
@@ -26,6 +28,7 @@ export const Contacts = () => {
 
     return (
         <>
+            {/* Intro Section */}
             <AnimatedSection
                 ref={introRef}
                 className="container property-slide"
@@ -33,12 +36,13 @@ export const Contacts = () => {
                 animate={isIntroVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
-                <TitleAndText 
-                    heading="Get in Touch with Estatein" 
-                    description="Welcome to Estatein's Contact Us page. We're here to assist you with any inquiries, requests, or feedback you may have. Whether you're looking to buy or sell a property, explore investment opportunities, or simply want to connect, we're just a message away. Reach out to us, and let's start a conversation." 
+                <TitleAndText
+                    heading={CONTACTS_PAGE.INTRO.HEADING}
+                    description={CONTACTS_PAGE.INTRO.DESCRIPTION}
                 />
             </AnimatedSection>
 
+            {/* Options Section */}
             <AnimatedSection
                 ref={optionsRef}
                 initial={{ opacity: 0 }}
@@ -46,13 +50,14 @@ export const Contacts = () => {
                 transition={{ duration: 1, delay: 0.5 }}
             >
                 <OptionsWrapper>
-                    <Option text={"info@estatein.com"} middleImage={assets["shop"]} />
-                    <Option text={"+1 (123) 456-7890"} middleImage={assets["camera"]} />
-                    <Option text={"Main Headquarters"} middleImage={assets["Management"]} />
-                    <Option text={"Smart Investments, Informed Decisions"} middleImage={assets["Smart-Investments"]} />
+                    <Option text={CONTACTS_PAGE.OPTIONS.EMAIL} middleImage={assets["shop"]} />
+                    <Option text={CONTACTS_PAGE.OPTIONS.PHONE} middleImage={assets["camera"]} />
+                    <Option text={CONTACTS_PAGE.OPTIONS.HEADQUARTERS} middleImage={assets["Management"]} />
+                    <Option text={CONTACTS_PAGE.OPTIONS.INVESTMENTS} middleImage={assets["Smart-Investments"]} />
                 </OptionsWrapper>
             </AnimatedSection>
 
+            {/* Connect Section */}
             <AnimatedSection
                 ref={connectRef}
                 className="container property-slide"
@@ -60,38 +65,40 @@ export const Contacts = () => {
                 animate={isConnectVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
-                <TitleAndText 
-                    heading="Let's Connect" 
-                    description="We're excited to connect with you and learn more about your real estate goals. Use the form below to get in touch with Estatein. Whether you're a prospective client, partner, or simply curious about our services, we're here to answer your questions and provide the assistance you need." 
+                <TitleAndText
+                    heading={CONTACTS_PAGE.CONNECT.HEADING}
+                    description={CONTACTS_PAGE.CONNECT.DESCRIPTION}
                 />
 
                 <div className="register-box">
-                    {
-                        connectUs.map((item, index) => (
-                            <RegisterInput 
-                                className="contacts-input" 
-                                key={index} 
-                                heading={item.heading} 
-                                description={item.description} 
-                                isArrow={item.isArrow} 
-                                isLarge={item.isLarge} 
-                                isBasic={item.isBasic} 
-                            />
-                        ))
-                    }
+                    {connectUs.map((item, index) => (
+                        <RegisterInput
+                            className="contacts-input"
+                            key={index}
+                            heading={item.heading}
+                            description={item.description}
+                            isArrow={item.isArrow}
+                            isLarge={item.isLarge}
+                            isBasic={item.isBasic}
+                        />
+                    ))}
                     <p className="options-text">Message</p>
-                    <textarea className="header-items-text registered-box-text-area" placeholder="Enter your Message here.."></textarea>
+                    <textarea
+                        className="header-items-text registered-box-text-area"
+                        placeholder={CONTACTS_PAGE.CONNECT.MESSAGE_PLACEHOLDER}
+                    ></textarea>
 
                     <div className="register__send-message">
                         <div className="flex">
                             <input className="register-checkbox" type="checkbox" />
-                            <p className="header-items-text">I agree with Terms of Use and Privacy Policy</p>
+                            <p className="header-items-text">{CONTACTS_PAGE.CONNECT.AGREEMENT_TEXT}</p>
                         </div>
-                        <Button variant="secondary">Send Your Message</Button>
+                        <Button variant="secondary">{CONTACTS_PAGE.CONNECT.BUTTON_SEND_MESSAGE}</Button>
                     </div>
                 </div>
             </AnimatedSection>
 
+            {/* Locations Section */}
             <AnimatedSection
                 ref={locationsRef}
                 className="container"
@@ -99,37 +106,54 @@ export const Contacts = () => {
                 animate={isLocationsVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
             >
-                <TitleAndText 
-                    heading="Discover Our Office Locations" 
-                    description="Estatein is here to serve you across multiple locations. Whether you're looking to meet our team, discuss real estate opportunities, or simply drop by for a chat, we have offices conveniently located to serve your needs. Explore the categories below to find the Estatein office nearest to you." 
+                <TitleAndText
+                    heading={CONTACTS_PAGE.LOCATIONS.HEADING}
+                    description={CONTACTS_PAGE.LOCATIONS.DESCRIPTION}
                 />
                 <div className="office-locations__show">
-                    <button className="header-items-text office-locations-btn office-locations-btn__active">All</button>
-                    <button className="header-items-text office-locations-btn">Regional</button>
-                    <button className="header-items-text office-locations-btn">International</button>
+                    <button className="header-items-text office-locations-btn office-locations-btn__active">
+                        {CONTACTS_PAGE.LOCATIONS.BUTTON_ALL}
+                    </button>
+                    <button className="header-items-text office-locations-btn">
+                        {CONTACTS_PAGE.LOCATIONS.BUTTON_REGIONAL}
+                    </button>
+                    <button className="header-items-text office-locations-btn">
+                        {CONTACTS_PAGE.LOCATIONS.BUTTON_INTERNATIONAL}
+                    </button>
                 </div>
                 <div className="office-locations__cards">
                     <div className="office-locations__card">
                         <div className="office-locations__card-text">
-                            <p className="header-items-text">Main Headquarters</p>
-                            <h2 className="card-text">123 Estatein Plaza, City Center, Metropolis</h2>
-                            <p className="ad-text-medium">Our main headquarters serve as the heart of Estatein. Located in the bustling city center, this is where our core team of experts operates, driving the excellence and innovation that define us.</p>
+                            <p className="header-items-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}</p>
+                            <h2 className="card-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_ADDRESS}</h2>
+                            <p className="ad-text-medium">
+                                {CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_DESCRIPTION}
+                            </p>
                         </div>
-                        <ProductCardDetails productCharacteristicIcon={assets['Email']} productCharacteristic="info@estatein.com" />
-                        <Button variant="secondary">Get Direction</Button>
+                        <ProductCardDetails
+                            productCharacteristicIcon={assets["Email"]}
+                            productCharacteristic={CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}
+                        />
+                        <Button variant="secondary">{CONTACTS_PAGE.LOCATIONS.BUTTON_GET_DIRECTION}</Button>
                     </div>
                     <div className="office-locations__card">
                         <div className="office-locations__card-text">
-                            <p className="header-items-text">Main Headquarters</p>
-                            <h2 className="card-text">123 Estatein Plaza, City Center, Metropolis</h2>
-                            <p className="ad-text-medium">Our main headquarters serve as the heart of Estatein. Located in the bustling city center, this is where our core team of experts operates, driving the excellence and innovation that define us.</p>
+                            <p className="header-items-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}</p>
+                            <h2 className="card-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_ADDRESS}</h2>
+                            <p className="ad-text-medium">
+                                {CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_DESCRIPTION}
+                            </p>
                         </div>
-                        <ProductCardDetails productCharacteristicIcon={assets['Email']} productCharacteristic="info@estatein.com" />
-                        <Button variant="secondary">Get Direction</Button>
+                        <ProductCardDetails
+                            productCharacteristicIcon={assets["Email"]}
+                            productCharacteristic={CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}
+                        />
+                        <Button variant="secondary">{CONTACTS_PAGE.LOCATIONS.BUTTON_GET_DIRECTION}</Button>
                     </div>
                 </div>
             </AnimatedSection>
 
+            {/* World Section */}
             <AnimatedSection
                 ref={worldRef}
                 className="container"
@@ -138,17 +162,15 @@ export const Contacts = () => {
                 transition={{ duration: 1 }}
             >
                 <div className="estatein-world">
-                    {
-                        images.map((item, index) => (
-                            <img key={index} src={item} alt={`Estatein Image ${index + 1}`} />
-                        ))
-                    }
+                    {images.map((item, index) => (
+                        <img key={index} src={item} alt={`Estatein Image ${index + 1}`} />
+                    ))}
                     <div className="estatein-world__text-block">
                         <div className="estatein-world__text">
-                            <h2 className="second-heading">Explore Estatein's World</h2>
-                            <p className="description-text">Step inside the world of Estatein, where professionalism meets warmth, and expertise meets passion. Our gallery offers a glimpse into our team and workspaces, inviting you to get to know us better.</p>
+                            <h2 className="second-heading">{CONTACTS_PAGE.WORLD.HEADING}</h2>
+                            <p className="description-text">{CONTACTS_PAGE.WORLD.DESCRIPTION}</p>
                         </div>
-                        <img src={assets['friendly-personal']} alt="Friendly Personal" />
+                        <img src={assets["friendly-personal"]} alt="Friendly Personal" />
                     </div>
                 </div>
             </AnimatedSection>
