@@ -1,9 +1,9 @@
 import AnimatedSection from "../components/common/Animated/AnimatedSection";
-import { OptionsWrapper } from "../components/Option/OptionsWrapper";
-import { TitleAndText } from "../components/TitleAndText";
+import { OptionsWrapper } from "../components/UI/Option/OptionsWrapper";
+import { TitleAndText } from "../components/UI/TitleAndText";
 import { assets } from "../utils/exports/directories/assets";
-import { Option } from "../components/Option";
-import { OurValues } from "../components/OurValues";
+import { Option } from "../components/UI/Option";
+import { OurValues } from "../components/UI/OurValues";
 import { informedDecisions, propertyManagement, propertyValue } from "../data";
 import { Button } from "../components/UI/Button";
 import { useOnScreen } from "../hooks/useOnScreen";
@@ -19,7 +19,6 @@ export const Services = () => {
 
     return (
         <>
-            {/* Intro Section */}
             <AnimatedSection
                 ref={introRef}
                 className="container property-slide first-slide"
@@ -33,7 +32,6 @@ export const Services = () => {
                 />
             </AnimatedSection>
 
-            {/* Options Section */}
             <AnimatedSection
                 ref={optionsRef}
                 initial={{ opacity: 0 }}
@@ -54,7 +52,6 @@ export const Services = () => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            {/* Unlock Property Value Section */}
             <AnimatedSection
                 ref={propertyValueRef}
                 className="container property-value-block"
@@ -87,7 +84,6 @@ export const Services = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Effortless Property Management Section */}
             <AnimatedSection
                 ref={propertyManagementRef}
                 className="container property-value-block"
@@ -120,7 +116,6 @@ export const Services = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Smart Investments Section */}
             <AnimatedSection
                 ref={informedDecisionsRef}
                 className="container"

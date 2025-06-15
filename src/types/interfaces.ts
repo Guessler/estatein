@@ -107,13 +107,6 @@ export interface ProductChildren {
     children?: ReactNode;
 }
 
-// export interface IProduct extends Children {
-//     currentPage?: ReactNode;
-//     lastPage?: ReactNode;
-//     onClickNext?: React.MouseEventHandler;
-//     onClickPrev?: React.MouseEventHandler;
-// }
-
 
 export interface QuestionText {
     heading: string;

@@ -1,12 +1,12 @@
 import { Button } from "../components/UI/Button";
 import AnimatedSection from "../components/common/Animated/AnimatedSection";
 import { assets } from "../utils/exports/directories/assets";
-import { PropertyFilters } from "../components/PropertyFilters";
+import { PropertyFilters } from "../components/UI/PropertyFilters";
 import { propertyFiltersData } from "../data";
-import { AllHousing } from "../components/AllHousing";
-import { TitleAndText } from "../components/TitleAndText";
+import { AllHousing } from "../components/UI/AllHousing";
+import { TitleAndText } from "../components/UI/TitleAndText";
 import { useIsMobile } from "../hooks/useIsMobile";
-import { RegisterInput } from "../components/RegisterInput";
+import { RegisterInput } from "../components/UI/RegisterInput";
 import { registerInformation } from "../data";
 import { AnimatedBox } from "../components/common/Animated/AnimatedBox";
 import { useOnScreen } from "../hooks/useOnScreen";
@@ -16,7 +16,6 @@ import { Product } from "../types/interfaces";
 import { fetchProducts } from "../services/products";
 import { PROPERTIES_PAGE } from "../consts/text/en/PropertiesText";
 
-// Импортируем текстовые константы
 
 export const Properties = () => {
     const isMobile = useIsMobile();
@@ -45,7 +44,6 @@ export const Properties = () => {
 
     return (
         <div>
-            {/* Hero Section */}
             <AnimatedSection
                 ref={heroSectionRef}
                 className="container property-slide first-slide"
@@ -78,7 +76,6 @@ export const Properties = () => {
                         </div>
                     </div>
 
-                    {/* Filters Section */}
                     <AnimatedSection
                         ref={filtersSectionRef}
                         className="villa-description-flex"
@@ -104,7 +101,6 @@ export const Properties = () => {
                 </div>
             </AnimatedSection>
 
-            {/* All Housing Section */}
             <AnimatedSection
                 ref={allHousingSectionRef}
                 className="container all-housing-section"
@@ -118,7 +114,6 @@ export const Properties = () => {
                 />
             </AnimatedSection>
 
-            {/* Registration Section */}
             <AnimatedSection
                 ref={registrationSectionRef}
                 className="container registration-spacing"

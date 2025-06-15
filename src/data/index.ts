@@ -126,7 +126,7 @@ export const propertyFiltersData = [
         id: 1,
         image: "location",
         imageName: "Location",
-        dropDown: ["New York", "Los Angeles", "Chicago"], // Массив значений
+        dropDown: ["New York", "Los Angeles", "Chicago"],
     },
     {
         id: 2,

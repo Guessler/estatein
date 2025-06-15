@@ -1,12 +1,12 @@
 import AnimatedSection from "../components/common/Animated/AnimatedSection";
-import { OptionsWrapper } from "../components/Option/OptionsWrapper";
-import { TitleAndText } from "../components/TitleAndText";
-import { Option } from "../components/Option";
+import { OptionsWrapper } from "../components/UI/Option/OptionsWrapper";
+import { TitleAndText } from "../components/UI/TitleAndText";
+import { Option } from "../components/UI/Option";
 import { assets } from "../utils/exports/directories/assets";
-import { RegisterInput } from "../components/RegisterInput";
+import { RegisterInput } from "../components/UI/RegisterInput";
 import { Button } from "../components/UI/Button";
 import { connectUs } from "../data";
-import { ProductCardDetails } from "../components/ProductCard/ProductCardDetails";
+import { ProductCardDetails } from "../components/UI/ProductCard/ProductCardDetails";
 import { useOnScreen } from "../hooks/useOnScreen";
 import { CONTACTS_PAGE } from "../consts/text/en/ContactsText";
 
@@ -28,7 +28,6 @@ export const Contacts = () => {
 
     return (
         <>
-            {/* Intro Section */}
             <AnimatedSection
                 ref={introRef}
                 className="container property-slide"
@@ -42,7 +41,6 @@ export const Contacts = () => {
                 />
             </AnimatedSection>
 
-            {/* Options Section */}
             <AnimatedSection
                 ref={optionsRef}
                 initial={{ opacity: 0 }}
@@ -57,7 +55,6 @@ export const Contacts = () => {
                 </OptionsWrapper>
             </AnimatedSection>
 
-            {/* Connect Section */}
             <AnimatedSection
                 ref={connectRef}
                 className="container property-slide"
@@ -98,7 +95,6 @@ export const Contacts = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Locations Section */}
             <AnimatedSection
                 ref={locationsRef}
                 className="container"
@@ -153,7 +149,6 @@ export const Contacts = () => {
                 </div>
             </AnimatedSection>
 
-            {/* World Section */}
             <AnimatedSection
                 ref={worldRef}
                 className="container"

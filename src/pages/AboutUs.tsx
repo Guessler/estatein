@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import AnimatedSection from "../components/common/Animated/AnimatedSection";
-import { AdBlock } from "../components/adBlock";
+import { AdBlock } from "../components/UI/adBlock";
 import { AnimatedImage } from "../components/common/Animated/AnimatedImg";
 import { assets } from "../utils/exports/directories/assets";
 import { AnimatedBox } from "../components/common/Animated/AnimatedBox";
-import { OurValues } from "../components/OurValues";
-import { Card } from "../components/Card";
+import { OurValues } from "../components/UI/OurValues";
+import { Card } from "../components/UI/Card";
 import { valuesData, achievementsData, experienceData } from "../data";
-import { OurTeamCard } from "../components/OurTeamCard";
+import { OurTeamCard } from "../components/UI/OurTeamCard";
 import { ourPersonalDate } from "../data";
-import { ValuedClientsFeedback } from "../components/ValuedClientsFeedback";
-import { Slider } from "../components/Slider";
-import { ProductSlider } from "../components/Slider/ProductSlider";
+import { ValuedClientsFeedback } from "../components/UI/ValuedClientsFeedback";
+import { Slider } from "../components/UI/Slider";
+import { ProductSlider } from "../components/UI/Slider/ProductSlider";
 import { ValuedClientsData } from "../data";
-import { TitleAndText } from "../components/TitleAndText";
+import { TitleAndText } from "../components/UI/TitleAndText";
 import { ABOUT_PAGE } from "../consts/text/en/AboutUsPageText";
-import { SmallChat } from "../components/SmallChat";
+import { SmallChat } from "../components/UI/SmallChat";
 import { useOnScreen } from "../hooks/useOnScreen";
 
 export const AboutUs = () => {
@@ -74,7 +74,6 @@ export const AboutUs = () => {
         }
     };
 
-    // Используем useOnScreen для отслеживания видимости секций
     const { ref: heroSectionRef, isVisible: isHeroVisible } = useOnScreen("0px");
     const { ref: valuesSectionRef, isVisible: isValuesVisible } = useOnScreen("0px");
     const { ref: achievementsSectionRef, isVisible: isAchievementsVisible } = useOnScreen("0px");
@@ -92,7 +91,6 @@ export const AboutUs = () => {
                 />
             )}
 
-            {/* HERO Section */}
             <AnimatedSection
                 ref={heroSectionRef}
                 className="container first-slide padding-top"
@@ -137,7 +135,6 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Values Section */}
             <AnimatedSection
                 ref={valuesSectionRef}
                 className="container values-section"
@@ -167,7 +164,6 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Achievements Section */}
             <AnimatedSection
                 ref={achievementsSectionRef}
                 className="container achivements"
@@ -199,7 +195,6 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Process Section */}
             <AnimatedSection
                 ref={processSectionRef}
                 className="container spacing"
@@ -237,7 +232,6 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Team Section */}
             <AnimatedSection
                 ref={teamSectionRef}
                 className="container spacing"
@@ -277,7 +271,6 @@ export const AboutUs = () => {
                 </div>
             </AnimatedSection>
 
-            {/* Feedback Section */}
             <AnimatedSection
                 ref={feedbackSectionRef}
                 className="container our-valued-clients-gap"

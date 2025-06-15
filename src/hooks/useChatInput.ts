@@ -18,7 +18,6 @@ export const useChatInput = (initialMessage?: string) => {
         if (value.trim() && !isSending) {
             setIsSending(true);
             
-            // Сообщение пользователя
             setMessages(prev => [...prev, { text: value, isMine: true }]);
             setValue("");
             

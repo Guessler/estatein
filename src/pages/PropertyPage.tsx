@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import AnimatedSection from "../components/common/Animated/AnimatedSection";
-import { Questions } from "../components/Questions";
-import { RegisterInput } from "../components/RegisterInput";
-import { Slider } from "../components/Slider";
-import { ProductSlider } from "../components/Slider/ProductSlider";
-import { TitleAndText } from "../components/TitleAndText";
+import { Questions } from "../components/UI/Questions";
+import { RegisterInput } from "../components/UI/RegisterInput";
+import { Slider } from "../components/UI/Slider";
+import { ProductSlider } from "../components/UI/Slider/ProductSlider";
+import { TitleAndText } from "../components/UI/TitleAndText";
 import { Button } from "../components/UI/Button";
 import { Popup } from "../components/UI/Popup/Popup";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -52,13 +52,11 @@ export const PropertyPage = () => {
     const isMobile = useIsMobile();
     const adaptivePerPage = isMobile ? 1 : 3;
 
-    // Questions data fetching
     const { data: questions = [] } = useQuery<IQuestionFromDB[]>({
         queryKey: ["fetchQuestions"],
         queryFn: fetchQuestions,
     });
 
-    // Questions pagination
     const {
         currentPage: questionPage,
         nextPage: nextQuestion,
@@ -86,7 +84,6 @@ export const PropertyPage = () => {
     const [selectedQuestion, setSelectedQuestion] = useState<IQuestionFromDB | null>(null);
     const { ref: questionsSectionRef, isVisible: isQuestionsSectionVisible } = useOnScreen("0px");
 
-    // Lock scroll when popup is open
     useEffect(() => {
         if (selectedQuestion) {
             document.body.style.overflow = "hidden";
