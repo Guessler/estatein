@@ -156,3 +156,24 @@
 .property-page__details{
     @include flex(on, column, $gap: 80px);
 }
+
+.property-page__more{
+    @include flex(on, null, space-between);
+}
+
+.property-page__more-info{
+    @include spacing(padding, all, 50px);
+    @include flex(on, column, $gap: 40px);
+    @include size(default, 1226px);
+    background-color: get-color(gray, dark_gray);
+    border: 1px solid get-color(gray, slate_gray);
+    border-radius: 12px;
+
+    div {
+        @include flex(on, null, space-between, null, center);
+
+        div{
+            @include flex(on, column, null, null, start, $gap: 16px);
+        }
+    }
+}

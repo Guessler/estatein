@@ -220,8 +220,30 @@ export const PropertyPage = () => {
 
                 <div className="property-page__note">
                     <h2 className="card-heading-text">Note</h2>
-                    <hr className=""/>
+                    <hr className="" />
                     <span className="description-text">The figures provided above are estimates and may vary depending on the property, location, and individual circumstances.</span>
+                </div>
+
+                <div className="property-page__more">
+                    <div>
+                        <span className="description-text">Listing Price</span>
+                        <h2 className="ad-text-fat">$1,250,000</h2>
+                    </div>
+                    <div className="property-page__more-info">
+                        <div>
+                            <h3 className="card-heading-text">Additional Fees</h3>
+                            <Button>Learn More</Button>
+                        </div>
+                        <hr className="separation-horizontal" />
+                        <div>
+                            <div>
+                                <span className="description-text">Property Transfer Tax</span>
+                                <div>
+                                    <h3 className="card-heading-text">$25,000</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </AnimatedSection>
 
