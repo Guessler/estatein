@@ -30,6 +30,56 @@ export const Contacts = () => {
     const [message, setMessage] = useState<string>('');
     const [errors, setErrors] = useState<boolean[]>(Array(connectUs.length).fill(false));
     const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [checkboxError, setCheckboxError] = useState<boolean>(false); // New state for checkbox error
+
+    const [filter, setFilter] = useState<string>('all');
+
+    const locationsData = [
+        {
+            heading: "Main Headquarters",
+            address: "123 Main St, Cityville, Country",
+            description: "Our main office located in the heart of the city, offering full services and support.",
+            type: 'all'
+        },
+        {
+            heading: "Support Center",
+            address: "987 Support Rd, Help City, Country",
+            description: "A dedicated support center to assist customers with queries and issues.",
+            type: 'all'
+        },
+        {
+            heading: "Regional Office - North",
+            address: "456 North St, Townsville, Country",
+            description: "Serving the northern regions with dedicated customer support and local expertise.",
+            type: 'regional'
+        },
+        {
+            heading: "International Office - Europe",
+            address: "789 Euro St, Europolis, Country",
+            description: "Our European office handles international operations and partnerships across the continent.",
+            type: 'international'
+        },
+        {
+            heading: "Regional Office - South",
+            address: "321 South Ave, Southtown, Country",
+            description: "Focused on providing services to the southern regions with a strong local presence.",
+            type: 'regional'
+        },
+        {
+            heading: "International Office - Asia",
+            address: "654 Asia Blvd, Asiatown, Country",
+            description: "This office oversees our operations in Asia, fostering relationships and collaborations.",
+            type: 'international'
+        },
+    ];
+
+    const filteredLocations = locationsData.filter(location => 
+        filter === 'all' ? (location.type === 'all' && locationsData.indexOf(location) < 2) : location.type === filter
+    );
+
+    const handleFilterChange = (newFilter: string) => {
+        setFilter(newFilter);
+    };
 
     const handleInputChange = (index: number, value: string) => {
         const newValues = [...inputValues];
@@ -91,13 +141,20 @@ export const Contacts = () => {
                 hasError = true;
             }
         });
+
+        // Check if checkbox is checked
+        if (!isChecked) {
+            setCheckboxError(true);
+            hasError = true;
+        } else {
+            setCheckboxError(false);
+        }
     
         if (hasError) {
             setErrors(newErrors);
             return;
         }
     
-        // Формируем объект с данными для отправки
         const formData = {
             name: nameInput,
             email: emailInput,
@@ -122,6 +179,7 @@ export const Contacts = () => {
                 setMessage('');
                 setIsChecked(false);
                 setErrors(Array(connectUs.length).fill(false));
+                setCheckboxError(false); // Reset checkbox error after successful send
             } else {
                 throw new Error('Ошибка при отправке формы');
             }
@@ -133,6 +191,9 @@ export const Contacts = () => {
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
+        if (checkboxError) {
+            setCheckboxError(false); // Reset error when the checkbox is checked
+        }
     };
 
     return (
@@ -203,16 +264,18 @@ export const Contacts = () => {
                     <div className="register__send-message">
                         <div className="flex">
                             <input 
-                                className="register-checkbox" 
+                                className={`register-checkbox ${checkboxError ? 'error' : ''}`} 
                                 type="checkbox" 
                                 checked={isChecked} 
                                 onChange={handleCheckboxChange} 
                             />
-                            <p className="header-items-text" style={{ color: !isChecked ? 'red' : '' }}>
+                            <p className={!isChecked && checkboxError ? 'red header-items-text' : 'header-items-text'}>
                                 {CONTACTS_PAGE.CONNECT.AGREEMENT_TEXT}
                             </p>
                         </div>
-                        <Button variant="secondary" onClick={handleSendMessage}>{CONTACTS_PAGE.CONNECT.BUTTON_SEND_MESSAGE}</Button>
+                        <Button variant="secondary" onClick={handleSendMessage}>
+                            {CONTACTS_PAGE.CONNECT.BUTTON_SEND_MESSAGE}
+                        </Button>
                     </div>
                 </div>
             </AnimatedSection>
@@ -229,45 +292,40 @@ export const Contacts = () => {
                     description={CONTACTS_PAGE.LOCATIONS.DESCRIPTION}
                 />
                 <div className="office-locations__show">
-                    <button className="header-items-text office-locations-btn office-locations-btn__active">
+                    <button 
+                        className={`header-items-text office-locations-btn ${filter === 'all' ? 'office-locations-btn__active' : ''}`} 
+                        onClick={() => handleFilterChange('all')}
+                    >
                         {CONTACTS_PAGE.LOCATIONS.BUTTON_ALL}
                     </button>
-                    <button className="header-items-text office-locations-btn">
+                    <button 
+                        className={`header-items-text office-locations-btn ${filter === 'regional' ? 'office-locations-btn__active' : ''}`} 
+                        onClick={() => handleFilterChange('regional')}
+                    >
                         {CONTACTS_PAGE.LOCATIONS.BUTTON_REGIONAL}
                     </button>
-                    <button className="header-items-text office-locations-btn">
+                    <button 
+                        className={`header-items-text office-locations-btn ${filter === 'international' ? 'office-locations-btn__active' : ''}`} 
+                        onClick={() => handleFilterChange('international')}
+                    >
                         {CONTACTS_PAGE.LOCATIONS.BUTTON_INTERNATIONAL}
                     </button>
                 </div>
                 <div className="office-locations__cards">
-                    <div className="office-locations__card">
-                        <div className="office-locations__card-text">
-                            <p className="header-items-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}</p>
-                            <h2 className="card-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_ADDRESS}</h2>
-                            <p className="ad-text-medium">
-                                {CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_DESCRIPTION}
-                            </p>
+                    {filteredLocations.map((location, index) => (
+                        <div className="office-locations__card" key={index}>
+                            <div className="office-locations__card-text">
+                                <p className="header-items-text">{location.heading}</p>
+                                <h2 className="card-text">{location.address}</h2>
+                                <p className="ad-text-medium">{location.description}</p>
+                            </div>
+                            <ProductCardDetails
+                                productCharacteristicIcon={assets["Email"]}
+                                productCharacteristic={location.heading}
+                            />
+                            <Button variant="secondary">{CONTACTS_PAGE.LOCATIONS.BUTTON_GET_DIRECTION}</Button>
                         </div>
-                        <ProductCardDetails
-                            productCharacteristicIcon={assets["Email"]}
-                            productCharacteristic={CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}
-                        />
-                        <Button variant="secondary">{CONTACTS_PAGE.LOCATIONS.BUTTON_GET_DIRECTION}</Button>
-                    </div>
-                    <div className="office-locations__card">
-                        <div className="office-locations__card-text">
-                            <p className="header-items-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}</p>
-                            <h2 className="card-text">{CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_ADDRESS}</h2>
-                            <p className="ad-text-medium">
-                                {CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_DESCRIPTION}
-                            </p>
-                        </div>
-                        <ProductCardDetails
-                            productCharacteristicIcon={assets["Email"]}
-                            productCharacteristic={CONTACTS_PAGE.LOCATIONS.LOCATION_CARD_HEADING}
-                        />
-                        <Button variant="secondary">{CONTACTS_PAGE.LOCATIONS.BUTTON_GET_DIRECTION}</Button>
-                    </div>
+                    ))}
                 </div>
             </AnimatedSection>
 
