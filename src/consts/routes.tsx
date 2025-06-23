@@ -14,94 +14,48 @@ const enum Paths {
     Home = '/',
     AboutUs = '/about-us',
     Properties = '/properties',
-    PropertyPage = "/id",
+    PropertyPage = "/properties/:id",
     Services = '/services',
     Contacts = '/contacts',
     NotFoundPage = '*'
 }
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    return <>{children}</>;
-};
-
 const CommonLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <React.Fragment>
+    <>
         <Header />
         {children}
         <Footer />
-    </React.Fragment>
+    </>
 );
 
 const router = createBrowserRouter([
     {
         path: Paths.Home,
-        element: (
-            <ProtectedRoute>
-                <CommonLayout>
-                    <HomePage />
-                </CommonLayout>
-            </ProtectedRoute>
-        ),
+        element: <CommonLayout><HomePage /></CommonLayout>,
     },
     {
         path: Paths.AboutUs,
-        element: (
-            <ProtectedRoute>
-                <CommonLayout>
-                    <AboutUs />
-                </CommonLayout>
-            </ProtectedRoute>
-        ),
+        element: <CommonLayout><AboutUs /></CommonLayout>,
     },
     {
         path: Paths.Properties,
-        element: (
-            <ProtectedRoute>
-                <CommonLayout>
-                    <Properties />
-                </CommonLayout>
-            </ProtectedRoute>
-        ),
+        element: <CommonLayout><Properties /></CommonLayout>,
     },
     {
         path: Paths.PropertyPage,
-        element: (
-            <ProtectedRoute>
-                <CommonLayout>
-                    <PropertyPage />
-                </CommonLayout>
-            </ProtectedRoute>
-        ),
+        element: <CommonLayout><PropertyPage /></CommonLayout>,
     },
     {
         path: Paths.Services,
-        element: (
-            <ProtectedRoute>
-                <CommonLayout>
-                    <Services />
-                </CommonLayout>
-            </ProtectedRoute>
-        ),
+        element: <CommonLayout><Services /></CommonLayout>,
     },
     {
         path: Paths.Contacts,
-        element: (
-            <ProtectedRoute>
-                <CommonLayout>
-                    <Contacts />
-                </CommonLayout>
-            </ProtectedRoute>
-        ),
+        element: <CommonLayout><Contacts /></CommonLayout>,
     },
     {
         path: Paths.NotFoundPage,
-        element: (
-            <ProtectedRoute>
-                <CommonLayout>
-                    <NotFoundPage />
-                </CommonLayout>
-            </ProtectedRoute>
-        ),
+        element: <CommonLayout><NotFoundPage /></CommonLayout>,
     },
 ]);
 

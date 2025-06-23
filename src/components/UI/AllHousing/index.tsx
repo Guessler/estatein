@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { assets } from "../../../utils/exports/directories/assets";
 import AnimatedSection from "../../common/Animated/AnimatedSection";
 import { ProductCard } from "../ProductCard";
@@ -16,6 +17,7 @@ interface AllHousingProps {
 
 export const AllHousing = ({ searchText = "", products = [] }: AllHousingProps) => {
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1596);
+    const navigate = useNavigate();
 
     const handleResize = () => {
         setIsMobile(window.innerWidth < 1596);
@@ -51,6 +53,20 @@ export const AllHousing = ({ searchText = "", products = [] }: AllHousingProps) 
 
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
+    const handleViewDetails = (product: Product, index: number) => {
+        console.log(product)
+        // if (!product?.id) {
+        //     console.error("Product ID is missing!", product);
+        //     return;
+        // }
+        navigate(`/properties/${index}`, { 
+            state: { 
+                product,
+                from: window.location.pathname
+            } 
+        });
+    };
+
     return (
         <AnimatedSection className="container products-slide">
             <h2 className="second-heading">Featured Properties</h2>
@@ -63,13 +79,14 @@ export const AllHousing = ({ searchText = "", products = [] }: AllHousingProps) 
                 isMobile={isMobile}
                 itemsToShow={itemsPerPage}
             >
-                {paginatedItems.map((product) => (
+                {paginatedItems.map((product, index) => (
                     <ProductCard
                         key={`product-${product.id}`}
                         productIcon={assets[product.image]}
                         productName={product.heading}
                         productDescription={product.description}
                         productPrice={product.price}
+                        onViewDetails={() => handleViewDetails(product, index)}
                     >
                         {product.productDetails?.map((detail, i) => (
                             <ProductCardDetails

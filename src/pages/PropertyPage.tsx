@@ -15,6 +15,7 @@ import { usePaginationHandlers } from "../hooks/usePaginationHandlers";
 import { assets } from "../utils/exports/directories/assets";
 import { IQuestionFromDB } from "../types/interfaces";
 import { fetchQuestions } from "../services/questions";
+import { useLocation } from "react-router-dom";
 
 const PropertyPageInfo = [
     {
@@ -49,6 +50,8 @@ const PropertyPageInfo = [
 ];
 
 export const PropertyPage = () => {
+    const location = useLocation();
+    const { product } = location.state || {}; // Получаем продукт из состояния
     const isMobile = useIsMobile();
     const adaptivePerPage = isMobile ? 1 : 3;
 
@@ -90,7 +93,6 @@ export const PropertyPage = () => {
         } else {
             document.body.style.overflow = "";
         }
-
         return () => {
             document.body.style.overflow = "";
         };
@@ -106,58 +108,58 @@ export const PropertyPage = () => {
                     />
                 </Popup>
             )}
-
             <AnimatedSection className="container property-product">
                 <div className="property-product__slider">
-                    <h1 className="card-text">Seaside Serenity Villa</h1>
-                    <div><span className="ad-text-medium">Price</span> <b className="card-heading-text">$1,250,000</b></div>
+                    <h1 className="card-text">{product?.heading || "Seaside Serenity Villa"}</h1>
+                    <div>
+                        <span className="ad-text-medium">Price</span> 
+                        <b className="card-heading-text">${product?.price?.toLocaleString() || "1,250,000"}</b>
+                    </div>
                 </div>
                 <div className="property-propduct__slider-twister">
                     <div className="property-propduct__slider-top">
                         <div>
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
-                            <img src={assets['Image-1']} alt={assets['Image-1']} />
+                            {Array.from({ length: 9 }).map((_, i) => (
+                                <img 
+                                    key={i}
+                                    src={assets[product?.image || 'Image-1']} 
+                                    alt={product?.heading ? `${product.heading} - ${i + 1}` : 'Property Image'} 
+                                />
+                            ))}
                         </div>
                     </div>
                     <div className="property-propduct__slider-photos">
-                        <img src={assets['Image-1']} alt={assets['Image-1']} />
-                        <img src={assets['Image-1']} alt={assets['Image-1']} />
+                        {Array.from({ length: 2 }).map((_, i) => (
+                            <img 
+                                key={`thumb-${i}`}
+                                src={assets[product?.image || 'Image-1']} 
+                                alt={product?.heading ? `Thumbnail ${i + 1}` : 'Thumbnail'} 
+                            />
+                        ))}
                     </div>
                     <div className="property-propduct__slider-switcher">
-                        <Button
-                            variant="circle-button"
-                        >
+                        <Button variant="circle-button">
                             <img className="rotated-arrow" src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                         </Button>
-                        <div className="property-product__slider-page"></div>
-                        <div className="property-product__slider-page"></div>
-                        <div className="property-product__slider-page"></div>
-                        <div className="property-product__slider-page"></div>
-                        <div className="property-product__slider-page"></div>
-                        <Button
-                            variant="circle-button"
-                        >
+                        {[...Array(5)].map((_, i) => (
+                            <div key={i} className="property-product__slider-page"></div>
+                        ))}
+                        <Button variant="circle-button">
                             <img src={assets["Vector (Stroke)"]} alt="Slider arrow" />
                         </Button>
                     </div>
                 </div>
             </AnimatedSection>
-
             <AnimatedSection className="container property-page-description">
                 <div className="property-page-description-block">
                     <p className="card-heading-text">Description</p>
-                    <span className="description-text">Discover your own piece of paradise with the Seaside Serenity Villa. T With an open floor plan, breathtaking ocean views from every room, and direct access to a pristine sandy beach, this property is the epitome of coastal living.</span>
+                    <span className="description-text">
+                        Discover your own piece of paradise with the Seaside Serenity Villa. With an open floor plan, breathtaking ocean views from every room, and direct access to a pristine sandy beach, this property is the epitome of coastal living.
+                    </span>
                     <hr className="separation-horizontal" />
                     <div className="property-page-description__conditions-wrapper">
                         <div className="property-page-description__conditions">
-                            <div >
+                            <div>
                                 <img src={assets['bedroom']} alt={assets['bedroom']} />
                                 <span className="description-text">Bedrooms</span>
                             </div>
@@ -175,12 +177,13 @@ export const PropertyPage = () => {
                     </div>
                 </div>
             </AnimatedSection>
-
             <AnimatedSection className="container">
                 <div className="property-page__register">
                     <div className="property-page__register-text">
-                        <h2 className="second-heading">Inquire About Seaside Serenity Villa</h2>
-                        <p className="description-text">Interested in this property? Fill out the form below, and our real estate experts will get back to you with more details, including scheduling a viewing and answering any questions you may have.</p>
+                        <h2 className="second-heading">Inquire About {product?.heading || "Seaside Serenity Villa"}</h2>
+                        <p className="description-text">
+                            Interested in this property? Fill out the form below, and our real estate experts will get back to you with more details, including scheduling a viewing and answering any questions you may have.
+                        </p>
                     </div>
                     <div className="register-box property-page-register-box">
                         {PropertyPageInfo.map((item, index) => (
@@ -197,7 +200,6 @@ export const PropertyPage = () => {
                         ))}
                         <p className="options-text">Message</p>
                         <textarea className="header-items-text registered-box-text-area" placeholder="Enter your Message here.."></textarea>
-
                         <div className="register__send-message">
                             <div className="flex">
                                 <input className="register-checkbox" type="checkbox" />
@@ -208,23 +210,22 @@ export const PropertyPage = () => {
                     </div>
                 </div>
             </AnimatedSection>
-
             <AnimatedSection className="container property-page__details">
                 <TitleAndText
                     heading="Comprehensive Pricing Details"
                     description="At Estatein, transparency is key. We want you to have a clear understanding of all costs associated with your property investment. Below, we break down the pricing for Seaside Serenity Villa to help you make an informed decision"
                 />
-
                 <div className="property-page__note">
                     <h2 className="card-heading-text">Note</h2>
-                    <hr className="" />
-                    <span className="description-text">The figures provided above are estimates and may vary depending on the property, location, and individual circumstances.</span>
+                    <hr />
+                    <span className="description-text">
+                        The figures provided above are estimates and may vary depending on the property, location, and individual circumstances.
+                    </span>
                 </div>
-
                 <div className="property-page__more">
                     <div>
                         <span className="description-text">Listing Price</span>
-                        <h2 className="ad-text-fat">$1,250,000</h2>
+                        <h2 className="ad-text-fat">${product?.price?.toLocaleString() || "1,250,000"}</h2>
                     </div>
                     <div className="property-page__more-info">
                         <div>
@@ -243,7 +244,6 @@ export const PropertyPage = () => {
                     </div>
                 </div>
             </AnimatedSection>
-
             <AnimatedSection
                 ref={questionsSectionRef}
                 className="container products-slide"
@@ -257,7 +257,6 @@ export const PropertyPage = () => {
                         Find answers to common questions about our properties, services, and the buying process.
                     </p>
                 </div>
-
                 <Slider
                     items={memoizedQuestions}
                     currentIndex={questionPage * adaptivePerPage}
@@ -274,7 +273,6 @@ export const PropertyPage = () => {
                         />
                     ))}
                 </Slider>
-
                 <ProductSlider
                     currentPage={questionPage + 1}
                     lastPage={Math.ceil(questions.length / adaptivePerPage)}

@@ -16,7 +16,6 @@ import { Product } from "../types/interfaces";
 import { fetchProducts } from "../services/products";
 import { PROPERTIES_PAGE } from "../consts/text/en/PropertiesText";
 
-
 export const Properties = () => {
     const isMobile = useIsMobile();
 
@@ -28,6 +27,10 @@ export const Properties = () => {
     const [searchProperty, setSearchProperty] = useState("");
     const [showProperties, setShowProperties] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+    const [isChecked, setIsChecked] = useState<boolean>(false); // Checkbox state
+    const [checkboxError, setCheckboxError] = useState<boolean>(false); // Checkbox error state
+    const [inputValues, setInputValues] = useState<string[]>(Array(registerInformation.length).fill('')); // State for input values
+    const [inputErrors, setInputErrors] = useState<boolean[]>(Array(registerInformation.length).fill(false)); // State for input errors
 
     const { data: fetchedProductsData = [] } = useQuery({
         queryKey: ["fetchProducts"],
@@ -40,6 +43,34 @@ export const Properties = () => {
         );
         setFilteredProducts(filtered);
         setShowProperties(true);
+    };
+
+    const handleSendMessage = () => {
+        if (!isChecked) {
+            setCheckboxError(true);
+            return;
+        }
+
+        setCheckboxError(false);
+
+        const errors = inputValues.map(value => value.trim() === '');
+        setInputErrors(errors);
+
+        if (errors.some(error => error)) {
+            return;
+        }
+
+        alert('Message sent!');
+    };
+
+    const handleInputChange = (index: number, value: string) => {
+        const newValues = [...inputValues];
+        newValues[index] = value;
+        setInputValues(newValues);
+
+        const newErrors = [...inputErrors];
+        newErrors[index] = value.trim() === '';
+        setInputErrors(newErrors);
     };
 
     return (
@@ -141,6 +172,9 @@ export const Properties = () => {
                                 isArrow={item.isArrow}
                                 isLarge={item.isLarge}
                                 isBasic={item.isBasic}
+                                value={inputValues[index]}
+                                onChange={(value) => handleInputChange(index, value)}
+                                error={inputErrors[index]}
                             />
                         </AnimatedBox>
                     ))}
@@ -152,12 +186,17 @@ export const Properties = () => {
 
                     <div className="register__send-message">
                         <div className="flex">
-                            <input className="register-checkbox" type="checkbox" />
-                            <p className="header-items-text">
+                            <input 
+                                className={`register-checkbox ${checkboxError ? 'error' : ''}`} 
+                                type="checkbox" 
+                                checked={isChecked} 
+                                onChange={() => setIsChecked(!isChecked)} 
+                            />
+                            <p className={`header-items-text ${checkboxError ? 'red' : ''}`}>
                                 {PROPERTIES_PAGE.REGISTRATION.AGREEMENT_TEXT}
                             </p>
                         </div>
-                        <Button variant="secondary">
+                        <Button variant="secondary" onClick={handleSendMessage}>
                             {PROPERTIES_PAGE.REGISTRATION.BUTTON_SEND_MESSAGE}
                         </Button>
                     </div>

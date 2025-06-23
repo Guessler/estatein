@@ -24,7 +24,7 @@ export const RegisterInput: FC<RegisterInputProps> = ({
     largest, 
     value, 
     onChange, 
-    error // Destructure the error prop
+    error
 }) => {
     return (
         <div className="register-text__gap">
