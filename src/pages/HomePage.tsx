@@ -24,6 +24,7 @@ import { Popup } from "../components/UI/Popup/Popup";
 import { TitleAndText } from "../components/UI/TitleAndText";
 import { useOnScreen } from "../hooks/useOnScreen";
 import { fetchProducts } from "../services/products";
+import { CustomLink } from "../components/UI/Link";
 
 export const HomePage = () => {
     const isMobile = useIsMobile();
@@ -195,8 +196,8 @@ export const HomePage = () => {
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.8, delay: 1.6 }}
                         >
-                            <Button>{HOME_PAGE.HERO.BUTTON_PRIMARY}</Button>
-                            <Button variant="secondary">{HOME_PAGE.HERO.BUTTON_SECONDINARY}</Button>
+                            <CustomLink to="about-us"><Button>{HOME_PAGE.HERO.BUTTON_PRIMARY}</Button></CustomLink>
+                            <CustomLink to="properties"><Button variant="secondary">{HOME_PAGE.HERO.BUTTON_SECONDINARY}</Button></CustomLink>
                         </AnimatedBox>
                         <AnimatedBox
                             className="mobile-container"
@@ -220,6 +221,7 @@ export const HomePage = () => {
                 animate={isOptionsVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1, delay: 2 }}
             >
+                <CustomLink to={'/properties'}>
                 <OptionsWrapper>
                     <Option text={"Find Your Dream Home"} middleImage={assets["shop"]} />
                     <Option text={"Unlock Property Value"} middleImage={assets["camera"]} />
@@ -232,6 +234,7 @@ export const HomePage = () => {
                         middleImage={assets["Smart-Investments"]}
                     />
                 </OptionsWrapper>
+                </CustomLink>
             </AnimatedSection>
 
             <AnimatedSection

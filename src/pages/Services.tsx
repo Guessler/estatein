@@ -8,6 +8,7 @@ import { informedDecisions, propertyManagement, propertyValue } from "../data";
 import { Button } from "../components/UI/Button";
 import { useOnScreen } from "../hooks/useOnScreen";
 import { SERVICES_PAGE } from "../consts/text/en/ServicesText";
+import { CustomLink } from "../components/UI/Link";
 
 
 export const Services = () => {
@@ -74,7 +75,7 @@ export const Services = () => {
                             />
                             <div className="property-value__flex">
                                 <h2 className="card-text">{SERVICES_PAGE.PROPERTY_VALUE.CTA_HEADING}</h2>
-                                <Button>{SERVICES_PAGE.PROPERTY_VALUE.CTA_BUTTON}</Button>
+                                <CustomLink to={'/properties'}><Button>{SERVICES_PAGE.PROPERTY_VALUE.CTA_BUTTON}</Button></CustomLink>
                             </div>
                             <p className="description-text">
                                 {SERVICES_PAGE.PROPERTY_VALUE.CTA_DESCRIPTION}
@@ -106,7 +107,7 @@ export const Services = () => {
                             />
                             <div className="property-value__flex">
                                 <h2 className="card-text">{SERVICES_PAGE.PROPERTY_MANAGEMENT.CTA_HEADING}</h2>
-                                <Button>{SERVICES_PAGE.PROPERTY_MANAGEMENT.CTA_BUTTON}</Button>
+                                <CustomLink to={'/properties'}><Button>{SERVICES_PAGE.PROPERTY_MANAGEMENT.CTA_BUTTON}</Button></CustomLink>
                             </div>
                             <p className="description-text">
                                 {SERVICES_PAGE.PROPERTY_MANAGEMENT.CTA_DESCRIPTION}
@@ -142,7 +143,7 @@ export const Services = () => {
                                 <p className="description-text">
                                     {SERVICES_PAGE.INVESTMENTS.CTA_DESCRIPTION}
                                 </p>
-                                <Button>{SERVICES_PAGE.INVESTMENTS.CTA_BUTTON}</Button>
+                                <CustomLink to={'/properties'}><Button>{SERVICES_PAGE.INVESTMENTS.CTA_BUTTON}</Button></CustomLink>
                             </div>
                         </div>
                     </div>

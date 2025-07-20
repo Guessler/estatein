@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { assets } from "../../../utils/exports/directories/assets";
 
 interface RegisterInputProps {
@@ -11,7 +11,8 @@ interface RegisterInputProps {
     largest?: boolean;
     value: string;
     onChange: (value: string) => void;
-    error?: boolean; // New prop for error state
+    error?: boolean;
+    dropdownOptions?: string[]; // Новый проп для опций выпадающего списка
 }
 
 export const RegisterInput: FC<RegisterInputProps> = ({ 
@@ -24,8 +25,20 @@ export const RegisterInput: FC<RegisterInputProps> = ({
     largest, 
     value, 
     onChange, 
-    error
+    error,
+    dropdownOptions = [] // Значение по умолчанию - пустой массив
 }) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleOptionSelect = (option: string) => {
+        onChange(option);
+        setIsDropdownOpen(false);
+    };
+
     return (
         <div className="register-text__gap">
             <p className={`options-text ${error ? 'input-error' : ''}`}>{heading}</p> 
@@ -56,7 +69,7 @@ export const RegisterInput: FC<RegisterInputProps> = ({
                         </div>
                     </div>
                 ) : (
-                    <>
+                    <div className="register-input-container">
                         <input 
                             onChange={(e) => onChange(e.target.value)} 
                             value={value}  
@@ -64,8 +77,30 @@ export const RegisterInput: FC<RegisterInputProps> = ({
                             type="text" 
                             placeholder={description} 
                         />
-                        {isArrow && <img className="arrow-list" src={assets["arrow-list"]} alt={assets["arrow-list"]} />}
-                    </>
+                        {isArrow && (
+                            <div className="dropdown-arrow-container">
+                                <img 
+                                    className={`arrow-list ${isDropdownOpen ? 'arrow-list--open' : ''}`} 
+                                    src={assets["arrow-list"]} 
+                                    alt={assets["arrow-list"]} 
+                                    onClick={toggleDropdown}
+                                />
+                                {isDropdownOpen && dropdownOptions.length > 0 && (
+                                    <div className="dropdown-list">
+                                        {dropdownOptions.map((option, index) => (
+                                            <p 
+                                                key={index} 
+                                                className="header-items-text cursor-p"
+                                                onClick={() => handleOptionSelect(option)}
+                                            >
+                                                {option}
+                                            </p>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 )}
             </div>
         </div>

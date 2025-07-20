@@ -179,7 +179,7 @@ export const Contacts = () => {
                 setMessage('');
                 setIsChecked(false);
                 setErrors(Array(connectUs.length).fill(false));
-                setCheckboxError(false); // Reset checkbox error after successful send
+                setCheckboxError(false);
             } else {
                 throw new Error('Ошибка при отправке формы');
             }
@@ -192,7 +192,7 @@ export const Contacts = () => {
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
         if (checkboxError) {
-            setCheckboxError(false); // Reset error when the checkbox is checked
+            setCheckboxError(false);
         }
     };
 
@@ -250,6 +250,7 @@ export const Contacts = () => {
                                 value={inputValues[index]}
                                 onChange={(value) => handleInputChange(index, value)}
                                 error={errors[index]}
+                                dropdownOptions={item.dropdownOptions || []}
                             />
                         </div>
                     ))}

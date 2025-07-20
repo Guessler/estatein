@@ -316,13 +316,15 @@ export const connectUs = [
     {
         heading: "Inquiry Type",
         description: "Select Inquiry Type",
-        isArrow: true
+        isArrow: true,
+        dropdownOptions: ["General Inquiry", "Sales", "Support", "Partnership", "Other"]
     },
     {
         heading: "How Did You Hear About Us?",
         description: "Select",
         isArrow: true,
         isBasic: false,
-        isLarge: false
+        isLarge: false,
+        dropdownOptions: ["Search Engine", "Social Media", "Friend/Family", "Advertisement", "Other"]
     },
-]
+];

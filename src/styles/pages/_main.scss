@@ -201,3 +201,12 @@ body {
 .red{
     color: red !important;
 }
+
+.dropdown-list {
+    @include size(default, 100%);
+    @include spacing(padding, all, 20px);
+    @include flex(on, column, $gap: 20px);
+    background-color: get-color(gray, charcoal);
+    border: 1px solid get-color(gray, slate_gray);
+    @include position(absolute);
+}
