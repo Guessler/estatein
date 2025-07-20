@@ -21,9 +21,14 @@
 .property-propduct__slider-top {
     @include flex(on, row, center, $gap: 20px);
     @include spacing(padding, all, 20px);
+    box-sizing: border-box;
     background-color: get-color(gray, dark_gray);
-
+    @include size(default, 100%);
     border-radius: 12px;
+
+    @include respond-to(desktop) {
+        @include flex(on, row, left)
+    }
 
     div {
         @include flex(on, null, $gap: 20px);
@@ -76,12 +81,20 @@
         border: 1px solid get-color(gray, slate_gray);
         border-radius: 12px;
 
+        @include respond-to (desktop) {
+            @include size(default, 100%);
+        }
+
         .property-page-description-block__feature {
             @include size(default, 682px, 62px);
             background: linear-gradient(to right, #191919, #141414);
             @include flex(on, null, null, null, center, $gap: 10px);
             @include position(relative);
             @include spacing(padding, all, 18px);
+
+            @include respond-to (desktop) {
+                @include size(default, 100%);
+            }
 
             div {
                 background-color: get-color(purple, vivid_purple);
@@ -96,6 +109,8 @@
 .property-page-description__conditions {
     @include size(default, 200px, 72px);
     @include flex(on, column, $gap: 10px);
+
+
 
     img {
         @include size(default, 32px);
@@ -123,16 +138,30 @@
 
 .property-page__register {
     @include flex(on, $gap: 100px);
+
+    @include respond-to(desktop) {
+        @include flex(on, column);
+    }
 }
 
 .property-page__register-text {
     @include size(default, 518px);
+
+    @include respond-to (desktop) {
+        @include size(default, 100%);
+        @include flex(on, column, $gap: 20px)
+    }
 }
 
 .property-page-register-box {
     @include size(default, 1100px);
     @include spacing(padding, all, 50px);
     @include flex(on, row, space-between, $gap: 30px);
+
+    @include respond-to(desktop) {
+        @include size(default, 100%);
+
+    }
 }
 
 .largest-input {
@@ -147,21 +176,24 @@
     border: 1px solid get-color(gray, slate_gray);
     background-color: get-color(gray, charcoal);
 
-    hr{
+    hr {
         @include size(default, 1px, 36px);
         background-color: get-color(gray, slate_gray);
     }
 }
 
-.property-page__details{
+.property-page__details {
     @include flex(on, column, $gap: 80px);
 }
 
-.property-page__more{
+.property-page__more {
     @include flex(on, null, space-between);
+        @include respond-to (desktop) {
+        @include flex(on, column);
+    }
 }
 
-.property-page__more-info{
+.property-page__more-info {
     @include spacing(padding, all, 50px);
     @include flex(on, column, $gap: 40px);
     @include size(default, 1226px);
@@ -169,11 +201,25 @@
     border: 1px solid get-color(gray, slate_gray);
     border-radius: 12px;
 
+    @include respond-to(desktop) {
+        @include size(default, 100%);
+    }
+
+
+
     div {
         @include flex(on, null, space-between, null, center);
 
-        div{
+        div {
             @include flex(on, column, null, null, start, $gap: 16px);
         }
+    }
+}
+
+.small-img {
+    @include size(default, 100%);
+
+    @include respond-to(desktop) {
+        @include size(default, 60px)
     }
 }

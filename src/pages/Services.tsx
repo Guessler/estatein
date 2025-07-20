@@ -39,18 +39,22 @@ export const Services = () => {
                 animate={isOptionsVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1, delay: 0.5 }}
             >
-                <OptionsWrapper>
-                    <Option text={SERVICES_PAGE.OPTIONS.FIND_HOME} middleImage={assets["shop"]} />
-                    <Option text={SERVICES_PAGE.OPTIONS.UNLOCK_PROPERTY} middleImage={assets["camera"]} />
-                    <Option
-                        text={SERVICES_PAGE.OPTIONS.PROPERTY_MANAGEMENT}
-                        middleImage={assets["Management"]}
-                    />
-                    <Option
-                        text={SERVICES_PAGE.OPTIONS.SMART_INVESTMENTS}
-                        middleImage={assets["Smart-Investments"]}
-                    />
-                </OptionsWrapper>
+                <CustomLink to={'/properties'}>
+                    <OptionsWrapper>
+                        <Option text={SERVICES_PAGE.OPTIONS.FIND_HOME} middleImage={assets["shop"]} />
+
+
+                        <Option text={SERVICES_PAGE.OPTIONS.UNLOCK_PROPERTY} middleImage={assets["camera"]} />
+                        <Option
+                            text={SERVICES_PAGE.OPTIONS.PROPERTY_MANAGEMENT}
+                            middleImage={assets["Management"]}
+                        />
+                        <Option
+                            text={SERVICES_PAGE.OPTIONS.SMART_INVESTMENTS}
+                            middleImage={assets["Smart-Investments"]}
+                        />
+                    </OptionsWrapper>
+                </CustomLink>
             </AnimatedSection>
 
             <AnimatedSection

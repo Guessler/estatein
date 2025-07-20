@@ -19,7 +19,7 @@
 
     @include respond-to(desktop) {
         @include flex(on, column);
-        @include spacing(padding, y, 40px);
+        @include spacing(padding, y, 70px);
         @include size(default, 358px);
     }
 }

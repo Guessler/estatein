@@ -10,6 +10,7 @@ import { ProductCardDetails } from "../components/UI/ProductCard/ProductCardDeta
 import { useOnScreen } from "../hooks/useOnScreen";
 import { CONTACTS_PAGE } from "../consts/text/en/ContactsText";
 import { useState } from "react";
+import { CustomLink } from "../components/UI/Link";
 
 const images = [
     assets["computers"],
@@ -73,7 +74,7 @@ export const Contacts = () => {
         },
     ];
 
-    const filteredLocations = locationsData.filter(location => 
+    const filteredLocations = locationsData.filter(location =>
         filter === 'all' ? (location.type === 'all' && locationsData.indexOf(location) < 2) : location.type === filter
     );
 
@@ -85,7 +86,7 @@ export const Contacts = () => {
         const newValues = [...inputValues];
         newValues[index] = value;
         setInputValues(newValues);
-        
+
         const newErrors = [...errors];
         newErrors[index] = false;
         setErrors(newErrors);
@@ -114,14 +115,14 @@ export const Contacts = () => {
         const emailIndex = connectUs.findIndex(item => item.heading === "Email");
         const phoneIndex = connectUs.findIndex(item => item.heading === "Phone");
         const nameIndex = connectUs.findIndex(item => item.heading === "Name");
-    
+
         const emailInput = inputValues[emailIndex];
         const phoneInput = inputValues[phoneIndex];
         const nameInput = inputValues[nameIndex];
-    
+
         let hasError = false;
         const newErrors = Array(connectUs.length).fill(false);
-    
+
         if (!validateName(nameInput)) {
             newErrors[nameIndex] = true;
             hasError = true;
@@ -134,7 +135,7 @@ export const Contacts = () => {
             newErrors[phoneIndex] = true;
             hasError = true;
         }
-    
+
         inputValues.forEach((value, index) => {
             if (value.trim() === '') {
                 newErrors[index] = true;
@@ -142,19 +143,18 @@ export const Contacts = () => {
             }
         });
 
-        // Check if checkbox is checked
         if (!isChecked) {
             setCheckboxError(true);
             hasError = true;
         } else {
             setCheckboxError(false);
         }
-    
+
         if (hasError) {
             setErrors(newErrors);
             return;
         }
-    
+
         const formData = {
             name: nameInput,
             email: emailInput,
@@ -162,16 +162,16 @@ export const Contacts = () => {
             message: message,
             agreement: isChecked
         };
-    
+
         try {
-            const response = await fetch('https://your-backend.com/api/contact',  {
+            const response = await fetch('https://your-backend.com/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
-    
+
             if (response.ok) {
                 console.log('Сообщение успешно отправлено');
                 alert('Ваше сообщение отправлено!');
@@ -217,12 +217,14 @@ export const Contacts = () => {
                 animate={isOptionsVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1, delay: 0.5 }}
             >
-                <OptionsWrapper>
-                    <Option text={CONTACTS_PAGE.OPTIONS.EMAIL} middleImage={assets["shop"]} />
-                    <Option text={CONTACTS_PAGE.OPTIONS.PHONE} middleImage={assets["camera"]} />
-                    <Option text={CONTACTS_PAGE.OPTIONS.HEADQUARTERS} middleImage={assets["Management"]} />
-                    <Option text={CONTACTS_PAGE.OPTIONS.INVESTMENTS} middleImage={assets["Smart-Investments"]} />
-                </OptionsWrapper>
+                <CustomLink to={'/properties'}>
+                    <OptionsWrapper>
+                        <Option text={CONTACTS_PAGE.OPTIONS.EMAIL} middleImage={assets["shop"]} />
+                        <Option text={CONTACTS_PAGE.OPTIONS.PHONE} middleImage={assets["camera"]} />
+                        <Option text={CONTACTS_PAGE.OPTIONS.HEADQUARTERS} middleImage={assets["Management"]} />
+                        <Option text={CONTACTS_PAGE.OPTIONS.INVESTMENTS} middleImage={assets["Smart-Investments"]} />
+                    </OptionsWrapper>
+                </CustomLink>
             </AnimatedSection>
 
             <AnimatedSection
@@ -264,11 +266,11 @@ export const Contacts = () => {
 
                     <div className="register__send-message">
                         <div className="flex">
-                            <input 
-                                className={`register-checkbox ${checkboxError ? 'error' : ''}`} 
-                                type="checkbox" 
-                                checked={isChecked} 
-                                onChange={handleCheckboxChange} 
+                            <input
+                                className={`register-checkbox ${checkboxError ? 'error' : ''}`}
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={handleCheckboxChange}
                             />
                             <p className={!isChecked && checkboxError ? 'red header-items-text' : 'header-items-text'}>
                                 {CONTACTS_PAGE.CONNECT.AGREEMENT_TEXT}
@@ -293,20 +295,20 @@ export const Contacts = () => {
                     description={CONTACTS_PAGE.LOCATIONS.DESCRIPTION}
                 />
                 <div className="office-locations__show">
-                    <button 
-                        className={`header-items-text office-locations-btn ${filter === 'all' ? 'office-locations-btn__active' : ''}`} 
+                    <button
+                        className={`header-items-text office-locations-btn ${filter === 'all' ? 'office-locations-btn__active' : ''}`}
                         onClick={() => handleFilterChange('all')}
                     >
                         {CONTACTS_PAGE.LOCATIONS.BUTTON_ALL}
                     </button>
-                    <button 
-                        className={`header-items-text office-locations-btn ${filter === 'regional' ? 'office-locations-btn__active' : ''}`} 
+                    <button
+                        className={`header-items-text office-locations-btn ${filter === 'regional' ? 'office-locations-btn__active' : ''}`}
                         onClick={() => handleFilterChange('regional')}
                     >
                         {CONTACTS_PAGE.LOCATIONS.BUTTON_REGIONAL}
                     </button>
-                    <button 
-                        className={`header-items-text office-locations-btn ${filter === 'international' ? 'office-locations-btn__active' : ''}`} 
+                    <button
+                        className={`header-items-text office-locations-btn ${filter === 'international' ? 'office-locations-btn__active' : ''}`}
                         onClick={() => handleFilterChange('international')}
                     >
                         {CONTACTS_PAGE.LOCATIONS.BUTTON_INTERNATIONAL}

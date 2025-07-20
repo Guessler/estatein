@@ -109,7 +109,7 @@ export const PropertyPage = () => {
         const newValues = [...inputValues];
         newValues[index] = value;
         setInputValues(newValues);
-        
+
         const newErrors = [...errors];
         newErrors[index] = false;
         setErrors(newErrors);
@@ -173,7 +173,7 @@ export const PropertyPage = () => {
         }
 
         inputValues.forEach((value, index) => {
-            if (value.trim() === '' && index !== PropertyPageInfo.length - 1) { // Skip validation for Selected Property field
+            if (value.trim() === '' && index !== PropertyPageInfo.length - 1) {
                 newErrors[index] = true;
                 hasError = true;
             }
@@ -227,6 +227,23 @@ export const PropertyPage = () => {
         }
     };
 
+    const [elementsToShow, setElementsToShow] = useState(9);
+    const [bigElemToShow, setBigElemToShow] = useState(2);
+    
+    useEffect(() => {
+        const checkScreenSize = () => {
+            const isSmallScreen = window.innerWidth <= 1596;
+            setElementsToShow(isSmallScreen ? 3 : 9);
+            setBigElemToShow(isSmallScreen ? 1 : 2);
+        };
+    
+        checkScreenSize();
+    
+        window.addEventListener('resize', checkScreenSize);
+    
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
     return (
         <>
             {selectedQuestion && (
@@ -241,28 +258,29 @@ export const PropertyPage = () => {
                 <div className="property-product__slider">
                     <h1 className="card-text">{product?.heading || "Seaside Serenity Villa"}</h1>
                     <div>
-                        <span className="ad-text-medium">Price</span> 
+                        <span className="ad-text-medium">Price</span>
                         <b className="card-heading-text">${product?.price?.toLocaleString() || "1,250,000"}</b>
                     </div>
                 </div>
                 <div className="property-propduct__slider-twister">
                     <div className="property-propduct__slider-top">
-                        <div>
-                            {Array.from({ length: 9 }).map((_, i) => (
-                                <img 
+
+                        <div className="small-img">
+                            {Array.from({ length: elementsToShow }).map((_, i) => (
+                                <img
                                     key={i}
-                                    src={assets[product?.image || 'Image-1']} 
-                                    alt={product?.heading ? `${product.heading} - ${i + 1}` : 'Property Image'} 
+                                    src={assets[product?.image || 'Image-1']}
+                                    alt={product?.heading ? `${product.heading} - ${i + 1}` : 'Property Image'}
                                 />
                             ))}
                         </div>
                     </div>
                     <div className="property-propduct__slider-photos">
-                        {Array.from({ length: 2 }).map((_, i) => (
-                            <img 
+                        {Array.from({ length: bigElemToShow }).map((_, i) => (
+                            <img
                                 key={`thumb-${i}`}
-                                src={assets[product?.image || 'Image-1']} 
-                                alt={product?.heading ? `Thumbnail ${i + 1}` : 'Thumbnail'} 
+                                src={assets[product?.image || 'Image-1']}
+                                alt={product?.heading ? `Thumbnail ${i + 1}` : 'Thumbnail'}
                             />
                         ))}
                     </div>
@@ -331,19 +349,19 @@ export const PropertyPage = () => {
                             />
                         ))}
                         <p className="options-text">Message</p>
-                        <textarea 
-                            className="header-items-text registered-box-text-area" 
+                        <textarea
+                            className="header-items-text registered-box-text-area"
                             placeholder="Enter your Message here.."
                             value={message}
                             onChange={handleMessageChange}
                         ></textarea>
                         <div className="register__send-message">
                             <div className="flex">
-                                <input 
-                                    className={`register-checkbox ${checkboxError ? 'error' : ''}`} 
-                                    type="checkbox" 
-                                    checked={isChecked} 
-                                    onChange={handleCheckboxChange} 
+                                <input
+                                    className={`register-checkbox ${checkboxError ? 'error' : ''}`}
+                                    type="checkbox"
+                                    checked={isChecked}
+                                    onChange={handleCheckboxChange}
                                 />
                                 <p className={!isChecked && checkboxError ? 'red header-items-text' : 'header-items-text'}>
                                     I agree with Terms of Use and Privacy Policy
