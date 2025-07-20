@@ -12,7 +12,7 @@ interface RegisterInputProps {
     value: string;
     onChange: (value: string) => void;
     error?: boolean;
-    dropdownOptions?: string[]; // Новый проп для опций выпадающего списка
+    dropdownOptions?: string[];
 }
 
 export const RegisterInput: FC<RegisterInputProps> = ({ 
@@ -26,11 +26,12 @@ export const RegisterInput: FC<RegisterInputProps> = ({
     value, 
     onChange, 
     error,
-    dropdownOptions = [] // Значение по умолчанию - пустой массив
+    dropdownOptions = []
 }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (e: React.MouseEvent) => {
+        e.stopPropagation();
         setIsDropdownOpen(!isDropdownOpen);
     };
 
@@ -52,7 +53,8 @@ export const RegisterInput: FC<RegisterInputProps> = ({
                                 value={value}  
                                 className={`register-input header-items-text register-input-big-padding`} 
                                 type="text" 
-                                placeholder={description} 
+                                placeholder={description}
+                                style={{ color: '#ffffff' }}
                             />
                             <div className="register-input-active"></div>
                         </div>
@@ -63,41 +65,70 @@ export const RegisterInput: FC<RegisterInputProps> = ({
                                 value={value}  
                                 className={`register-input header-items-text register-input-big-padding`} 
                                 type="text" 
-                                placeholder="Enter Your Email" 
+                                placeholder="Enter Your Email"
+                                style={{ color: '#ffffff' }}
                             />
                             <div className="register-input-active"></div>
                         </div>
                     </div>
                 ) : (
                     <div className="register-input-container">
-                        <input 
-                            onChange={(e) => onChange(e.target.value)} 
-                            value={value}  
-                            className={`${isLarge ? `register-input header-items-text large-input ${largest ? "largest-input" : ""}` : `register-input header-items-text ${className || ''}`}`} 
-                            type="text" 
-                            placeholder={description} 
-                        />
-                        {isArrow && (
-                            <div className="dropdown-arrow-container">
+                        {isArrow ? (
+                            <div 
+                                className={`${isLarge ? `register-input header-items-text large-input ${largest ? "largest-input" : ""}` : `register-input header-items-text ${className || ''}`}`}
+                                onClick={toggleDropdown}
+                                style={{
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    color: value ? '#ffffff' : '#999999'
+                                }}
+                            >
+                                <span style={{ color: value ? '#ffffff' : '#999999' }}>
+                                    {value || description}
+                                </span>
                                 <img 
                                     className={`arrow-list ${isDropdownOpen ? 'arrow-list--open' : ''}`} 
                                     src={assets["arrow-list"]} 
                                     alt={assets["arrow-list"]} 
                                     onClick={toggleDropdown}
                                 />
-                                {isDropdownOpen && dropdownOptions.length > 0 && (
-                                    <div className="dropdown-list">
-                                        {dropdownOptions.map((option, index) => (
-                                            <p 
-                                                key={index} 
-                                                className="header-items-text cursor-p"
-                                                onClick={() => handleOptionSelect(option)}
-                                            >
-                                                {option}
-                                            </p>
-                                        ))}
-                                    </div>
-                                )}
+                            </div>
+                        ) : (
+                            <input 
+                                onChange={(e) => onChange(e.target.value)} 
+                                value={value}  
+                                className={`${isLarge ? `register-input header-items-text large-input ${largest ? "largest-input" : ""}` : `register-input header-items-text ${className || ''}`}`} 
+                                type="text" 
+                                placeholder={description}
+                                style={{ color: '#ffffff' }}
+                            />
+                        )}
+                        {isArrow && dropdownOptions.length > 0 && isDropdownOpen && (
+                            <div 
+                                className="dropdown-list"
+                                style={{
+                                    backgroundColor: '#1a1a1a',
+                                    border: '1px solid #333'
+                                }}
+                            >
+                                {dropdownOptions.map((option, index) => (
+                                    <p 
+                                        key={index} 
+                                        className="header-items-text cursor-p"
+                                        onClick={() => handleOptionSelect(option)}
+                                        style={{ 
+                                            color: '#ffffff',
+                                            padding: '8px 12px',
+                                            margin: 0,
+                                            borderBottom: '1px solid #333',
+                                            backgroundColor: option === value ? '#333' : 'transparent'
+                                        }}
+                                    >
+                                        {option}
+                                    </p>
+                                ))}
                             </div>
                         )}
                     </div>

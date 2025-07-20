@@ -158,53 +158,122 @@ export const propertyFiltersData = [
 export const registerInformation = [
     {
         heading: "First Name",
-        description: "Enter First Name"
+        description: "Enter First Name",
+        isArrow: false,
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: []
     },
     {
         heading: "Last Name",
-        description: "Enter Last Name"
+        description: "Enter Last Name",
+        isArrow: false,
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: []
     },
     {
         heading: "Email",
-        description: "Enter your Email"
+        description: "Enter your Email",
+        isArrow: false,
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: []
     },
     {
         heading: "Phone",
-        description: "Enter Phone Number"
+        description: "Enter Phone Number",
+        isArrow: false,
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: []
     },
     {
         heading: "Preferred Location",
         description: "Select Location",
-        isArrow: true
+        isArrow: true,
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: [
+            "New York",
+            "Los Angeles",
+            "Chicago",
+            "Houston",
+            "Phoenix",
+            "Miami",
+            "San Francisco",
+            "Seattle"
+        ]
     },
     {
         heading: "Property Type",
         description: "Select Property Type",
-        isArrow: true
+        isArrow: true,
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: [
+            "Apartment",
+            "House",
+            "Villa",
+            "Condo",
+            "Townhouse",
+            "Penthouse",
+            "Land",
+            "Commercial"
+        ]
     },
     {
         heading: "No. of Bathrooms",
-        description: "Select no. of Bedrooms",
-        isArrow: true
-    },
-    {
-        heading: "No. of Bedrooms",
-        description: "Select no. of Bedrooms",
-        isArrow: true
+        description: "Select no. of Bathrooms",
+        isArrow: true,
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5+"
+        ]
     },
     {
         heading: "No. of Bedrooms",
         description: "Select no. of Bedrooms",
         isArrow: true,
-        isLarge: true
+        isLarge: false,
+        isBasic: false,
+        dropdownOptions: [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5+"
+        ]
+    },
+    {
+        heading: "Budget Range",
+        description: "Select your budget range",
+        isArrow: true,
+        isLarge: true,
+        isBasic: false,
+        dropdownOptions: [
+            "$100,000 - $300,000",
+            "$300,000 - $500,000",
+            "$500,000 - $750,000",
+            "$750,000 - $1,000,000",
+            "$1,000,000+"
+        ],
+        largest: true
     },
     {
         heading: "Preferred Contact Method",
         description: "Enter Your Number",
-        isBasic: true
-    },
-]
-
+        isArrow: false,
+        isLarge: false,
+        isBasic: true,
+        dropdownOptions: []
+    }
+];
 
 export const propertyValue = [
     {

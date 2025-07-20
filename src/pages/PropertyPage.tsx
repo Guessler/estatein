@@ -51,7 +51,7 @@ const PropertyPageInfo = [
 
 export const PropertyPage = () => {
     const location = useLocation();
-    const { product } = location.state || {}; // Получаем продукт из состояния
+    const { product } = location.state || {};
     const isMobile = useIsMobile();
     const adaptivePerPage = isMobile ? 1 : 3;
 
@@ -87,6 +87,13 @@ export const PropertyPage = () => {
     const [selectedQuestion, setSelectedQuestion] = useState<IQuestionFromDB | null>(null);
     const { ref: questionsSectionRef, isVisible: isQuestionsSectionVisible } = useOnScreen("0px");
 
+    // Form state management
+    const [inputValues, setInputValues] = useState<string[]>(Array(PropertyPageInfo.length).fill(''));
+    const [message, setMessage] = useState<string>('');
+    const [errors, setErrors] = useState<boolean[]>(Array(PropertyPageInfo.length).fill(false));
+    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [checkboxError, setCheckboxError] = useState<boolean>(false);
+
     useEffect(() => {
         if (selectedQuestion) {
             document.body.style.overflow = "hidden";
@@ -97,6 +104,128 @@ export const PropertyPage = () => {
             document.body.style.overflow = "";
         };
     }, [selectedQuestion]);
+
+    const handleInputChange = (index: number, value: string) => {
+        const newValues = [...inputValues];
+        newValues[index] = value;
+        setInputValues(newValues);
+        
+        const newErrors = [...errors];
+        newErrors[index] = false;
+        setErrors(newErrors);
+    };
+
+    const handleMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setMessage(event.target.value);
+    };
+
+    const validateEmail = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhone = (phone: string) => {
+        const phoneRegex = /^\+?[1-9]\d{0,2}[ -]?\(?\d{1,4}?\)?[ -]?\d{1,4}[ -]?\d{1,4}$/;
+        return phoneRegex.test(phone);
+    };
+
+    const validateName = (name: string) => {
+        const nameRegex = /^[^\d]*$/;
+        return nameRegex.test(name);
+    };
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+        if (checkboxError) {
+            setCheckboxError(false);
+        }
+    };
+
+    const handleSendMessage = async () => {
+        const firstNameIndex = PropertyPageInfo.findIndex(item => item.heading === "First Name");
+        const lastNameIndex = PropertyPageInfo.findIndex(item => item.heading === "Last Name");
+        const emailIndex = PropertyPageInfo.findIndex(item => item.heading === "Email");
+        const phoneIndex = PropertyPageInfo.findIndex(item => item.heading === "Phone");
+
+        const firstNameInput = inputValues[firstNameIndex];
+        const lastNameInput = inputValues[lastNameIndex];
+        const emailInput = inputValues[emailIndex];
+        const phoneInput = inputValues[phoneIndex];
+
+        let hasError = false;
+        const newErrors = Array(PropertyPageInfo.length).fill(false);
+
+        if (!validateName(firstNameInput)) {
+            newErrors[firstNameIndex] = true;
+            hasError = true;
+        }
+        if (!validateName(lastNameInput)) {
+            newErrors[lastNameIndex] = true;
+            hasError = true;
+        }
+        if (!validateEmail(emailInput)) {
+            newErrors[emailIndex] = true;
+            hasError = true;
+        }
+        if (!validatePhone(phoneInput)) {
+            newErrors[phoneIndex] = true;
+            hasError = true;
+        }
+
+        inputValues.forEach((value, index) => {
+            if (value.trim() === '' && index !== PropertyPageInfo.length - 1) { // Skip validation for Selected Property field
+                newErrors[index] = true;
+                hasError = true;
+            }
+        });
+
+        if (!isChecked) {
+            setCheckboxError(true);
+            hasError = true;
+        } else {
+            setCheckboxError(false);
+        }
+
+        if (hasError) {
+            setErrors(newErrors);
+            return;
+        }
+
+        const formData = {
+            firstName: firstNameInput,
+            lastName: lastNameInput,
+            email: emailInput,
+            phone: phoneInput,
+            property: product?.heading || "Seaside Serenity Villa",
+            message: message,
+            agreement: isChecked
+        };
+
+        try {
+            const response = await fetch('https://your-backend.com/api/property-inquiry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                console.log('Property inquiry successfully sent');
+                alert('Your property inquiry has been sent!');
+                setInputValues(Array(PropertyPageInfo.length).fill(''));
+                setMessage('');
+                setIsChecked(false);
+                setErrors(Array(PropertyPageInfo.length).fill(false));
+                setCheckboxError(false);
+            } else {
+                throw new Error('Error submitting property inquiry');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to submit the form. Please try again later.');
+        }
+    };
 
     return (
         <>
@@ -196,16 +325,33 @@ export const PropertyPage = () => {
                                 isLarge={item.isLarge}
                                 isBasic={item.isBasic}
                                 largest={item.largest}
+                                value={inputValues[index]}
+                                onChange={(value) => handleInputChange(index, value)}
+                                error={errors[index]}
                             />
                         ))}
                         <p className="options-text">Message</p>
-                        <textarea className="header-items-text registered-box-text-area" placeholder="Enter your Message here.."></textarea>
+                        <textarea 
+                            className="header-items-text registered-box-text-area" 
+                            placeholder="Enter your Message here.."
+                            value={message}
+                            onChange={handleMessageChange}
+                        ></textarea>
                         <div className="register__send-message">
                             <div className="flex">
-                                <input className="register-checkbox" type="checkbox" />
-                                <p className="header-items-text">I agree with Terms of Use and Privacy Policy</p>
+                                <input 
+                                    className={`register-checkbox ${checkboxError ? 'error' : ''}`} 
+                                    type="checkbox" 
+                                    checked={isChecked} 
+                                    onChange={handleCheckboxChange} 
+                                />
+                                <p className={!isChecked && checkboxError ? 'red header-items-text' : 'header-items-text'}>
+                                    I agree with Terms of Use and Privacy Policy
+                                </p>
                             </div>
-                            <Button variant="secondary">Send Your Message</Button>
+                            <Button variant="secondary" onClick={handleSendMessage}>
+                                Send Your Message
+                            </Button>
                         </div>
                     </div>
                 </div>

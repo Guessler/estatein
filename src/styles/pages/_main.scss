@@ -209,4 +209,6 @@ body {
     background-color: get-color(gray, charcoal);
     border: 1px solid get-color(gray, slate_gray);
     @include position(absolute);
+    z-index: 100;
+    
 }

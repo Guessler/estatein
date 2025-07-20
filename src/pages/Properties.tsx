@@ -27,15 +27,31 @@ export const Properties = () => {
     const [searchProperty, setSearchProperty] = useState("");
     const [showProperties, setShowProperties] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-    const [isChecked, setIsChecked] = useState<boolean>(false); // Checkbox state
-    const [checkboxError, setCheckboxError] = useState<boolean>(false); // Checkbox error state
-    const [inputValues, setInputValues] = useState<string[]>(Array(registerInformation.length).fill('')); // State for input values
-    const [inputErrors, setInputErrors] = useState<boolean[]>(Array(registerInformation.length).fill(false)); // State for input errors
+    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [checkboxError, setCheckboxError] = useState<boolean>(false);
+    const [inputValues, setInputValues] = useState<string[]>(Array(registerInformation.length).fill(''));
+    const [inputErrors, setInputErrors] = useState<boolean[]>(Array(registerInformation.length).fill(false));
+    const [message, setMessage] = useState<string>('');
 
     const { data: fetchedProductsData = [] } = useQuery({
         queryKey: ["fetchProducts"],
         queryFn: fetchProducts,
     });
+
+    const validateEmail = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhone = (phone: string) => {
+        const phoneRegex = /^\+?[1-9]\d{0,2}[ -]?\(?\d{1,4}?\)?[ -]?\d{1,4}[ -]?\d{1,4}$/;
+        return phoneRegex.test(phone);
+    };
+
+    const validateName = (name: string) => {
+        const nameRegex = /^[^\d]*$/;
+        return nameRegex.test(name);
+    };
 
     const handleShowProperties = () => {
         const filtered = fetchedProductsData.filter((product: Product) =>
@@ -45,32 +61,111 @@ export const Properties = () => {
         setShowProperties(true);
     };
 
-    const handleSendMessage = () => {
-        if (!isChecked) {
-            setCheckboxError(true);
-            return;
-        }
-
-        setCheckboxError(false);
-
-        const errors = inputValues.map(value => value.trim() === '');
-        setInputErrors(errors);
-
-        if (errors.some(error => error)) {
-            return;
-        }
-
-        alert('Message sent!');
-    };
-
     const handleInputChange = (index: number, value: string) => {
         const newValues = [...inputValues];
         newValues[index] = value;
         setInputValues(newValues);
 
+        // Reset error when user types
         const newErrors = [...inputErrors];
-        newErrors[index] = value.trim() === '';
+        newErrors[index] = false;
         setInputErrors(newErrors);
+    };
+
+    const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setMessage(e.target.value);
+    };
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+        if (checkboxError) {
+            setCheckboxError(false);
+        }
+    };
+
+    const handleSendMessage = async () => {
+        const nameIndex = registerInformation.findIndex(item => item.heading === "Name");
+        const emailIndex = registerInformation.findIndex(item => item.heading === "Email");
+        const phoneIndex = registerInformation.findIndex(item => item.heading === "Phone");
+
+        const nameInput = inputValues[nameIndex];
+        const emailInput = inputValues[emailIndex];
+        const phoneInput = inputValues[phoneIndex];
+
+        let hasError = false;
+        const newErrors = Array(registerInformation.length).fill(false);
+
+        // Validate name
+        if (!validateName(nameInput)) {
+            newErrors[nameIndex] = true;
+            hasError = true;
+        }
+
+        // Validate email
+        if (!validateEmail(emailInput)) {
+            newErrors[emailIndex] = true;
+            hasError = true;
+        }
+
+        // Validate phone
+        if (!validatePhone(phoneInput)) {
+            newErrors[phoneIndex] = true;
+            hasError = true;
+        }
+
+        // Check all required fields
+        inputValues.forEach((value, index) => {
+            if (value.trim() === '') {
+                newErrors[index] = true;
+                hasError = true;
+            }
+        });
+
+        // Check checkbox
+        if (!isChecked) {
+            setCheckboxError(true);
+            hasError = true;
+        } else {
+            setCheckboxError(false);
+        }
+
+        if (hasError) {
+            setInputErrors(newErrors);
+            return;
+        }
+
+        const formData = {
+            name: nameInput,
+            email: emailInput,
+            phone: phoneInput,
+            message: message,
+            agreement: isChecked
+        };
+
+        try {
+            const response = await fetch('https://your-backend.com/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                alert('Your message has been sent successfully!');
+                // Reset form
+                setInputValues(Array(registerInformation.length).fill(''));
+                setMessage('');
+                setIsChecked(false);
+                setInputErrors(Array(registerInformation.length).fill(false));
+                setCheckboxError(false);
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('There was an error sending your message. Please try again later.');
+        }
     };
 
     return (
@@ -175,11 +270,14 @@ export const Properties = () => {
                                 value={inputValues[index]}
                                 onChange={(value) => handleInputChange(index, value)}
                                 error={inputErrors[index]}
+                                dropdownOptions={item.dropdownOptions}
                             />
                         </AnimatedBox>
                     ))}
                     <p className="options-text">Message</p>
                     <textarea
+                        value={message}
+                        onChange={handleMessageChange}
                         className="header-items-text registered-box-text-area"
                         placeholder={PROPERTIES_PAGE.REGISTRATION.MESSAGE_PLACEHOLDER}
                     ></textarea>
@@ -190,7 +288,7 @@ export const Properties = () => {
                                 className={`register-checkbox ${checkboxError ? 'error' : ''}`} 
                                 type="checkbox" 
                                 checked={isChecked} 
-                                onChange={() => setIsChecked(!isChecked)} 
+                                onChange={handleCheckboxChange} 
                             />
                             <p className={`header-items-text ${checkboxError ? 'red' : ''}`}>
                                 {PROPERTIES_PAGE.REGISTRATION.AGREEMENT_TEXT}
