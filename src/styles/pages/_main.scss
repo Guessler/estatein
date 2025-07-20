@@ -4,6 +4,7 @@
 
 body {
     background-color: get-color(gray, dark_gray);
+    scroll-behavior: smooth;
 }
 
 .cursor-p {
@@ -212,3 +213,5 @@ body {
     z-index: 100;
     
 }
+
+
